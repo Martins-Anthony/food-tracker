@@ -19,7 +19,8 @@ function StorageAreaSelection() {
         <select
           name="storageArea"
           onChange={handleStorageAreaSelected}
-          defaultValue={storageAreaSelection}>
+          defaultValue={storageAreaSelection}
+          className="form-select">
           {storageArea.map((item, index) => {
             return (
               <option key={index} value={item}>

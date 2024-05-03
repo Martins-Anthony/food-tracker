@@ -23,7 +23,7 @@ function FoodCategory({ onChange }) {
     <div>
       <label>
         Category{' '}
-        <select name="category" onChange={onChange}>
+        <select name="category" onChange={onChange} className="form-select">
           {categories.map((category, index) => {
             return (
               <option key={index} value={category}>
@@ -39,7 +39,9 @@ function FoodCategory({ onChange }) {
         onChange={(e) => setNewCategory(e.target.value)}
         placeholder="Nouvelle catégorie"
       />
-      <button onClick={handleAddCategory}>Ajouter</button>
+      <button onClick={handleAddCategory} className="btn btn-primary">
+        Ajouter
+      </button>
     </div>
   )
 }

@@ -58,12 +58,19 @@ function StorageItem() {
   return (
     <form onSubmit={handleSubmit}>
       <FoodCategory onChange={handleProductCategory} />
-      <label>
+      <label className="form-label" htmlFor="InputProduct">
         {' '}
         Product{' '}
-        <input type="text" name="product" onChange={handleProductName} value={productName} />
+        <input
+          type="text"
+          name="product"
+          onChange={handleProductName}
+          value={productName}
+          className="form-control"
+          id="InputProduct"
+        />
       </label>
-      <label>
+      <label className="form-label" htmlFor="InputQuantity">
         {' '}
         Quantity{' '}
         <input
@@ -71,14 +78,23 @@ function StorageItem() {
           min={0}
           defaultValue={productQuantity}
           onChange={handleProductQuantity}
+          className="form-control"
+          id="InputQuantity"
         />
       </label>
-      <label>
+      <label className="form-label" htmlFor="InputDateLimit">
         {' '}
         Date limit{' '}
-        <input type="date" name="date" onChange={handleProductDate} value={productDate} />
+        <input
+          type="date"
+          name="date"
+          onChange={handleProductDate}
+          value={productDate}
+          className="form-control"
+          id="InputDateLimit"
+        />
       </label>
-      <button type="submit" className="btn">
+      <button type="submit" className="btn btn-primary">
         Validez
       </button>
     </form>

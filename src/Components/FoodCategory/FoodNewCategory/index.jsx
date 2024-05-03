@@ -1,4 +1,8 @@
+import React, { useState } from 'react'
+import { listCategoryFoods } from '..'
+
 function FoodNewCategory() {
+  const [categories, setCategories] = useState(listCategoryFoods)
   const [newCategory, setNewCategory] = useState('')
 
   const handleAddCategory = () => {
@@ -16,7 +20,9 @@ function FoodNewCategory() {
         onChange={(e) => setNewCategory(e.target.value)}
         placeholder="Nouvelle catégorie"
       />
-      <button onClick={handleAddCategory}>Ajouter</button>
+      <button onClick={handleAddCategory} className="btn btn-primary">
+        Ajouter
+      </button>
     </div>
   )
 }
