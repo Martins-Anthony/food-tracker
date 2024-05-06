@@ -1,26 +1,28 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { selectStorageArea, selectStorageItem } from '../../App/store/selectors'
 import DateComparison from '../../Containers/DateComparison'
+import { links } from '../../Containers/Layouts/NavBar/links'
 
 function StockTable() {
   const storageArea = useSelector(selectStorageArea)
   const storageItem = useSelector(selectStorageItem)
 
   return (
-    <div>
+    <section>
       {storageArea.map((storageAreaItem, length) => {
         return (
-          <table key={length}>
+          <table className="table table-striped" key={length}>
             <caption>Stock {storageAreaItem}</caption>
             <thead>
               <tr>
-                <th>#</th>
-                <th>category</th>
-                <th>quantity</th>
-                <th>product</th>
-                <th>date limit</th>
-                <th>remaining days</th>
+                <th scope="col">#</th>
+                <th scope="col">category</th>
+                <th scope="col">quantity</th>
+                <th scope="col">product</th>
+                <th scope="col">date limit</th>
+                <th scope="col">remaining days</th>
               </tr>
             </thead>
             <tbody>
@@ -30,7 +32,7 @@ function StockTable() {
                   const formattedDate = date.toLocaleDateString()
                   return (
                     <tr key={index}>
-                      <td>{index + 1}</td>
+                      <th scope="row">{index + 1}</th>
                       <td>{item.category}</td>
                       <td>{item.quantity}</td>
                       <td>{item.name}</td>
@@ -43,14 +45,20 @@ function StockTable() {
                 })
               ) : (
                 <tr>
-                  <td colSpan="6">Aucun élément trouvé</td>
+                  <td colSpan="6">
+                    Aucun élément trouvé{' '}
+                    <span>
+                      {' '}
+                      <Link to={links[2].link}>{links[2].icon}</Link>
+                    </span>
+                  </td>
                 </tr>
               )}
             </tbody>
           </table>
         )
       })}
-    </div>
+    </section>
   )
 }
 

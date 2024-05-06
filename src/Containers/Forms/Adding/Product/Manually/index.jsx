@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { selectStorageArea, selectStorageAreaSelection } from '../../../App/store/selectors'
-import FoodCategory from '../../../Components/FoodCategory'
-import { addItemToStorage } from './storageItemSlice'
+import { selectStorageArea, selectStorageAreaSelection } from '../../../../../App/store/selectors'
+import FoodCategory from '../../../FoodCategory'
+import { addItemToStorage } from '../storageItemSlice'
+import { Navigate } from 'react-router-dom'
 
-function StorageItem() {
+function Manually() {
   const storageArea = useSelector(selectStorageArea)
   const storageAreaSelection = useSelector(selectStorageAreaSelection)
   let selectedItemArea
@@ -14,6 +15,7 @@ function StorageItem() {
   const [productQuantity, setProductQuantity] = useState(0)
   const [productDate, setProductDate] = useState(new Date().toISOString().slice(0, 10))
   const [stock, setStock] = useState([])
+  const [redirect, setRedirect] = useState(false)
 
   if (storageAreaSelection === '') {
     selectedItemArea = storageArea[0]
@@ -53,12 +55,17 @@ function StorageItem() {
     setProductCategory('')
     setProductQuantity(0)
     setProductDate(new Date().toISOString().slice(0, 10))
+    setRedirect(true)
+  }
+
+  if (redirect) {
+    return <Navigate to="/" />
   }
 
   return (
     <form onSubmit={handleSubmit}>
       <FoodCategory onChange={handleProductCategory} />
-      <label className="form-label" htmlFor="InputProduct">
+      <label className="form-label p-3" htmlFor="InputProduct">
         {' '}
         Product{' '}
         <input
@@ -70,7 +77,7 @@ function StorageItem() {
           id="InputProduct"
         />
       </label>
-      <label className="form-label" htmlFor="InputQuantity">
+      <label className="form-label p-3" htmlFor="InputQuantity">
         {' '}
         Quantity{' '}
         <input
@@ -82,7 +89,7 @@ function StorageItem() {
           id="InputQuantity"
         />
       </label>
-      <label className="form-label" htmlFor="InputDateLimit">
+      <label className="form-label p-3" htmlFor="InputDateLimit">
         {' '}
         Date limit{' '}
         <input
@@ -101,4 +108,4 @@ function StorageItem() {
   )
 }
 
-export default StorageItem
+export default Manually

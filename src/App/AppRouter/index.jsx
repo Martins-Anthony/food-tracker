@@ -6,15 +6,17 @@ import '../../style/index.scss'
 import Header from '../../Containers/Layouts/Header'
 import Settings from '../../Pages/Settings'
 import Error from '../../Pages/Error'
+import AddProduct from '../../Pages/AddProduct'
 
 function AppRouter() {
   return (
     <HashRouter>
       <Header />
-      <main className="container">
+      <main className="text-center">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/addProduct" element={<AddProduct />} />
           <Route path="*" element={<Error />} />
         </Routes>
       </main>

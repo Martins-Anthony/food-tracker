@@ -1,17 +1,29 @@
 import React from 'react'
-import AddProduct from '../../Containers/Forms/StorageItem'
 import CreateStorageArea from '../../Containers/StorageArea/CreateStorageArea'
 import StockTable from '../../Components/StockTable'
-import StorageAreaSelection from '../../Containers/StorageArea/StorageAreaSelection'
+
+import { selectStorageArea } from '../../App/store/selectors'
+import { useSelector } from 'react-redux'
 
 function Home() {
+  const storageArea = useSelector(selectStorageArea)
+
   return (
-    <>
-      <CreateStorageArea />
-      <StorageAreaSelection />
-      <AddProduct />
-      <StockTable />
-    </>
+    <section className="container">
+      <div className="row justify-content-center align-items-center">
+        <div className="mt-5">
+          {storageArea.length === 0 ? (
+            <div className="row justify-content-center">
+              <CreateStorageArea />
+            </div>
+          ) : (
+            <>
+              <StockTable />
+            </>
+          )}
+        </div>
+      </div>
+    </section>
   )
 }
 

@@ -17,25 +17,23 @@ function CreateStorageArea() {
   }
 
   return (
-    <form onSubmit={handleSubmitNewStock} className=" col-12 col-md-6">
-      <div className="row mb-3 align-items-center">
-        <div className="col col-md-5">
-          <label className="form-label col" htmlFor="InputAddStorageArea">
-            Nouvelle zone de stockage
-          </label>
+    <form onSubmit={handleSubmitNewStock} className="col-2">
+      <div className="my-3">
+        <label className="form-label" htmlFor="InputAddStorageArea">
+          zone de stockage
           <input
             type="text"
             name="newStorageArea"
-            placeholder="Ajouter emplacement"
+            placeholder="Ajouter un nom"
             onChange={handleNewStock}
-            className="form-control col"
+            className="form-control mt-3"
             id="InputAddStorageArea"
           />
-        </div>
-        <button type="submit" className="btn btn-primary col-2">
-          Validez
-        </button>
+        </label>
       </div>
+      <button type="submit" className="btn btn-primary">
+        Validez
+      </button>
     </form>
   )
 }

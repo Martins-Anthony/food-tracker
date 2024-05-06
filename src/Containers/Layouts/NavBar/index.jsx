@@ -2,7 +2,6 @@ import { NavLink } from 'react-router-dom'
 import DateToday from '../../DateToday'
 import { links } from './links'
 function Navbar() {
-  console.log(links)
   return (
     <nav className="navbar navbar-expand-md bg-light navbar-light fixed-top">
       <div className="container">
