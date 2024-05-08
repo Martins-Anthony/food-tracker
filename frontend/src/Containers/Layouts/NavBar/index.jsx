@@ -1,13 +1,13 @@
+import React from 'react'
 import { NavLink } from 'react-router-dom'
+import Logo from '../../../Components/Logo'
 import DateToday from '../../DateToday'
 import { links } from './links'
 function Navbar() {
   return (
     <nav className="navbar navbar-expand-md bg-light navbar-light fixed-top">
       <div className="container">
-        <a className="navbar-brand text-uppercase fw-bold" href="/index.html">
-          <span className="bg-primary bg-gradient p-1 rounded-3 text-light">Food</span> Tracker
-        </a>
+        <Logo />
         <DateToday />
         <button
           className="navbar-toggler"
@@ -26,7 +26,10 @@ function Navbar() {
                 return (
                   <li key={index} className="nav-item">
                     <NavLink className="nav-link text-uppercase fw-bold" to={link.link}>
-                      {link.icon}
+                      {React.cloneElement(link.icon, {
+                        width: 24,
+                        height: 24
+                      })}
                     </NavLink>
                   </li>
                 )

@@ -1,3 +1,4 @@
+import { basePathVersion } from './utils/api/basePath'
 require('dotenv').config()
 const express = require('express')
 const mongoose = require('mongoose')
@@ -42,6 +43,6 @@ mongoose
   .then(() => console.log('MongoDB Connected'))
   .catch((err) => console.log(err))
 
-app.use('/api/auth', userRoutes)
+app.use(`${basePathVersion}+/auth`, userRoutes)
 
 module.exports = app

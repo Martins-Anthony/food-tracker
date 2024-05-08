@@ -1,0 +1,16 @@
+{
+  "cards": [
+    {
+      "title": "Gardez le contrôle sur vos dates de consommation",
+      "text": "Restez informé lorsque la date de consommation de vos produits approche de son expiration. Fini le gaspillage alimentaire et les mauvaises surprises ! Planifiez vos repas en toute tranquillité, en sachant exactement ce que vous avez à disposition."
+    },
+    {
+      "title": "Des menus personnalisés et des recettes savoureuses",
+      "text": "En plus de vous aider à gérer vos stocks, profitez d'idées de menus et de recettes adaptés à ce que vous avez en stock. Plus besoin de se creuser la tête pour savoir quoi cuisiner ce soir : laissez-vous inspirer par nos suggestions personnalisées."
+    },
+    {
+      "title": "Simplifiez vos courses",
+      "text": "Lorsque vos produits commencent à se faire rares, recevez automatiquement une liste de courses personnalisée, basée sur ce qui est sur le point de se terminer. Fini les allers-retours inutiles au supermarché : faites vos courses de manière efficace et économique."
+    }
+  ]
+}
