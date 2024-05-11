@@ -3,30 +3,39 @@ import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 export const BUTTONS_TYPES = {
-  REGISTER: 1,
-  LOGIN: 2
+  LINK_REGISTER: 1,
+  LINK_LOGIN: 2,
+  BUTTONS: 3
 }
 
 function Buttons({ address, label, type }) {
   let component
+  let classBouton = 'btn btn-primary mt-3'
   switch (type) {
-    case BUTTONS_TYPES.REGISTER:
+    case BUTTONS_TYPES.LINK_REGISTER:
       component = (
-        <Link to={'/login'} className="btn btn-primary mt-5">
+        <Link to={'/signup'} className={classBouton}>
           S&apos;inscrire
         </Link>
       )
       break
-    case BUTTONS_TYPES.LOGIN:
+    case BUTTONS_TYPES.LINK_LOGIN:
       component = (
-        <Link to={'/login'} className="btn btn-primary mt-5">
+        <Link to={'/login'} className={classBouton}>
           Se connecter
         </Link>
       )
       break
+    case BUTTONS_TYPES.BUTTONS:
+      component = (
+        <button className={classBouton} type="submit">
+          {label}
+        </button>
+      )
+      break
     default:
       component = (
-        <Link to={address} className="btn btn-primary mt-5">
+        <Link to={address} className={classBouton}>
           {label}
         </Link>
       )

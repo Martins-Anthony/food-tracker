@@ -1,18 +1,33 @@
 const mongoose = require('mongoose')
-
+const { v4: uuidv4 } = require('uuid')
 const uniqueValidator = require('mongoose-unique-validator')
 
-const userSchema = mongoose.Schema({
-  email: {
-    type: String,
-    required: true,
-    unique: true,
+const userSchema = mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: false,
+      unique: false,
+      default: 'Anonymous',
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    MagicLink: {
+      type: String,
+      required: false,
+      unique: false,
+      default: uuidv4(),
+    },
+    MagicLinkExpired: {
+      type: Boolean,
+      default: false,
+    },
   },
-  password: {
-    type: String,
-    required: true,
-  },
-})
+  { strictQuery: false },
+)
 
 userSchema.plugin(uniqueValidator)
 

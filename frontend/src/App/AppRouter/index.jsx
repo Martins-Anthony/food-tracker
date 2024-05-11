@@ -10,6 +10,7 @@ import Error from '../../Pages/Error'
 import AddProduct from '../../Pages/AddProduct'
 import User from '../../Pages/User'
 import Login from '../../Pages/Login'
+import Signup from '../../Pages/Signup'
 
 function AppRouter() {
   return (
@@ -19,6 +20,7 @@ function AppRouter() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
           <Route path="/user" element={<User />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/addProduct" element={<AddProduct />} />

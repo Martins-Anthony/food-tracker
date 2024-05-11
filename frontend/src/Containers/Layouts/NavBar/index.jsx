@@ -1,6 +1,6 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import Logo from '../../../Components/Logo'
+import { Logo } from '../../../Components/Logo'
 import DateToday from '../../DateToday'
 import { links } from './links'
 function Navbar() {

@@ -1,5 +1,5 @@
 import React from 'react'
-import Logo from '../../Components/Logo'
+import { Logo } from '../../Components/Logo'
 import Cards from '../../Components/Cards'
 import data from './data.json'
 import Hero from '../../Components/Hero'
@@ -23,7 +23,7 @@ function Home() {
               de les avoir consommés à temps ? Avec <Logo />, ces soucis appartiennent désormais au
               passé.
             </p>
-            <Buttons type={BUTTONS_TYPES.LOGIN} address={'#'} />
+            <Buttons type={BUTTONS_TYPES.LINK_LOGIN} address={'#'} />
           </div>
           <div className="col-12 col-md-6 offset-md-1">
             <img
@@ -51,7 +51,7 @@ function Home() {
               se trouve dans vos placards, votre réfrigérateur et votre congélateur. Fini les oublis
               et les pertes inutiles !
             </p>
-            <Buttons type={BUTTONS_TYPES.REGISTER} />
+            <Buttons type={BUTTONS_TYPES.LINK_REGISTER} address={'#'} />
           </div>
         </div>
       </section>
@@ -74,7 +74,7 @@ function Home() {
               quotidien en cuisine. Rejoignez notre communauté et ensemble, rendons la gestion des
               aliments plus facile, plus efficace et plus agréable que jamais !
             </p>
-            <Buttons type={BUTTONS_TYPES.REGISTER} />
+            <Buttons type={BUTTONS_TYPES.LINK_REGISTER} />
           </div>
           <div className="col-12 col-md-6 offset-md-1">
             <img
