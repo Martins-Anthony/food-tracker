@@ -10,6 +10,13 @@ const persistedState = sessionStorage.getItem('reduxState')
   ? JSON.parse(sessionStorage.getItem('reduxState'))
   : {}
 
+const sessionStorageSyncMiddleware = (store) => (next) => (action) => {
+  const result = next(action)
+  const state = store.getState()
+  sessionStorage.setItem('reduxState', JSON.stringify(state))
+  return result
+}
+
 export const store = configureStore({
   devTools: true,
   preloadedState: persistedState,
@@ -20,9 +27,12 @@ export const store = configureStore({
     storageAreaSelection: storageAreaSelectionReducer,
     foodCategory: foodCategoryReducer,
     scanner: scannerReducer
-  }
+  },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(sessionStorageSyncMiddleware)
 })
 
+/*
 store.subscribe(() => {
   sessionStorage.setItem('reduxState', JSON.stringify(store.getState()))
 })
+*/

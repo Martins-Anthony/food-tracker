@@ -1,0 +1,12 @@
+.spinner-style {
+  height: 8rem;
+  width: 8rem;
+  color: $primary;
+}
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 12rem);
+}

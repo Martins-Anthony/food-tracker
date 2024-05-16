@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { LogoAndIconUser } from '../../Components/Logo'
-import Connection from '../../Containers/Forms/MagicLink/Connection'
+import Verify_token from '../../Containers/Forms/MagicLink/Verify_token'
 
 function Login() {
   return (
@@ -10,7 +10,7 @@ function Login() {
         <div className="col-12 col-md-6 border py-5 rounded-5">
           <LogoAndIconUser />
           <h2>Se connecter</h2>
-          <Connection />
+          <Verify_token />
           <p className="mt-5">
             Vous n&apos;avez pas de compte ? <Link to="/signup">S&apos;inscrire</Link>
           </p>

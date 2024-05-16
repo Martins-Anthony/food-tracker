@@ -31,33 +31,37 @@ const login = async (req, res) => {
     return res.status(400).json({ ok: false, error: 'Email is invalid' })
 
   try {
-    const user = await User.findOne({ email: email })
+    let user = await User.findOne({ email: email })
     if (!user) {
       let reg = await register(email)
       res.send({
         ok: true,
         message:
-          'Your account has been created. Please check your email for the magic link.',
+          'Your account has been created. Please check your email for the magic link. 👻',
       })
     } else if (!magicLink) {
-      try {
-        const user = await User.findOneAndUpdate(
-          { Email: email },
-          { MagicLink: uuidv4(), MagicLinkExpired: false },
-          { returnDocument: 'after' },
-        )
-      } catch (error) {
-        return res.status(400).json({ ok: false, error: 'Error updating user' })
-      }
+      user = await User.findOneAndUpdate(
+        { email: email },
+        { MagicLink: uuidv4(), MagicLinkExpired: false },
+        { returnDocument: 'after' },
+      )
+      await send_magic_link(email, user.MagicLink)
+      return res.send({ ok: true, message: 'Hit the link in email to sign in' })
     } else if (user.MagicLink == magicLink && !user.MagicLinkExpired) {
       const token = jwt.sign(user.toJSON(), jwt_secret, { expiresIn: '1h' })
-      await User.findOneAndUpdate({ Email: email }, { MagicLinkExpired: true })
-      res.json({ ok: true, message: 'Welcome back', token, email })
+      await User.findOneAndUpdate({ email: email }, { MagicLinkExpired: true })
+      return res.status(200).json({
+        ok: true,
+        message: 'Welcome back',
+        token,
+        email,
+      })
     } else
       return res
         .status(400)
-        .json({ ok: false, error: 'Magic link is invalid or expired' })
+        .json({ ok: false, error: 'Magic link is invalid or expired 🤔' })
   } catch (error) {
+    console.log('test error', error)
     return res.status(400).json({ ok: false, error: 'Error finding user' })
   }
 }
@@ -71,26 +75,4 @@ const verify_token = (req, res) => {
   })
 }
 
-const signup = async (req, res) => {
-  const { email } = req.body
-
-  try {
-    const existingUser = await User.findOne({ email: email })
-    if (existingUser) {
-      return res.status(400).json({ ok: false, error: 'User already exists' })
-    }
-
-    const magicLink = uuidv4()
-
-    const newUser = new User({ email, magicLink })
-    await newUser.save()
-
-    await send_magic_link(email, magicLink, 'signup')
-
-    res.status(201).json({ ok: true, message: 'User created' })
-  } catch (error) {
-    res.status(500).json({ ok: false, error: 'Server error' })
-  }
-}
-
-module.exports = { login, verify_token, signup, register }
+module.exports = { login, verify_token, register }

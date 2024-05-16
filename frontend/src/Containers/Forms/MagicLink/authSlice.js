@@ -1,45 +1,25 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-// import { json } from 'react-router-dom'
-import { urlApi } from '../../../utils/api/basePath'
+import { createSlice } from '@reduxjs/toolkit'
+import { enter } from './Enter/enterSlice'
 
-export const registerUser = createAsyncThunk('registerUser', async (payload, thunkAPI) => {
-  try {
-    console.log('payload', payload)
-    const response = await fetch(urlApi + '/users/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(payload)
-    })
-
-    const data = await response.json()
-
-    if (response.ok) {
-      console.log('Utilisateur inscrit avec succès')
-    } else {
-      console.error("Erreur lors de l'inscription :", data.error)
-    }
-  } catch (error) {
-    console.error("Erreur lors de l'inscription :", error)
-    return thunkAPI.rejectWithValue({ error: error.message })
-  }
-})
-
+const initialState = {
+  email: null,
+  token: null,
+  connection: false,
+  error: null,
+  loading: false
+}
 export const authSlice = createSlice({
   name: 'auth',
-  initialState: {
-    user: null,
-    token: null,
-    error: null,
-    loading: false
-  },
+  initialState,
   reducers: {
     setUser: (state, action) => {
       state.user = action.payload
     },
     setToken: (state, action) => {
       state.token = action.payload
+    },
+    setConnection: (state, action) => {
+      state.connection = action.payload
     },
     setLoading: (state, action) => {
       state.loading = action.payload
@@ -49,18 +29,21 @@ export const authSlice = createSlice({
     }
   },
   extraReducers: (builder) => {
-    builder.addCase(registerUser.pending, (state) => {
+    builder.addCase(enter.pending, (state) => {
       state.loading = true
     })
-    builder.addCase(registerUser.fulfilled, (state) => {
+    builder.addCase(enter.fulfilled, (state, action) => {
       state.loading = false
+      state.token = action.payload.token
+      state.email = action.payload.email
+      state.connection = true
     })
-    builder.addCase(registerUser.rejected, (state, action) => {
+    builder.addCase(enter.rejected, (state, action) => {
       state.loading = false
       state.error = action.payload.error
     })
   }
 })
 
-export const { setUser, setToken, setLoading, setError } = authSlice.actions
+export const { setUser, setToken, setConnection, setLoading, setError } = authSlice.actions
 export default authSlice.reducer
