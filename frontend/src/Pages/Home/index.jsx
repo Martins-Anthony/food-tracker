@@ -4,8 +4,6 @@ import Cards from '../../Components/Cards'
 import data from './data.json'
 import Hero from '../../Components/Hero'
 import Buttons, { BUTTONS_TYPES } from '../../Components/Buttons'
-// import bocaux from '../../assets/bocaux.jpg'
-// import bocauxEtiqueter from '../../assets/bocaux-etiqueter.jpg'
 
 function Home() {
   return (

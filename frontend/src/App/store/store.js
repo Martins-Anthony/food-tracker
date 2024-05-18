@@ -5,17 +5,7 @@ import storageAreaSelectionReducer from '../../Containers/StorageArea/StorageAre
 import foodCategoryReducer from '../../Containers/Forms/FoodCategory/foodCategorySlice'
 import scannerReducer from '../../Components/Scanner/scannerSlice'
 import authReducer from '../../Containers/Forms/MagicLink/authSlice'
-
-const persistedState = sessionStorage.getItem('reduxState')
-  ? JSON.parse(sessionStorage.getItem('reduxState'))
-  : {}
-
-const sessionStorageSyncMiddleware = (store) => (next) => (action) => {
-  const result = next(action)
-  const state = store.getState()
-  sessionStorage.setItem('reduxState', JSON.stringify(state))
-  return result
-}
+import { localStorageSync, persistedState } from './middleware/localStorage'
 
 export const store = configureStore({
   devTools: true,
@@ -28,11 +18,5 @@ export const store = configureStore({
     foodCategory: foodCategoryReducer,
     scanner: scannerReducer
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(sessionStorageSyncMiddleware)
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(localStorageSync)
 })
-
-/*
-store.subscribe(() => {
-  sessionStorage.setItem('reduxState', JSON.stringify(store.getState()))
-})
-*/

@@ -10,7 +10,6 @@ export const verify_token = createAsyncThunk('verify_tokenUser', async (_, thunk
       console.log(token)
       return thunkAPI.rejectWithValue({ error: 'Token not found' })
     }
-    console.log('test')
     const response = await fetch(urlApi + '/users/verify', {
       method: 'POST',
       headers: {
