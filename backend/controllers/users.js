@@ -3,6 +3,7 @@ const User = require('../models/User')
 const jwt = require('jsonwebtoken')
 const validator = require('validator')
 const jwt_secret = process.env.SECRET_KEY
+const jwt_time = process.env.JWT_TIME
 const { v4: uuidv4 } = require('uuid')
 const { send_magic_link } = require('./emails.js')
 
@@ -48,18 +49,34 @@ const login = async (req, res) => {
       await send_magic_link(email, user.MagicLink)
       return res.send({ ok: true, message: 'Hit the link in email to sign in' })
     } else if (user.MagicLink == magicLink && !user.MagicLinkExpired) {
-      const token = jwt.sign(user.toJSON(), jwt_secret, { expiresIn: '1h' })
+      const token = jwt.sign(user.toJSON(), jwt_secret, { expiresIn: jwt_time })
       await User.findOneAndUpdate({ email: email }, { MagicLinkExpired: true })
+
+      const currentTime = Math.floor(Date.now() / 1000)
+      const tokenExpiration = jwt.decode(token).exp
+      const timeUntilExpiration = tokenExpiration - currentTime
+
+      if (timeUntilExpiration < 300) {
+        token = jwt.sign(user.toJSON(), jwt_secret, { expiresIn: jwt_time })
+      }
       return res.status(200).json({
         ok: true,
         message: 'Welcome back',
         token,
         email,
+        timeUntilExpiration,
       })
-    } else
+    } else {
+      user = await User.findOneAndUpdate(
+        { email: email },
+        { MagicLink: uuidv4(), MagicLinkExpired: false },
+        { returnDocument: 'after' },
+      )
+      await send_magic_link(email, user.MagicLink)
       return res
         .status(400)
-        .json({ ok: false, error: 'Magic link is invalid or expired 🤔' })
+        .json({ ok: false, message: 'Magic link is invalid or expired 🤔' })
+    }
   } catch (error) {
     console.log('test error', error)
     return res.status(400).json({ ok: false, error: 'Error finding user' })
@@ -68,7 +85,9 @@ const login = async (req, res) => {
 
 const verify_token = (req, res) => {
   const token = req.headers.authorization
+  console.log('TOKEN', token)
   jwt.verify(token, jwt_secret, (err, user) => {
+    console.log('ERROR', err)
     err
       ? res.json({ ok: false, message: 'something went wrong' })
       : res.json({ ok: true, user })

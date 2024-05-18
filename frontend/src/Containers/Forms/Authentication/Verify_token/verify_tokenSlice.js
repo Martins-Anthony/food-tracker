@@ -7,7 +7,6 @@ export const verify_token = createAsyncThunk('verify_tokenUser', async (_, thunk
     const token = state.auth.token
 
     if (!token) {
-      console.log(token)
       return thunkAPI.rejectWithValue({ error: 'Token not found' })
     }
     const response = await fetch(urlApi + '/users/verify', {
@@ -18,12 +17,13 @@ export const verify_token = createAsyncThunk('verify_tokenUser', async (_, thunk
       }
     })
     const data = await response.json()
-    console.log(data)
+
     if (data.ok) {
+      console.log('data', data)
       return data
     } else {
-      console.log(data.error)
-      return thunkAPI.rejectWithValue({ error: data.error })
+      console.log('data pas ok', data)
+      return thunkAPI.rejectWithValue({ error: data.message })
     }
   } catch (error) {
     return thunkAPI.rejectWithValue({ error: error.message })

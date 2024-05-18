@@ -11,22 +11,22 @@ const transporter = nodemailer.createTransport({
   },
 })
 
-const URL = 'http://localhost:3000/enter/'
-
 const send_magic_link = async (email, link, which) => {
+  const linkSite = `<a href="${process.env.URL_FRONT}/#/enter/${email}'/'${link}">click to log in to your account here</a>`
+
   try {
     let subj, body
     if (which === 'signup') {
       ;(subj = 'Your sign up link'),
         (body =
           '<p>Hello friend and welcome to our website. This is your link to confirm your account: ' +
-          (URL + email + '/' + link) +
+          linkSite +
           '</p><p>Needless to remind you not to share this link with anyone 🤫</p>')
     } else {
       ;(subj = 'Your sign in link'),
         (body =
           '<p>Hello friend and welcome back. This is your link to sign in: ' +
-          (URL + email + '/' + link) +
+          linkSite +
           '</p><p>Needless to remind you not to share this link with anyone 🤫</p>')
     }
 

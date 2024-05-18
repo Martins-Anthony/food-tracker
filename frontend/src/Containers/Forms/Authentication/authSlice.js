@@ -4,7 +4,7 @@ import { enter } from './Enter/enterSlice'
 const initialState = {
   email: null,
   token: null,
-  connection: false,
+  isAuthenticated: false,
   error: null,
   loading: false
 }
@@ -12,6 +12,7 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
+    /*
     setUser: (state, action) => {
       state.user = action.payload
     },
@@ -26,6 +27,17 @@ export const authSlice = createSlice({
     },
     setError: (state, action) => {
       state.error = action.payload
+    }
+    */
+    loginSuccess: (state, action) => {
+      state.isAuthenticated = true
+      state.user = action.payload.user
+      state.token = action.payload.token
+    },
+    logout(state) {
+      state.isAuthenticated = false
+      state.user = null
+      state.token = null
     }
   },
   extraReducers: (builder) => {
@@ -45,5 +57,6 @@ export const authSlice = createSlice({
   }
 })
 
-export const { setUser, setToken, setConnection, setLoading, setError } = authSlice.actions
+export const { loginSuccess, logout, setUser, setToken, setConnection, setLoading, setError } =
+  authSlice.actions
 export default authSlice.reducer

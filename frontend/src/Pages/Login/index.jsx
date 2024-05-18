@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { LogoAndIconUser } from '../../Components/Logo'
-import Verify_token from '../../Containers/Forms/MagicLink/Verify_token'
+import Verify_token from '../../Containers/Forms/Authentication/Verify_token'
 
 function Login() {
   return (

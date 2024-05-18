@@ -1,6 +1,6 @@
 import React from 'react'
 import { LogoAndIconUser } from '../../Components/Logo'
-import Register from '../../Containers/Forms/MagicLink/Register'
+import Register from '../../Containers/Forms/Authentication/Register'
 
 function Signup() {
   return (
