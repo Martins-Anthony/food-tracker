@@ -1,7 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { useDispatch } from 'react-redux'
+import { logout } from '../Forms/Authentication/authSlice'
 
 function Modal({ id, idLabel, title, body, footer }) {
+  const dispatch = useDispatch()
+  const handleClick = () => {
+    dispatch(logout())
+  }
   return (
     <div className="modal fade" id={id} tabIndex="-1" aria-labelledby={idLabel} aria-hidden="true">
       <div className="modal-dialog modal-dialog-centered">
@@ -22,7 +28,12 @@ function Modal({ id, idLabel, title, body, footer }) {
               <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">
                 Annuler
               </button>
-              <button type="button" className="btn btn-primary">
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={handleClick}
+                data-bs-dismiss="modal"
+                aria-label="Déconnexion">
                 Déconnecter
               </button>
             </div>

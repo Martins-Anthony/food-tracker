@@ -85,10 +85,6 @@ export const links = [
         />
       </svg>
     ),
-    click: (event) => {
-      event.preventDefault()
-      console.log('test')
-    },
     dataBsToggle: 'modal',
     dataBsTarget: '#disconnectionModal'
   }

@@ -11,6 +11,17 @@ function Navbar() {
   const isAuthenticated = useSelector(selectAuth).isAuthenticated
   const [renderedLinks, setRenderedLinks] = useState([])
 
+  const renderedLogin = (
+    <li className="nav-item">
+      <NavLink className="nav-link text-uppercase fw-bold" to="/login">
+        {React.cloneElement(links[3].icon, {
+          width: 24,
+          height: 24
+        })}
+      </NavLink>
+    </li>
+  )
+
   useEffect(() => {
     function fetchLinks() {
       const filteredLinks = isAuthenticated
@@ -24,7 +35,6 @@ function Navbar() {
               <NavLink
                 className="nav-link text-uppercase fw-bold"
                 to={link.link}
-                onClick={link.click}
                 data-bs-toggle={link.dataBsToggle}
                 data-bs-target={link.dataBsTarget}>
                 {React.cloneElement(link.icon, {
@@ -59,7 +69,7 @@ function Navbar() {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
-            <ul className="navbar-nav">{renderedLinks}</ul>
+            <ul className="navbar-nav">{isAuthenticated ? renderedLinks : renderedLogin}</ul>
           </div>
         </div>
       </nav>

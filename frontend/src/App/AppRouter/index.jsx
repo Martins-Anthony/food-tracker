@@ -1,5 +1,5 @@
 import React from 'react'
-import { HashRouter, Routes, Route } from 'react-router-dom'
+import { HashRouter, Routes, Route, Navigate } from 'react-router-dom'
 import 'bootstrap/dist/js/bootstrap.bundle.min'
 import Home from '../../Pages/Home'
 import '../../style/index.scss'
@@ -22,7 +22,7 @@ function AppRouter() {
       <Header />
       <main className="text-center">
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={isAuthenticated ? <Navigate to={'/user'} /> : <Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/enter/:email/:magicLink" element={<Enter />} />
