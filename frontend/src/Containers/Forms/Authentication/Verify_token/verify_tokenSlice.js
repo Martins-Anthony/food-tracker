@@ -1,12 +1,15 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { urlApi } from '../../../../utils/api/basePath'
+import { enter } from '../Enter/enterSlice'
 
-export const verify_token = createAsyncThunk('verify_tokenUser', async (_, thunkAPI) => {
+export const verify_token = createAsyncThunk('verify_tokenUser', async (payload, thunkAPI) => {
+  const { getState, dispatch } = thunkAPI
   try {
-    const state = thunkAPI.getState()
+    const state = getState()
     const token = state.auth.token
 
     if (!token) {
+      dispatch(enter(payload))
       return thunkAPI.rejectWithValue({ error: 'Token not found' })
     }
     const response = await fetch(urlApi + '/users/verify', {

@@ -48,7 +48,7 @@ export const authSlice = createSlice({
       state.loading = false
       state.token = action.payload.token
       state.email = action.payload.email
-      state.connection = true
+      state.isAuthenticated = true
     })
     builder.addCase(enter.rejected, (state, action) => {
       state.loading = false

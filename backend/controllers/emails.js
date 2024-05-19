@@ -12,7 +12,7 @@ const transporter = nodemailer.createTransport({
 })
 
 const send_magic_link = async (email, link, which) => {
-  const linkSite = `<a href="${process.env.URL_FRONT}/#/enter/${email}'/'${link}">click to log in to your account here</a>`
+  const linkSite = `<a href="${process.env.URL_FRONT}/#/enter/${email}/${link}">click to log in to your account here</a>`
 
   try {
     let subj, body

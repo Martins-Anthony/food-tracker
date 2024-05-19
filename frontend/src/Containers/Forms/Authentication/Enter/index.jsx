@@ -15,7 +15,7 @@ function Enter() {
       dispatch(enter({ email, magicLink }))
       navigate('/user')
     }
-  }, [email, magicLink, navigate])
+  }, [email, magicLink])
 
   return <Spinners />
 }

@@ -7,7 +7,7 @@ import { selectAuth } from '../../../App/store/selectors'
 import { useSelector } from 'react-redux'
 
 function Navbar() {
-  const isAuthenticated = useSelector(selectAuth).connection
+  const isAuthenticated = useSelector(selectAuth).isAuthenticated
   const [renderedLinks, setRenderedLinks] = useState([])
 
   useEffect(() => {
@@ -54,6 +54,7 @@ function Navbar() {
         <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
           <ul className="navbar-nav">{renderedLinks}</ul>
         </div>
+        <div>test</div>
       </div>
     </nav>
   )
