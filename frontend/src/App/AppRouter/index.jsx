@@ -17,6 +17,7 @@ import { useSelector } from 'react-redux'
 
 function AppRouter() {
   const isAuthenticated = useSelector(selectAuth).isAuthenticated
+
   return (
     <HashRouter>
       <Header />

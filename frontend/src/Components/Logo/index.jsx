@@ -1,10 +1,15 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { links } from '../../Containers/Layouts/NavBar/links'
+import { links } from '../Icons/navLinks'
 
 function Logo() {
   return (
-    <Link className="navbar-brand text-uppercase fw-bold text-dark" to="/">
+    <Link
+      className="navbar-brand text-uppercase fw-bold text-dark"
+      to="/"
+      data-bs-toggle="tooltip"
+      data-bs-placement="top"
+      title="Logo FOOD TRACKER">
       <span className="bg-primary bg-gradient p-1 rounded-3 text-light">Food</span> Tracker
     </Link>
   )

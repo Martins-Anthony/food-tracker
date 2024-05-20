@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 import { Logo } from '../../../Components/Logo'
 import DateToday from '../../DateToday'
-import { links } from './links'
+import { links } from '../../../Components/Icons/navLinks'
 import { selectAuth } from '../../../App/store/selectors'
 import { useSelector } from 'react-redux'
 import Modal from '../../Modal'
@@ -13,7 +13,12 @@ function Navbar() {
 
   const renderedLogin = (
     <li className="nav-item">
-      <NavLink className="nav-link text-uppercase fw-bold" to="/login">
+      <NavLink
+        className="nav-link text-uppercase fw-bold"
+        to="/login"
+        data-bs-placement="top"
+        title="connection"
+        data-bs-toggle="tooltip">
         {React.cloneElement(links[3].icon, {
           width: 24,
           height: 24
@@ -35,6 +40,8 @@ function Navbar() {
               <NavLink
                 className="nav-link text-uppercase fw-bold"
                 to={link.link}
+                data-bs-placement="top"
+                title={link.name}
                 data-bs-toggle={link.dataBsToggle}
                 data-bs-target={link.dataBsTarget}>
                 {React.cloneElement(link.icon, {

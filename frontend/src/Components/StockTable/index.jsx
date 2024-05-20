@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { selectStorageArea, selectStorageItem } from '../../App/store/selectors'
 import DateComparison from '../../Containers/DateComparison'
-import { links } from '../../Containers/Layouts/NavBar/links'
+import { links } from '../Icons/navLinks'
 
 function StockTable() {
   const storageArea = useSelector(selectStorageArea)

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { LogoAndIconUser } from '../../Components/Logo'
-import Verify_token from '../../Containers/Forms/Authentication/Verify_token'
+import VerifyToken from '../../Containers/Forms/Authentication/VerifyToken'
 
 function Login() {
   return (
@@ -10,7 +10,7 @@ function Login() {
         <div className="col-12 col-md-6 border py-5 rounded-5">
           <LogoAndIconUser />
           <h2>Se connecter</h2>
-          <Verify_token />
+          <VerifyToken />
           <p className="mt-5">
             Vous n&apos;avez pas de compte ? <Link to="/signup">S&apos;inscrire</Link>
           </p>

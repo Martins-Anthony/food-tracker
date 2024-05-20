@@ -1,13 +1,13 @@
 import Fields, { TYPE_FIELD } from '../../../../Components/Fields'
 import Buttons, { BUTTONS_TYPES } from '../../../../Components/Buttons'
 import { useDispatch } from 'react-redux'
-import { verify_token } from './verify_tokenSlice'
+import { verifyToken } from './verifyTokenSlice'
 
-function Verify_token() {
+function VerifyToken() {
   const dispatch = useDispatch()
   const handleEmailSubmit = (event) => {
     event.preventDefault()
-    dispatch(verify_token({ email: event.target.email.value.toLowerCase() }))
+    dispatch(verifyToken({ email: event.target.email.value.toLowerCase() }))
   }
   return (
     <form onSubmit={handleEmailSubmit}>
@@ -19,4 +19,4 @@ function Verify_token() {
   )
 }
 
-export default Verify_token
+export default VerifyToken

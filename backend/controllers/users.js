@@ -26,14 +26,14 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
   const { email, magicLink } = req.body
-  if (!email)
-    return res.status(400).json({ ok: false, error: 'Email is required' })
-  if (!validator.isEmail(email))
-    return res.status(400).json({ ok: false, error: 'Email is invalid' })
 
   try {
     let user = await User.findOne({ email: email })
-    if (!user) {
+    if (!email) {
+      return res.status(400).json({ ok: false, error: 'Email is required' })
+    } else if (!validator.isEmail(email)) {
+      return res.status(400).json({ ok: false, error: 'Email is invalid' })
+    } else if (!user) {
       let reg = await register(email)
       res.send({
         ok: true,
