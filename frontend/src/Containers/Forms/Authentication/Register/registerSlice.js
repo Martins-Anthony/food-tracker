@@ -14,12 +14,11 @@ export const register = createAsyncThunk('registerUser', async (payload, thunkAP
     const data = await response.json()
 
     if (response.ok) {
-      console.log('Utilisateur inscrit avec succès')
+      console.log('Utilisateur inscrit avec succès', data)
     } else {
       console.error("Erreur lors de l'inscription :", data.error)
     }
   } catch (error) {
-    console.error("Erreur lors de l'inscription :", error)
     return thunkAPI.rejectWithValue({ error: error.message })
   }
 })

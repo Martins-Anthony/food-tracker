@@ -1,13 +1,19 @@
 import Fields, { TYPE_FIELD } from '../../../../Components/Fields'
 import Buttons, { BUTTONS_TYPES } from '../../../../Components/Buttons'
-import { useDispatch } from 'react-redux'
-import { verifyToken } from './verifyTokenSlice'
+import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { selectAuth } from '../../../../App/store/selectors'
 
-function VerifyToken() {
-  const dispatch = useDispatch()
+function SignIn() {
+  const navigate = useNavigate()
+  const auth = useSelector(selectAuth).magicLink
   const handleEmailSubmit = (event) => {
     event.preventDefault()
-    dispatch(verifyToken({ email: event.target.email.value.toLowerCase() }))
+    if (auth) {
+      navigate(`/enter/${event.target.email.value.toLowerCase()}/${auth}}`)
+    } else {
+      navigate(`/login`)
+    }
   }
   return (
     <form onSubmit={handleEmailSubmit}>
@@ -19,4 +25,4 @@ function VerifyToken() {
   )
 }
 
-export default VerifyToken
+export default SignIn

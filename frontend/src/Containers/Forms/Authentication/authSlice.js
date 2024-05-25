@@ -1,8 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { enter } from './Enter/enterSlice'
+import { refreshAccessToken } from './AuthProvider/refreshAccessTokenSlice'
 
 const initialState = {
   email: null,
+  magicLink: null,
   token: null,
   isAuthenticated: false,
   error: null,
@@ -12,31 +14,8 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    /*
-    setUser: (state, action) => {
-      state.user = action.payload
-    },
-    setToken: (state, action) => {
-      state.token = action.payload
-    },
-    setConnection: (state, action) => {
-      state.connection = action.payload
-    },
-    setLoading: (state, action) => {
-      state.loading = action.payload
-    },
-    setError: (state, action) => {
-      state.error = action.payload
-    }
-    */
-    loginSuccess: (state, action) => {
-      state.isAuthenticated = true
-      state.user = action.payload.user
-      state.token = action.payload.token
-    },
     logout(state) {
       state.isAuthenticated = false
-      state.user = null
       state.token = null
     }
   },
@@ -46,17 +25,26 @@ export const authSlice = createSlice({
     })
     builder.addCase(enter.fulfilled, (state, action) => {
       state.loading = false
-      state.token = action.payload.token
-      state.email = action.payload.email
+      state.token = action.payload.checkResult.token
+      state.email = action.payload.checkResult.email
+      state.magicLink = action.payload.checkResult.magicLink
       state.isAuthenticated = true
     })
     builder.addCase(enter.rejected, (state, action) => {
       state.loading = false
       state.error = action.payload.error
     })
+    builder.addCase(refreshAccessToken.fulfilled, (state, action) => {
+      state.token = action.payload
+      state.error = null
+    })
+    builder.addCase(refreshAccessToken.rejected, (state, action) => {
+      state.error = action.payload
+      state.isAuthenticated = false
+      state.token = null
+    })
   }
 })
 
-export const { loginSuccess, logout, setUser, setToken, setConnection, setLoading, setError } =
-  authSlice.actions
+export const { loginSuccess, logout } = authSlice.actions
 export default authSlice.reducer

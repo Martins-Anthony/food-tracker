@@ -11,7 +11,7 @@ export const enter = createAsyncThunk('enterUser', async (payload, thunkAPI) => 
       body: JSON.stringify(payload)
     })
     const data = await response.json()
-    if (data.token) {
+    if (data.checkResult.token) {
       return data
     } else {
       return thunkAPI.rejectWithValue({ error: data.error })

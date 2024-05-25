@@ -11,7 +11,7 @@ const transporter = nodemailer.createTransport({
   },
 })
 
-const send_magic_link = async (email, link, which) => {
+const sendMagicLink = async (email, link, which) => {
   const linkSite = `<a href="${process.env.URL_FRONT}/#/enter/${email}/${link}">click to log in to your account here</a>`
 
   try {
@@ -44,4 +44,4 @@ const send_magic_link = async (email, link, which) => {
   }
 }
 
-module.exports = { send_magic_link }
+module.exports = { sendMagicLink }

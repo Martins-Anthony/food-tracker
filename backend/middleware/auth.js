@@ -1,15 +1,22 @@
-const jwt = require('jsonwebtoken')
-require('dotenv').config()
+const { jwt, jwt_secret } = require('../controllers/token/jwtConfig')
+
 module.exports = (req, res, next) => {
   try {
     if (!req.headers.authorization) {
       throw new Error('Authorization header missing')
     }
     const token = req.headers.authorization.split(' ')[1]
-    const decoded = jwt.verify(token, process.env.SECRET_KEY)
+
+    const decoded = jwt.verify(token, jwt_secret)
+
+    if (!decoded || !decoded.userId) {
+      throw new Error('Invalid token')
+    }
+
     req.auth = {
       userId: decoded.userId,
     }
+
     next()
   } catch (error) {
     res.status(401).json({ error: 'Authentication failed' })

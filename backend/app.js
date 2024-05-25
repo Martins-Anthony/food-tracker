@@ -7,7 +7,6 @@ const path = require('path')
 const cors = require('./middleware/cors')
 
 const userRoutes = require('./routes/users')
-const checkRoute = require('./middleware/checkRoute')
 
 const app = express()
 
