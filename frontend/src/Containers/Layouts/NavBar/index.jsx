@@ -3,12 +3,12 @@ import { NavLink } from 'react-router-dom'
 import { Logo } from '../../../Components/Logo'
 import DateToday from '../../DateToday'
 import { links } from '../../../Components/Icons/navLinks'
-import { selectAuth } from '../../../App/store/selectors'
+import { select } from '../../../App/store/selectors'
 import { useSelector } from 'react-redux'
 import Modal from '../../Modal'
 
 function Navbar() {
-  const isAuthenticated = useSelector(selectAuth).isAuthenticated
+  const isAuthenticated = useSelector(select.auth).isAuthenticated
   const [renderedLinks, setRenderedLinks] = useState([])
 
   const renderedLogin = (

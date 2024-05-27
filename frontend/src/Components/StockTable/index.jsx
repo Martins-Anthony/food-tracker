@@ -1,13 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { selectStorageArea, selectStorageItem } from '../../App/store/selectors'
+import { select } from '../../App/store/selectors'
 import DateComparison from '../../Containers/DateComparison'
 import { links } from '../Icons/navLinks'
 
 function StockTable() {
-  const storageArea = useSelector(selectStorageArea)
-  const storageItem = useSelector(selectStorageItem)
+  const storageArea = useSelector(select.storageArea)
+  const storageItem = useSelector(select.storageItem)
 
   return (
     <section>

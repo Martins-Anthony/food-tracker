@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { selectStorageArea, selectStorageAreaSelection } from '../../../../../App/store/selectors'
+import { select } from '../../../../../App/store/selectors'
 import FoodCategory from '../../../FoodCategory'
 import { addItemToStorage } from '../storageItemSlice'
 import { Navigate } from 'react-router-dom'
 
 function Manually() {
-  const storageArea = useSelector(selectStorageArea)
-  const storageAreaSelection = useSelector(selectStorageAreaSelection)
+  const storageArea = useSelector(select.storageArea)
+  const storageAreaSelection = useSelector(select.storageAreaSelection)
   let selectedItemArea
   const dispatch = useDispatch()
   const [productName, setProduct] = useState('')

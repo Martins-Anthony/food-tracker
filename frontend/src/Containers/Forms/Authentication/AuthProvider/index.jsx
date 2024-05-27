@@ -2,11 +2,11 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 import { refreshAccessToken } from './refreshAccessTokenSlice'
-import { selectAuth } from '../../../../App/store/selectors'
+import { select } from '../../../../App/store/selectors'
 
 const AuthProvider = ({ children }) => {
   const dispatch = useDispatch()
-  const token = useSelector(selectAuth).token
+  const token = useSelector(select.auth).token
 
   useEffect(() => {
     if (!token) return

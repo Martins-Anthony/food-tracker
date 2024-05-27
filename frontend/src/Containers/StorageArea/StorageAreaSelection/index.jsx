@@ -1,11 +1,11 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { selectStorageArea, selectStorageAreaSelection } from '../../../App/store/selectors'
+import { select } from '../../../App/store/selectors'
 import { storageAreaSelect } from './storageAreaSelectionSlice'
 
 function StorageAreaSelection() {
-  const storageArea = useSelector(selectStorageArea)
-  const storageAreaSelection = useSelector(selectStorageAreaSelection)
+  const storageArea = useSelector(select.storageArea)
+  const storageAreaSelection = useSelector(select.storageAreaSelection)
   const dispatch = useDispatch()
 
   const handleStorageAreaSelected = (event) => {

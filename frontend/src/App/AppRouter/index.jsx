@@ -12,11 +12,11 @@ import User from '../../Pages/User'
 import Login from '../../Pages/Login'
 import Signup from '../../Pages/Signup'
 import Enter from '../../Containers/Forms/Authentication/Enter'
-import { selectAuth } from '../store/selectors'
+import { select } from '../store/selectors'
 import { useSelector } from 'react-redux'
 
 function AppRouter() {
-  const isAuthenticated = useSelector(selectAuth).isAuthenticated
+  const isAuthenticated = useSelector(select.auth).isAuthenticated
 
   return (
     <HashRouter>

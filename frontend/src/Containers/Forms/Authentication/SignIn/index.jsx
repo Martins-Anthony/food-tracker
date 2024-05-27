@@ -2,11 +2,11 @@ import Fields, { TYPE_FIELD } from '../../../../Components/Fields'
 import Buttons, { BUTTONS_TYPES } from '../../../../Components/Buttons'
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { selectAuth } from '../../../../App/store/selectors'
+import { select } from '../../../../App/store/selectors'
 
 function SignIn() {
   const navigate = useNavigate()
-  const auth = useSelector(selectAuth).magicLink
+  const auth = useSelector(select.auth).magicLink
   const handleEmailSubmit = (event) => {
     event.preventDefault()
     if (auth) {

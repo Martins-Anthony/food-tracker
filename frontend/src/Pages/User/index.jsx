@@ -2,11 +2,11 @@ import React from 'react'
 import CreateStorageArea from '../../Containers/StorageArea/CreateStorageArea'
 import StockTable from '../../Components/StockTable'
 
-import { selectStorageArea } from '../../App/store/selectors'
+import { select } from '../../App/store/selectors'
 import { useSelector } from 'react-redux'
 
 function User() {
-  const storageArea = useSelector(selectStorageArea)
+  const storageArea = useSelector(select.storageArea)
 
   return (
     <section className="container">

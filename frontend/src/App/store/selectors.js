@@ -1,5 +1,7 @@
-export const selectStorageArea = (state) => state.storageArea
-export const selectStorageItem = (state) => state.storageItem
-export const selectStorageAreaSelection = (state) => state.storageAreaSelection.areaNameSelected
-export const selectFoodCategory = (state) => state.foodCategory
-export const selectAuth = (state) => state.auth
+export const select = {
+  storageArea: (state) => state.storageArea,
+  storageItem: (state) => state.storageItem,
+  storageAreaSelection: (state) => state.storageAreaSelection.areaNameSelected,
+  foodCategory: (state) => state.foodCategory,
+  auth: (state) => state.auth
+}

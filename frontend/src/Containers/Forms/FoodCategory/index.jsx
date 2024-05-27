@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { selectFoodCategory } from '../../../App/store/selectors'
+import { select } from '../../../App/store/selectors'
 import { useSelector } from 'react-redux'
 
 function FoodCategory({ onChange }) {
-  const categories = useSelector(selectFoodCategory)
+  const categories = useSelector(select.foodCategory)
 
   return (
     <label className="p-3">
