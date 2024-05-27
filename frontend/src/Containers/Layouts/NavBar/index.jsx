@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, cloneElement } from 'react'
 import { NavLink } from 'react-router-dom'
 import { Logo } from '../../../Components/Logo'
 import DateToday from '../../DateToday'
@@ -19,7 +19,7 @@ function Navbar() {
         data-bs-placement="top"
         title="connection"
         data-bs-toggle="tooltip">
-        {React.cloneElement(links[3].icon, {
+        {cloneElement(links[3].icon, {
           width: 24,
           height: 24
         })}
@@ -44,7 +44,7 @@ function Navbar() {
                 title={link.name}
                 data-bs-toggle={link.dataBsToggle}
                 data-bs-target={link.dataBsTarget}>
-                {React.cloneElement(link.icon, {
+                {cloneElement(link.icon, {
                   width: 24,
                   height: 24
                 })}
@@ -82,7 +82,6 @@ function Navbar() {
       </nav>
       <Modal
         id={'disconnectionModal'}
-        idLabel={'disconnectionModalLabel'}
         title={'Déconnexion'}
         body={<p className="text-center">Êtes-vous sûr de vouloir vous déconnecter ?</p>}
         footer={true}

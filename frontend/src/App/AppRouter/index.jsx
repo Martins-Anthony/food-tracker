@@ -1,6 +1,5 @@
 import React from 'react'
 import { HashRouter, Routes, Route, Navigate } from 'react-router-dom'
-import 'bootstrap/dist/js/bootstrap.bundle.min'
 import Home from '../../Pages/Home'
 import '../../style/index.scss'
 import Header from '../../Containers/Layouts/Header'

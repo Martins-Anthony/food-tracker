@@ -38,7 +38,9 @@ const register = async (req, res) => {
     const user = await findUserByEmail(email)
 
     if (user) {
-      return res.status(200).json({ ok: true, message: 'User already exists' })
+      return res
+        .status(200)
+        .json({ ok: true, message: 'Vous êtes déjà inscrit' })
     }
 
     const newUser = await createUser(email)
@@ -62,7 +64,9 @@ const login = async (req, res) => {
     validateInput(email)
     const user = await findUserByEmail(email)
     if (!user) {
-      return res.status(404).json({ ok: false, message: 'User not found' })
+      return res
+        .status(404)
+        .json({ ok: false, message: 'Utilisateur non trouvé' })
     }
     if (!magicLink) {
       await sendMagicLink(email, user.MagicLink.link, 'login')

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import LinkSignup from '../../Components/Links/SignIn'
 import { LogoAndIconUser } from '../../Components/Logo'
 import SignIn from '../../Containers/Forms/Authentication/SignIn'
 
@@ -11,9 +11,9 @@ function Login() {
           <LogoAndIconUser />
           <h2>Se connecter</h2>
           <SignIn />
-          <p className="mt-5">
-            Vous n&apos;avez pas de compte ? <Link to="/signup">S&apos;inscrire</Link>
-          </p>
+          <div className="mt-5">
+            <LinkSignup />
+          </div>
         </div>
       </div>
     </section>

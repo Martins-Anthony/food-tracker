@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { cloneElement } from 'react'
 import { NavLink } from 'react-router-dom'
 import { Logo } from '../../../Components/Logo'
 import Modal from '../../Modal'
@@ -14,7 +14,7 @@ function Footer() {
           data-bs-toggle="tooltip"
           data-bs-placement="top"
           title={icon.name}>
-          {React.cloneElement(icon.icon, {
+          {cloneElement(icon.icon, {
             width: 24,
             height: 24
           })}
@@ -39,7 +39,6 @@ function Footer() {
             </a>
             <Modal
               id="legalModal"
-              idLabel="legalModalLabel"
               title="Mentions Légales"
               body={
                 <p>
@@ -49,7 +48,6 @@ function Footer() {
                   per inceptos himenaeos. Sed
                 </p>
               }
-              footer={false}
             />
           </div>
           <div className="col-12 col-md-4 text-md-end">

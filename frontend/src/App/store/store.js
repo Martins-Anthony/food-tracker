@@ -6,6 +6,7 @@ import foodCategoryReducer from '../../Containers/Forms/FoodCategory/foodCategor
 import scannerReducer from '../../Components/Scanner/scannerSlice'
 import authReducer from '../../Containers/Forms/Authentication/authSlice'
 import { localStorageSync, persistedState } from './middleware/localStorage'
+import modalReducer from '../../Containers/Modal/modalSlice'
 
 export const store = configureStore({
   devTools: true,
@@ -16,7 +17,8 @@ export const store = configureStore({
     storageItem: storageItemReducer,
     storageAreaSelection: storageAreaSelectionReducer,
     foodCategory: foodCategoryReducer,
-    scanner: scannerReducer
+    scanner: scannerReducer,
+    modal: modalReducer
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(localStorageSync)
 })
