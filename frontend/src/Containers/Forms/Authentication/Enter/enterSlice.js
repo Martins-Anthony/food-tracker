@@ -11,10 +11,10 @@ export const enter = createAsyncThunk('enterUser', async (payload, thunkAPI) => 
       body: JSON.stringify(payload)
     })
     const data = await response.json()
-    if (data.checkResult.token) {
+    if (data.ok === false) {
+      return thunkAPI.rejectWithValue({ error: data.message })
+    } else if (data.checkResult.token) {
       return data
-    } else {
-      return thunkAPI.rejectWithValue({ error: data.error })
     }
   } catch (error) {
     return thunkAPI.rejectWithValue({ error: error.message })

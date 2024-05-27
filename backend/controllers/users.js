@@ -62,7 +62,7 @@ const login = async (req, res) => {
     validateInput(email)
     const user = await findUserByEmail(email)
     if (!user) {
-      await register(email)
+      return res.status(404).json({ ok: false, message: 'User not found' })
     }
     if (!magicLink) {
       await sendMagicLink(email, user.MagicLink.link, 'login')
@@ -75,7 +75,6 @@ const login = async (req, res) => {
       return res.status(200).json({ ok: true, checkResult })
     }
     return res.status(400).json({ ok: false, message: checkResult.message })
-
   } catch (error) {
     return res.status(400).json({ ok: false, error: 'Error finding user' })
   }

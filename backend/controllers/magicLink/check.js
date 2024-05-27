@@ -1,8 +1,7 @@
 const User = require('../../models/User')
-const { v4: uuidv4 } = require('uuid')
 const { generateExpirationMagicLink } = require('./generateExpiration')
 const { generateAccessToken } = require('../token/generateAccess')
-const { sendMagicLink } = require('../emails')
+const { updateMagicLink } = require('./update')
 
 const checkMagicLink = async (user, magicLink) => {
   try {
@@ -17,15 +16,7 @@ const checkMagicLink = async (user, magicLink) => {
         magicLink: user.MagicLink.link,
       }
     } else if (user.MagicLink.expiration < Date.now()) {
-      await User.findOneAndUpdate(
-        { email: user.email },
-        { MagicLink: { link: uuidv4(), active: false } },
-      )
-      await sendMagicLink(user.email, user.MagicLink.link, 'signup')
-      return {
-        ok: true,
-        message: 'Magic link expired. New link sent to email',
-      }
+      updateMagicLink(user)
     } else if (
       user.MagicLink.expiration > Date.now() &&
       user.MagicLink.active
