@@ -83,7 +83,7 @@ function Modal({ id, title, body, footer, isOpen }) {
 
 Modal.propTypes = {
   id: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   body: PropTypes.node.isRequired,
   footer: PropTypes.bool,
   isOpen: PropTypes.bool

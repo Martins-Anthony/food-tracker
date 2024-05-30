@@ -5,7 +5,6 @@ import { showModal, setMessage } from '../../../Modal/modalSlice'
 export const enter = createAsyncThunk('enterUser', async (payload, thunkAPI) => {
   const { dispatch, rejectWithValue } = thunkAPI
   try {
-    console.log('payload', payload)
     const response = await fetch(urlApi + '/users/enter', {
       method: 'POST',
       headers: {
