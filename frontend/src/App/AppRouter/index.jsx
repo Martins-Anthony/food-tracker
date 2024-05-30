@@ -13,13 +13,15 @@ import Signup from '../../Pages/Signup'
 import Enter from '../../Containers/Forms/Authentication/Enter'
 import { select } from '../store/selectors'
 import { useSelector } from 'react-redux'
+import Spinners from '../../Components/Spinners'
 
 function AppRouter() {
-  const isAuthenticated = useSelector(select.auth).isAuthenticated
+  const { isAuthenticated, loading } = useSelector(select.auth)
 
   return (
     <HashRouter>
       <Header />
+      {loading && <Spinners />}
       <main className="text-center">
         <Routes>
           <Route path="/" element={isAuthenticated ? <Navigate to={'/user'} /> : <Home />} />

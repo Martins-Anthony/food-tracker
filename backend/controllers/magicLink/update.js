@@ -5,7 +5,7 @@ const { sendMagicLink } = require('../emails')
 const updateMagicLink = async (user) => {
   try {
     const newMagicLink = uuidv4()
-    await User.findOne(
+    await User.updateOne(
       { email: user.email },
       { MagicLink: { link: newMagicLink, active: false } },
     )

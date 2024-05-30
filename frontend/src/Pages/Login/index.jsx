@@ -2,6 +2,7 @@ import React from 'react'
 import LinkSignup from '../../Components/Links/SignIn'
 import { LogoAndIconUser } from '../../Components/Logo'
 import SignIn from '../../Containers/Forms/Authentication/SignIn'
+import Message from '../../Containers/Modal/Messages'
 
 function Login() {
   return (
@@ -15,6 +16,7 @@ function Login() {
             <LinkSignup />
           </div>
         </div>
+        <Message />
       </div>
     </section>
   )

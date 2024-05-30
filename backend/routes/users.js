@@ -6,6 +6,7 @@ const refreshCtrl = require('../controllers/token/refresh')
 
 router.post('/enter', userCtrl.login)
 router.post('/register', userCtrl.register)
+router.post('/resendLink', userCtrl.resendLink)
 router.post('/refresh-token', auth, refreshCtrl.refresh)
 
 module.exports = router

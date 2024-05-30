@@ -78,10 +78,29 @@ const login = async (req, res) => {
     if (checkResult.ok) {
       return res.status(200).json({ ok: true, checkResult })
     }
-    return res.status(400).json({ ok: false, message: checkResult.message })
+    return res.status(401).json({ ok: false, message: checkResult.message })
   } catch (error) {
     return res.status(400).json({ ok: false, error: 'Error finding user' })
   }
 }
 
-module.exports = { login, register }
+const resendLink = async (req, res) => {
+  const { email } = req.body
+  try {
+    validateInput(email)
+    const user = await findUserByEmail(email)
+    if (!user) {
+      return res
+        .status(404)
+        .json({ ok: false, message: 'Utilisateur non trouvé' })
+    }
+    await sendMagicLink(email, user.MagicLink.link, 'login')
+    return res
+      .status(200)
+      .json({ ok: true, message: 'Lien envoyé par email' })
+  } catch (error) {
+    return res.status(400).json({ ok: false, error: 'Error finding user' })
+  }
+}
+
+module.exports = { login, register, resendLink }

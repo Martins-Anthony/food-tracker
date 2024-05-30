@@ -4,19 +4,28 @@ import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { select } from '../../../../App/store/selectors'
 import { register } from '../Register/registerSlice'
-import Modal from '../../../Modal'
+import { resendLink } from '../SignIn/resendLinkSlice'
+import { resendLinkActive } from '../authSlice'
+import { showModal } from '../../../Modal/modalSlice'
 
 function SignIn() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const auth = useSelector(select.auth).magicLink
-  const handleModal = useSelector(select.modal).show
+  const auth = useSelector(select.auth)
+
   const handleEmailSubmit = (event) => {
     event.preventDefault()
-    if (auth) {
-      navigate(`/enter/${event.target.email.value.toLowerCase()}/${auth}`)
+    const email = event.target.email.value.toLowerCase()
+    if (auth.resendLink) {
+      dispatch(resendLink({ email: email }))
+      dispatch(resendLinkActive())
+      dispatch(showModal())
     } else {
-      dispatch(register({ email: event.target.email.value.toLowerCase() }))
+      if (auth.magicLink) {
+        navigate(`/enter/${email}/${auth}`)
+      } else {
+        dispatch(register({ email: email }))
+      }
     }
   }
   return (
@@ -24,13 +33,9 @@ function SignIn() {
       <section className="row justify-content-center">
         <Fields type={TYPE_FIELD.INPUT_MAIL} />
       </section>
-      <Buttons type={BUTTONS_TYPES.BUTTONS} label="Se connecter" />
-      <Modal
-        id="errorModal"
-        idLabel="errorModalLabel"
-        title={'test'}
-        body={"Vous n'avez pas de compte ? S'inscrire"}
-        isOpen={handleModal}
+      <Buttons
+        type={BUTTONS_TYPES.BUTTONS}
+        label={auth.resendLink ? 'Renvoyer le lien' : 'Se connecter'}
       />
     </form>
   )

@@ -3,10 +3,15 @@ import { useDispatch, useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 import { refreshAccessToken } from './refreshAccessTokenSlice'
 import { select } from '../../../../App/store/selectors'
+import { hideModal } from '../../../Modal/modalSlice'
 
 const AuthProvider = ({ children }) => {
   const dispatch = useDispatch()
   const token = useSelector(select.auth).token
+
+  useEffect(() => {
+    dispatch(hideModal())
+  }, [])
 
   useEffect(() => {
     if (!token) return

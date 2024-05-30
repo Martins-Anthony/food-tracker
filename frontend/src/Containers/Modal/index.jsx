@@ -17,7 +17,7 @@ function Modal({ id, title, body, footer, isOpen }) {
     const modal = document.getElementById(id)
     dispatch(hideModal())
     if (modal.id === 'errorModal') {
-      dispatch(logout())
+      dispatch(hideModal())
       navigate('/login')
     } else if (modal.id === 'messageModal') {
       dispatch(hideModal())

@@ -30,7 +30,7 @@ const checkMagicLink = async (user, magicLink) => {
         magicLink: user.MagicLink.link,
       }
     } else {
-      return { ok: false, message: 'Magic link already sent to email' }
+      return { ok: false, message: 'Votre lien est déjà envoyé par e-mail' }
     }
   } catch (error) {
     throw new Error('Could not check magic link')

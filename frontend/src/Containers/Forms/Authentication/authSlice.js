@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { enter } from './Enter/enterSlice'
 import { refreshAccessToken } from './AuthProvider/refreshAccessTokenSlice'
+import { resendLink } from './SignIn/resendLinkSlice'
 
 const initialState = {
   email: null,
@@ -8,7 +9,8 @@ const initialState = {
   token: null,
   isAuthenticated: false,
   error: null,
-  loading: false
+  loading: false,
+  resendLink: false
 }
 export const authSlice = createSlice({
   name: 'auth',
@@ -18,6 +20,9 @@ export const authSlice = createSlice({
       state.isAuthenticated = false
       state.token = null
       state.error = null
+    },
+    resendLinkActive(state) {
+      state.resendLink = true
     }
   },
   extraReducers: (builder) => {
@@ -44,8 +49,15 @@ export const authSlice = createSlice({
       state.isAuthenticated = false
       state.token = null
     })
+    builder.addCase(resendLink.pending, (state) => {
+      state.loading = true
+    })
+    builder.addCase(resendLink.fulfilled, (state) => {
+      state.loading = false
+      state.resendLink = false
+    })
   }
 })
 
-export const { loginSuccess, logout } = authSlice.actions
+export const { loginSuccess, logout, resendLinkActive } = authSlice.actions
 export default authSlice.reducer
