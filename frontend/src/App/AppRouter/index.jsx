@@ -20,21 +20,23 @@ function AppRouter() {
 
   return (
     <HashRouter>
-      <Header />
-      {loading && <Spinners />}
-      <main className="text-center">
-        <Routes>
-          <Route path="/" element={isAuthenticated ? <Navigate to={'/user'} /> : <Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/enter/:email/:magicLink" element={<Enter />} />
-          <Route path="/user" element={isAuthenticated ? <User /> : <Login />} />
-          <Route path="/settings" element={isAuthenticated ? <Settings /> : <Login />} />
-          <Route path="/addProduct" element={isAuthenticated ? <AddProduct /> : <Login />} />
-          <Route path="*" element={<Error />} />
-        </Routes>
-      </main>
-      <Footer />
+      <div className="d-flex flex-column min-vh-100">
+        <Header />
+        <main className="text-center flex-grow-1">
+          {loading && <Spinners />}
+          <Routes>
+            <Route path="/" element={isAuthenticated ? <Navigate to={'/user'} /> : <Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/enter/:email/:magicLink" element={<Enter />} />
+            <Route path="/user" element={isAuthenticated ? <User /> : <Login />} />
+            <Route path="/settings" element={isAuthenticated ? <Settings /> : <Login />} />
+            <Route path="/addProduct" element={isAuthenticated ? <AddProduct /> : <Login />} />
+            <Route path="*" element={<Error />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
     </HashRouter>
   )
 }
