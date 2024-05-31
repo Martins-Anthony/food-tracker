@@ -1,19 +1,8 @@
 require('dotenv').config()
 const User = require('../models/User')
-const validator = require('validator')
 const { v4: uuidv4 } = require('uuid')
 const { sendMagicLink } = require('./emails.js')
 const { checkMagicLink } = require('./magicLink/check')
-
-const validateInput = (email) => {
-  if (!email || !validator.isEmail(email)) {
-    throw new Error('Invalid email')
-  }
-}
-
-const findUserByEmail = async (email) => {
-  return await User.findOne({ email: email })
-}
 
 const createUser = async (email) => {
   try {
@@ -32,11 +21,9 @@ const createUser = async (email) => {
 
 const register = async (req, res) => {
   const { email } = req.body
+  const { user } = req
+
   try {
-    validateInput(email)
-
-    const user = await findUserByEmail(email)
-
     if (user) {
       return res
         .status(200)
@@ -59,15 +46,9 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
   const { email, magicLink } = req.body
+  const { user } = req
 
   try {
-    validateInput(email)
-    const user = await findUserByEmail(email)
-    if (!user) {
-      return res
-        .status(404)
-        .json({ ok: false, message: 'Utilisateur non trouvé' })
-    }
     if (!magicLink) {
       await sendMagicLink(email, user.MagicLink.link, 'login')
       return res
@@ -86,18 +67,11 @@ const login = async (req, res) => {
 
 const resendLink = async (req, res) => {
   const { email } = req.body
+  const { user } = req
+
   try {
-    validateInput(email)
-    const user = await findUserByEmail(email)
-    if (!user) {
-      return res
-        .status(404)
-        .json({ ok: false, message: 'Utilisateur non trouvé' })
-    }
     await sendMagicLink(email, user.MagicLink.link, 'login')
-    return res
-      .status(200)
-      .json({ ok: true, message: 'Lien envoyé par email' })
+    return res.status(200).json({ ok: true, message: 'Lien envoyé par email' })
   } catch (error) {
     return res.status(400).json({ ok: false, error: 'Error finding user' })
   }
