@@ -4,13 +4,13 @@ const express = require('express')
 const passport = require('passport')
 const mongoose = require('mongoose')
 const path = require('path')
-const cors = require('./middleware/cors')
+const cors = require('cors')
 
 const userRoutes = require('./routes/users')
 
 const app = express()
 
-app.use(cors)
+app.use(cors())
 app.use(passport.initialize())
 
 app.use(express.static(path.join(__dirname, 'public')))

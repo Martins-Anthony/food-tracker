@@ -6,13 +6,12 @@ module.exports = (req, res, next) => {
       throw new Error('Authorization header missing')
     }
     const token = req.headers.authorization.split(' ')[1]
-
     const decoded = jwt.verify(token, jwt_secret)
 
     if (!decoded || !decoded.userId) {
       throw new Error('Invalid token')
     }
-
+  
     req.auth = {
       userId: decoded.userId,
     }

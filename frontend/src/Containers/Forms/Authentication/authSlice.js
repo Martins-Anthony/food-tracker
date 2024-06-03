@@ -3,6 +3,7 @@ import { enter } from './Enter/enterSlice'
 import { refreshAccessToken } from './AuthProvider/refreshAccessTokenSlice'
 import { resendLink } from './SignIn/resendLinkSlice'
 import { register } from './Register/registerSlice'
+import { urlApi } from '../../../utils/api/basePath'
 
 const initialState = {
   email: null,
@@ -11,7 +12,8 @@ const initialState = {
   isAuthenticated: false,
   error: null,
   loading: false,
-  resendLink: false
+  resendLink: false,
+  api: urlApi
 }
 export const authSlice = createSlice({
   name: 'auth',

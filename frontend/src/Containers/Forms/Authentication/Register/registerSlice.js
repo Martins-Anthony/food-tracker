@@ -1,11 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { urlApi } from '../../../../utils/api/basePath'
 import { showModal, setMessage } from '../../../Modal/modalSlice'
 
 export const register = createAsyncThunk('registerUser', async (payload, thunkAPI) => {
-  const { dispatch, rejectWithValue } = thunkAPI
+  const { dispatch, rejectWithValue, getState } = thunkAPI
   try {
-    const response = await fetch(urlApi + '/users/register', {
+    const response = await fetch(getState().auth.api + '/users/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

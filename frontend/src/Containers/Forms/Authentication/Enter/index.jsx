@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import Spinners from '../../../../Components/Spinners'
 import Modal from '../../../Modal'
 import { enter } from './enterSlice'
 import { select } from '../../../../App/store/selectors'
@@ -25,17 +24,13 @@ function Enter() {
   }, [email, magicLink])
 
   return (
-    <>
-      <Modal
-        id="errorModal"
-        idLabel="errorModalLabel"
-        title={messageModal}
-        body={<LinkSignup />}
-        isOpen={handleModal}
-      />
-
-      <Spinners />
-    </>
+    <Modal
+      id="errorModal"
+      idLabel="errorModalLabel"
+      title={messageModal}
+      body={<LinkSignup />}
+      isOpen={handleModal}
+    />
   )
 }
 

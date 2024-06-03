@@ -6,6 +6,7 @@ const { checkMagicLink } = require('./magicLink/check')
 
 const createUser = async (email) => {
   try {
+
     const newUser = {
       email: email,
       MagicLink: {
@@ -21,15 +22,8 @@ const createUser = async (email) => {
 
 const register = async (req, res) => {
   const { email } = req.body
-  const { user } = req
 
   try {
-    if (user) {
-      return res
-        .status(200)
-        .json({ ok: true, message: 'Vous êtes déjà inscrit' })
-    }
-
     const newUser = await createUser(email)
 
     await sendMagicLink(newUser.email, newUser.MagicLink.link, 'signup')
@@ -66,10 +60,10 @@ const login = async (req, res) => {
 }
 
 const resendLink = async (req, res) => {
-  const { email } = req.body
-  const { user } = req
-
   try {
+    const { email } = req.body
+    const user = req.user
+
     await sendMagicLink(email, user.MagicLink.link, 'login')
     return res.status(200).json({ ok: true, message: 'Lien envoyé par email' })
   } catch (error) {

@@ -1,5 +1,5 @@
 import React from 'react'
-import CreateStorageArea from '../../Containers/StorageArea/CreateStorageArea'
+import NewStorageArea from '../../Containers/StorageArea/NewStorageArea'
 import StockTable from '../../Components/StockTable'
 
 import { select } from '../../App/store/selectors'
@@ -14,7 +14,7 @@ function User() {
         <div className="mt-5">
           {storageArea.length === 0 ? (
             <div className="row justify-content-center">
-              <CreateStorageArea />
+              <NewStorageArea />
             </div>
           ) : (
             <>

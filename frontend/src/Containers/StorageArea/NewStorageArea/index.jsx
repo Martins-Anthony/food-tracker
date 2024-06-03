@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
+import { newStorageArea } from './newStorageAreaSlice'
 import { addStorageArea } from '../storageAreaSlice'
 
-function CreateStorageArea() {
+function NewStorageArea() {
   const dispatch = useDispatch()
   const [newStock, setNewStock] = useState('')
 
@@ -13,6 +14,7 @@ function CreateStorageArea() {
   const handleSubmitNewStock = (event) => {
     event.preventDefault()
     dispatch(addStorageArea(newStock))
+    dispatch(newStorageArea(newStock))
     setNewStock('')
   }
 
@@ -38,4 +40,4 @@ function CreateStorageArea() {
   )
 }
 
-export default CreateStorageArea
+export default NewStorageArea

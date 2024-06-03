@@ -1,10 +1,10 @@
 import FoodNewCategory from '../../Containers/Forms/FoodCategory/FoodNewCategory'
-import CreateStorageArea from '../../Containers/StorageArea/CreateStorageArea'
+import NewStorageArea from '../../Containers/StorageArea/NewStorageArea'
 
 function Setting() {
   return (
     <section className="container">
-      <CreateStorageArea />
+      <NewStorageArea />
       <FoodNewCategory />
     </section>
   )
