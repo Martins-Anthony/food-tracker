@@ -6,8 +6,8 @@ import { addItemToStorage } from '../storageItemSlice'
 import { Navigate } from 'react-router-dom'
 
 function Manually() {
-  const storageArea = useSelector(select.storageArea)
-  const storageAreaSelection = useSelector(select.storageAreaSelection)
+  const storageArea = useSelector(select.storage).data.storageArea
+  const storageAreaSelection = useSelector(select.storage).selected
   let selectedItemArea
   const dispatch = useDispatch()
   const [productName, setProduct] = useState('')
