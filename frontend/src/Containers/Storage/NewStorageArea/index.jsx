@@ -1,11 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { newStorageArea } from './newStorageAreaSlice'
-import { addStorageArea } from '../storageAreaSlice'
+import { getStorage } from '../getStorage'
 
 function NewStorageArea() {
   const dispatch = useDispatch()
   const [newStock, setNewStock] = useState('')
+  const refForm = React.createRef()
 
   const handleNewStock = (event) => {
     setNewStock(event.target.value)
@@ -13,13 +14,16 @@ function NewStorageArea() {
 
   const handleSubmitNewStock = (event) => {
     event.preventDefault()
-    dispatch(addStorageArea(newStock))
     dispatch(newStorageArea(newStock))
-    setNewStock('')
+    refForm.current.reset()
   }
 
+  useEffect(() => {
+    dispatch(getStorage())
+  }, [refForm])
+
   return (
-    <form onSubmit={handleSubmitNewStock} className="col-2">
+    <form ref={refForm} onSubmit={handleSubmitNewStock} className="col-2">
       <div className="my-3">
         <label className="form-label" htmlFor="InputAddStorageArea">
           zone de stockage

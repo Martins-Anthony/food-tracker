@@ -1,18 +1,25 @@
 import React from 'react'
-import NewStorageArea from '../../Containers/StorageArea/NewStorageArea'
+import NewStorageArea from '../../Containers/Storage/NewStorageArea'
 import StockTable from '../../Components/StockTable'
 
 import { select } from '../../App/store/selectors'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { useEffect } from 'react'
+import { getStorage } from '../../Containers/Storage/getStorage'
 
 function User() {
-  const storageArea = useSelector(select.storageArea)
+  const storageArea = useSelector(select.storage).data
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getStorage())
+  }, [dispatch])
 
   return (
     <section className="container">
       <div className="row justify-content-center align-items-center">
         <div className="mt-5">
-          {storageArea.length === 0 ? (
+          {storageArea === null || storageArea.storageArea.length === 0 ? (
             <div className="row justify-content-center">
               <NewStorageArea />
             </div>

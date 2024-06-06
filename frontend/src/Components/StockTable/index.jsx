@@ -6,7 +6,7 @@ import DateComparison from '../../Containers/DateComparison'
 import { links } from '../Icons/navLinks'
 
 function StockTable() {
-  const storageArea = useSelector(select.storageArea)
+  const storageArea = useSelector(select.storage).data.storageArea
   const storageItem = useSelector(select.storageItem)
 
   return (

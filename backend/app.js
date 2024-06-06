@@ -7,6 +7,7 @@ const path = require('path')
 const cors = require('cors')
 
 const userRoutes = require('./routes/users')
+const storageRoutes = require('./routes/storage')
 
 const app = express()
 
@@ -35,5 +36,6 @@ mongoose
   .catch((err) => console.log(err))
 
 app.use(`${basePathVersion}+/users`, userRoutes)
+app.use(`${basePathVersion}+/users/storage`, storageRoutes)
 
 module.exports = app

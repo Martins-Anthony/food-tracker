@@ -4,7 +4,7 @@ import { select } from '../../../App/store/selectors'
 import { storageAreaSelect } from './storageAreaSelectionSlice'
 
 function StorageAreaSelection() {
-  const storageArea = useSelector(select.storageArea)
+  const storageArea = useSelector(select.storage).data.storageArea
   const storageAreaSelection = useSelector(select.storageAreaSelection)
   const dispatch = useDispatch()
 

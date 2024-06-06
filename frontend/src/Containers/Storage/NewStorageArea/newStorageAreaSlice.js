@@ -6,7 +6,7 @@ export const newStorageArea = createAsyncThunk(
     const { getState, rejectWithValue } = thunkAPI
     try {
       const { auth } = getState()
-      const response = await fetch(auth.api + '/users/storageArea', {
+      const response = await fetch(auth.api + '/users/storage/storageArea', {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${auth.token}`,

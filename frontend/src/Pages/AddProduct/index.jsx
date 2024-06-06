@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Manually from '../../Containers/Forms/Adding/Product/Manually'
-import StorageAreaSelection from '../../Containers/StorageArea/StorageAreaSelection'
+import StorageAreaSelection from '../../Containers/Storage/StorageAreaSelection'
 import Scanner from '../../Components/Scanner'
 
 function AddProduct() {

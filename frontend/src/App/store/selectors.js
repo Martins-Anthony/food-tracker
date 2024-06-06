@@ -4,5 +4,6 @@ export const select = {
   storageAreaSelection: (state) => state.storageAreaSelection.areaNameSelected,
   foodCategory: (state) => state.foodCategory,
   auth: (state) => state.auth,
+  storage: (state) => state.storage,
   modal: (state) => state.modal
 }
