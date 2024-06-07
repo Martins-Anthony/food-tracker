@@ -5,8 +5,8 @@ export const TYPE_FIELD = {
 }
 
 function Fields({ type }) {
-  let component
-  let idComponent
+  let component = null
+  let idComponent = null
 
   switch (type) {
     case TYPE_FIELD.INPUT_MAIL:
@@ -23,12 +23,11 @@ function Fields({ type }) {
         />
       )
       break
-
     default:
-      idComponent = null
-      component = null
       break
   }
+
+  if (!component) return null
 
   return (
     <div className="mb-3 col-8 col-md-7">
