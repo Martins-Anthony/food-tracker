@@ -7,6 +7,11 @@ const storageSchema = mongoose.Schema({
     unique: true,
     default: [],
   },
+  storageItems: {
+    type: Object,
+    required: true,
+    default: {},
+  }
 })
 
 module.exports = storageSchema

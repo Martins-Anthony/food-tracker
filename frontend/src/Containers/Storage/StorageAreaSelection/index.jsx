@@ -5,7 +5,7 @@ import { storageAreaSelected } from '../storageSlice'
 
 function StorageAreaSelection() {
   const storageArea = useSelector(select.storage).data.storageArea
-  const storageAreaSelection = useSelector(select.storage).selected
+  const storageAreaSelection = useSelector(select.storage).data.storageArea[0]
   const dispatch = useDispatch()
 
   const handleStorageAreaSelected = (event) => {
