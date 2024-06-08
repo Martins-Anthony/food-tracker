@@ -1,6 +1,5 @@
 import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom'
-import { Logo } from '../../Components/Logo'
 import Hero from './index'
 
 jest.mock('../../Components/Logo', () => ({
