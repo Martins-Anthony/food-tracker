@@ -5,7 +5,7 @@ import { resendLink } from './SignIn/resendLinkSlice'
 import { register } from './Register/registerSlice'
 import { urlApi } from '../../../utils/api/basePath'
 
-const initialState = {
+export const initialState = {
   email: null,
   magicLink: null,
   token: null,
