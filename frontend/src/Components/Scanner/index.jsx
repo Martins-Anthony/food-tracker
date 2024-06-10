@@ -64,7 +64,7 @@ const Scanner = (props) => {
     onDetected(result.codeResult.code)
   }
 
-  return <div id="interactive" className="viewport" />
+  return <div id="interactive" className="viewport" role="region" aria-label="barcode-scanner" />
 }
 
 Scanner.propTypes = {
