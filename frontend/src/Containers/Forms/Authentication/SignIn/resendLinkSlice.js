@@ -1,11 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { urlApi } from '../../../../utils/api/basePath'
 import { setMessage } from '../../../Modal/modalSlice'
 
 export const resendLink = createAsyncThunk('resendLink', async (payload, thunkAPI) => {
-  const { rejectWithValue, dispatch } = thunkAPI
+  const { rejectWithValue, dispatch, getState } = thunkAPI
   try {
-    const response = await fetch(urlApi + '/users/resendLink', {
+    const response = await fetch(getState().auth.api + '/users/resendLink', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
