@@ -1,4 +1,4 @@
-const basePathVersion = require('./utils/api/basePath')
+const basePathVersion = require('../utils/api/basePath')
 require('dotenv').config()
 const express = require('express')
 const passport = require('passport')
@@ -6,8 +6,8 @@ const mongoose = require('mongoose')
 const path = require('path')
 const cors = require('cors')
 
-const userRoutes = require('./routes/users')
-const storageRoutes = require('./routes/storage')
+const userRoutes = require('../routes/users')
+const storageRoutes = require('../routes/storage')
 
 const app = express()
 

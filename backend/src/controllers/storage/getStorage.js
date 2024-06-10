@@ -4,7 +4,7 @@ exports.getStorage = async (req, res) => {
   const { userId } = req.auth
   try {
     const user = await User.findOne({ _id: userId })
-    
+
     if (!user) {
       return res.status(404).json({ error: 'User not found' })
     }
