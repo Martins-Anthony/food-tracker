@@ -1,5 +1,3 @@
-import React from 'react'
-
 function DateToday() {
   const today = new Date()
   const day = String(today.getDate()).padStart(2, '0')
