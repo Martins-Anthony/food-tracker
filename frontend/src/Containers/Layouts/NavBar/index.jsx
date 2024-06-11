@@ -1,7 +1,6 @@
 import React, { useState, useEffect, cloneElement } from 'react'
 import { NavLink } from 'react-router-dom'
 import { Logo } from '../../../Components/Logo'
-import DateToday from '../../DateToday'
 import { links } from '../../../Components/Icons/navLinks'
 import { select } from '../../../App/store/selectors'
 import { useSelector } from 'react-redux'
@@ -64,7 +63,6 @@ function Navbar() {
       <nav className="navbar navbar-expand-md bg-light navbar-light fixed-top">
         <div className="container">
           <Logo />
-          <DateToday />
           <button
             className="navbar-toggler"
             type="button"
@@ -91,3 +89,16 @@ function Navbar() {
 }
 
 export default Navbar
+
+/*
+<button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          */

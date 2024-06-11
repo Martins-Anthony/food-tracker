@@ -23,7 +23,7 @@ function Footer() {
     )
   })
   return (
-    <footer className="border-top footer mt-5">
+    <footer className="border-top footer">
       <div className="container py-3">
         <div className="row align-items-center">
           <div className="col-12 col-md-4">

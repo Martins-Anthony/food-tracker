@@ -22,7 +22,7 @@ function AppRouter() {
     <HashRouter>
       <div className="d-flex flex-column min-vh-100">
         <Header />
-        <main className="text-center flex-grow-1">
+        <main className="text-center d-flex flex-column flex-grow-1">
           <Routes>
             <Route
               path="/"
