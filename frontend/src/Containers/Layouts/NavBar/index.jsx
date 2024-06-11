@@ -1,7 +1,7 @@
 import React, { useState, useEffect, cloneElement } from 'react'
 import { NavLink } from 'react-router-dom'
 import { Logo } from '../../../Components/Logo'
-import { links } from '../../../Components/Icons/navLinks'
+import { iconsLibrary } from '../../../Components/Icons/library'
 import { select } from '../../../App/store/selectors'
 import { useSelector } from 'react-redux'
 import Modal from '../../Modal'
@@ -9,6 +9,7 @@ import Modal from '../../Modal'
 function Navbar() {
   const isAuthenticated = useSelector(select.auth).isAuthenticated
   const [renderedLinks, setRenderedLinks] = useState([])
+  const connectionIcon = iconsLibrary.navbar.find((link) => link.name === 'connection').icon
 
   const renderedLogin = (
     <li className="nav-item">
@@ -18,7 +19,7 @@ function Navbar() {
         data-bs-placement="top"
         title="connection"
         data-bs-toggle="tooltip">
-        {cloneElement(links[3].icon, {
+        {cloneElement(connectionIcon, {
           width: 24,
           height: 24
         })}
@@ -29,10 +30,10 @@ function Navbar() {
   useEffect(() => {
     function fetchLinks() {
       const filteredLinks = isAuthenticated
-        ? links.filter((link) => link.name === 'connection')
-        : links.filter((link) => link.name === 'disconnection')
+        ? iconsLibrary.navbar.filter((link) => link.name === 'connection')
+        : iconsLibrary.navbar.filter((link) => link.name === 'disconnection')
 
-      const rendered = links.map((link, index) => {
+      const rendered = iconsLibrary.navbar.map((link, index) => {
         if (filteredLinks.length > 0 && link.name !== filteredLinks[0].name) {
           return (
             <li key={index} className="nav-item">
@@ -89,16 +90,3 @@ function Navbar() {
 }
 
 export default Navbar
-
-/*
-<button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          */

@@ -2,10 +2,10 @@ import React, { cloneElement } from 'react'
 import { NavLink } from 'react-router-dom'
 import { Logo } from '../../../Components/Logo'
 import Modal from '../../Modal'
-import { iconsSocialNetworks } from '../../../Components/Icons/socialNetworks'
+import { iconsLibrary } from '../../../Components/Icons/library'
 
 function Footer() {
-  const iconsSocial = iconsSocialNetworks.map((icon, index) => {
+  const iconsSocial = iconsLibrary.socialNetworks.map((icon, index) => {
     return (
       <li className="list-inline-item" key={index}>
         <NavLink
