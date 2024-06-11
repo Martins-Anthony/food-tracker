@@ -1,5 +1,5 @@
 import FoodNewCategory from '../../Containers/Forms/FoodCategory/FoodNewCategory'
-import NewStorageArea from '../../Containers/Storage/NewStorageArea'
+import NewStorageArea from '../../Containers/Storage/Post/NewStorageArea'
 
 function Setting() {
   return (

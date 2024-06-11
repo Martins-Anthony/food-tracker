@@ -1,11 +1,11 @@
 import React from 'react'
-import NewStorageArea from '../../Containers/Storage/NewStorageArea'
+import NewStorageArea from '../../Containers/Storage/Post/NewStorageArea'
 import StockTable from '../../Components/StockTable'
 
 import { select } from '../../App/store/selectors'
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react'
-import { getStorage } from '../../Containers/Storage/getStorage'
+import { getStorage } from '../../Containers/Storage/Get/getStorage'
 
 function User() {
   const storageArea = useSelector(select.storage).data

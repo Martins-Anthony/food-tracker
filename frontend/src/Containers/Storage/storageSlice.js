@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { getStorage } from './getStorage'
+import { getStorage } from './Get/getStorage'
 
 const storageSlice = createSlice({
   name: 'storage',

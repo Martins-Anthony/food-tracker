@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { newStorageArea } from './newStorageAreaSlice'
-import { getStorage } from '../getStorage'
+import { getStorage } from '../../Get/getStorage'
 
 function NewStorageArea() {
   const dispatch = useDispatch()
