@@ -1,0 +1,62 @@
+$font-size-base: 1rem;
+$font-size-lg: 1.25rem;
+$font-size-xl: 1.5rem;
+$font-size-xxl: 2rem;
+
+$title-size-sm: 1.5rem;
+$title-size-md: 2rem;
+$title-size-lg: 2.5rem;
+$title-size-xl: 3rem;
+$title-size-xxl: 4rem;
+
+@mixin text-responsive($base-size, $lg-size, $xl-size, $xxl-size) {
+  font-size: $base-size;
+
+  @include media-breakpoint-up(sm) {
+    font-size: $lg-size;
+  }
+
+  @include media-breakpoint-up(md) {
+    font-size: $xl-size;
+  }
+
+  @include media-breakpoint-up(lg) {
+    font-size: $xxl-size;
+  }
+}
+
+.text-base {
+  @include text-responsive($font-size-base, $font-size-lg, $font-size-xl, $font-size-xxl);
+}
+
+@mixin title-responsive($sm-size, $md-size, $lg-size, $xl-size, $xxl-size) {
+  font-size: $sm-size;
+
+  @include media-breakpoint-up(sm) {
+    font-size: $md-size;
+  }
+
+  @include media-breakpoint-up(md) {
+    font-size: $lg-size;
+  }
+
+  @include media-breakpoint-up(lg) {
+    font-size: $xl-size;
+  }
+
+  @include media-breakpoint-up(xl) {
+    font-size: $xxl-size;
+  }
+}
+
+.h1-responsive {
+  @include title-responsive($title-size-md, $title-size-lg, $title-size-xl, $title-size-xxl, $title-size-xxl);
+}
+
+.h2-responsive {
+  @include title-responsive($title-size-sm, $title-size-md, $title-size-lg, $title-size-xl, $title-size-xxl);
+}
+
+.h3-responsive {
+  @include title-responsive($font-size-lg, $font-size-xl, $font-size-xxl, $title-size-lg, $title-size-xl);
+}

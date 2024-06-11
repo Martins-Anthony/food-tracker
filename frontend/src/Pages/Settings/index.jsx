@@ -36,7 +36,7 @@ function Setting() {
         <div className="container bg-light border rounded-4">
           <div className="row my-4">
             <div className="col">
-              <h2 className="fs-3">zone de stockage :</h2>
+              <h2 className="text-base">zone de stockage :</h2>
             </div>
             <div className="col">
               <ul className="list-inline ">
