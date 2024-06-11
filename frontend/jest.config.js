@@ -1,4 +1,5 @@
 module.exports = {
+  rootDir: './',
   setupFilesAfterEnv: ['<rootDir>/src/setupTests.js', '<rootDir>/jest.setup.js'],
   testEnvironment: 'jsdom',
   transform: {

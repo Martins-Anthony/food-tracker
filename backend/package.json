@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node src/server/server.js",
     "dev": "nodemon src/server/server.js",
-    "test": "jest"
+    "test": "jest --config jest.config.js"
   },
   "author": "webcraft-anthony",
   "license": "ISC",
