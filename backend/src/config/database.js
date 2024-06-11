@@ -19,7 +19,7 @@ const closeDB = async () => {
     await mongoose.connection.close()
     console.log('MongoDB Disconnected')
   } catch (err) {
-    console.error(err.message)
+    console.error('Error disconnecting from MongoDB:', err.message)
   }
 }
 
