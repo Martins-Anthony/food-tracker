@@ -8,10 +8,10 @@ import Buttons, { BUTTONS_TYPES } from '../../Components/Buttons'
 function Home() {
   return (
     <>
-      <section className="container mt-5">
+      <section className="container my-5">
         <Hero />
       </section>
-      <section className="container mt-5 text-start">
+      <section className="container my-5 text-start">
         <div className="row align-items-center">
           <div className="col-12 col-md-5">
             <h2 className="fw-light mb-4">Simplifiez la gestion de vos aliments</h2>
@@ -32,7 +32,7 @@ function Home() {
           </div>
         </div>
       </section>
-      <section className="container mt-5 text-start">
+      <section className="container my-5 text-start">
         <div className="row justify-content-center align-items-center">
           <div className="col-12 col-md-6">
             <img
@@ -53,14 +53,14 @@ function Home() {
           </div>
         </div>
       </section>
-      <section className="container mt-5">
+      <section className="container my-5">
         <div className="row gy-4 gy-md-0 mt-4">
           {data.cards.map((item, index) => {
             return <Cards title={item.title} items={item.text} key={index} type={'presentation'} />
           })}
         </div>
       </section>
-      <section className="container mt-5 text-start">
+      <section className="container my-5 text-start">
         <div className="row justify-content-center align-items-center">
           <div className="col-12 col-md-5">
             <h2 className="mb-4">

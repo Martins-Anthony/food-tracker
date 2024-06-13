@@ -6,6 +6,7 @@ import { select } from '../../App/store/selectors'
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 import { getStorage } from '../../Containers/Storage/Get/getStorage'
+import { WelcomeMessage } from '../../Components/WelcomeMessage'
 
 function User() {
   const storageArea = useSelector(select.storage).data
@@ -21,6 +22,7 @@ function User() {
         <div className="mt-5">
           {storageArea === null || storageArea.storageArea.length === 0 ? (
             <div className="row justify-content-center">
+              <WelcomeMessage />
               <NewStorageArea />
             </div>
           ) : (

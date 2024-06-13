@@ -23,10 +23,9 @@ function NewStorageArea() {
   }, [refForm])
 
   return (
-    <form ref={refForm} onSubmit={handleSubmitNewStock} className="col-2">
+    <form ref={refForm} onSubmit={handleSubmitNewStock} className="col">
       <div className="my-3">
         <label className="form-label" htmlFor="InputAddStorageArea">
-          zone de stockage
           <input
             type="text"
             name="newStorageArea"
