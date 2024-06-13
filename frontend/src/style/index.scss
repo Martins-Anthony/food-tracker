@@ -11,3 +11,8 @@
 
 @import "../Pages/Error/error.scss";
 @import "../Pages/Home/home.scss";
+
+.style-background {
+  background: rgb(255, 153, 51);
+  background: linear-gradient(180deg, rgba(255, 153, 51, 1) 39%, rgba(255, 66, 27, 1) 89%);
+}

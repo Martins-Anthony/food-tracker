@@ -25,7 +25,7 @@ function AppRouter() {
         <Header />
         <div className="d-flex flex-grow-1">
           {isAuthenticated ? <Sidebar /> : null}
-          <main className="text-center d-flex flex-column flex-grow-1">
+          <main className="text-center d-flex flex-column flex-grow-1 style-background">
             <Routes>
               <Route
                 path="/"
