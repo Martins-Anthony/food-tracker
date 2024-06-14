@@ -1,22 +1,42 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { select } from '../../App/store/selectors'
 import DateComparison from '../../Containers/DateComparison'
-import { iconsLibrary } from '../Icons/library'
+import { iconsLibrary, iconList } from '../Icons/library'
 import Cards from '../Cards'
+import { showModal } from '../../Containers/Modal/modalSlice'
+import Modal from '../../Containers/Modal'
 
 function StockTable() {
   const storageArea = useSelector(select.storage).data.storageArea
   const storageItem = useSelector(select.storageItem)
+  const handleModal = useSelector(select.modal).show
+  const dispatch = useDispatch()
+
+  const handleClick = (event) => {
+    event.preventDefault()
+    dispatch(showModal('test'))
+  }
 
   return (
     <section className="container">
-      {storageArea.map((storageAreaItem, length) => {
+      {storageArea.map((storageAreaItem, index) => {
         return (
           <>
-            <div key={length}>
-              <h2>{storageAreaItem}</h2>
+            <div key={index}>
+              <div className="d-flex justify-content-center align-items-center">
+                <h2 className="me-3">{storageAreaItem}</h2>
+                <button type="button" className="btn btn-outline-secondary" onClick={handleClick}>
+                  {iconList.editIcon}
+                </button>
+                <Modal
+                  id="messageModal"
+                  body={<span>{storageAreaItem && storageArea[index]}</span>}
+                  title="Mode edition"
+                  isOpen={handleModal}
+                />
+              </div>
               <p>
                 (Nombre de produits :{' '}
                 {storageItem[storageAreaItem] && storageItem[storageAreaItem].length})

@@ -49,7 +49,7 @@ function Modal({ id, title, body, footer, isOpen }) {
       <div className="modal-dialog modal-dialog-centered">
         <div className="modal-content">
           <div className="modal-header">
-            <h1 className="modal-title fs-5" id={`${id}Label`}>
+            <h1 className="modal-title fs-5 text-dark" id={`${id}Label`}>
               {title}
             </h1>
             <button

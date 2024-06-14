@@ -9,3 +9,8 @@ export const iconsLibrary = {
   sidebar: sidebarIcon,
   unclassifiable: unclassifiable
 }
+
+export const iconList = {
+  deleteIcon: iconsLibrary.unclassifiable.find((icon) => icon.name === 'delete').icon,
+  editIcon: iconsLibrary.unclassifiable.find((icon) => icon.name === 'edit').icon
+}

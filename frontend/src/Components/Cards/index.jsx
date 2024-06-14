@@ -1,12 +1,10 @@
 import PropTypes from 'prop-types'
 import RoundedImage from '../RoundedImage'
 import imageTest from '../../assets/bocaux.jpg'
-import { iconsLibrary } from '../../Components/Icons/library'
+import { iconList } from '../../Components/Icons/library'
 function Cards({ title, type, items }) {
   let component = null
   const defaultImage = { src: imageTest, alt: 'default image' }
-  const deleteIcon = iconsLibrary.unclassifiable.find((icon) => icon.name === 'delete').icon
-  const editIcon = iconsLibrary.unclassifiable.find((icon) => icon.name === 'edit').icon
 
   switch (type) {
     case 'presentation':
@@ -37,10 +35,10 @@ function Cards({ title, type, items }) {
             <div className="card-body">
               <ul className="list-group list-group-flush">{items}</ul>
               <button type="button" className="btn btn-outline-secondary me-4">
-                {editIcon}
+                {iconList.editIcon}
               </button>
               <button type="button" className="btn btn-outline-danger">
-                {deleteIcon}
+                {iconList.deleteIcon}
               </button>
             </div>
           </div>
