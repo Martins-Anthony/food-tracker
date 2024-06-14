@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { select } from '../../App/store/selectors'
 import DateComparison from '../../Containers/DateComparison'
-import { links } from '../Icons/navLinks'
+import { iconsLibrary } from '../Icons/library'
 import Cards from '../Cards'
 
 function StockTable() {
@@ -39,7 +39,8 @@ function StockTable() {
                   })
                 ) : (
                   <span>
-                    Aucun élément trouvé <Link to={links[2].link}>{links[2].icon}</Link>
+                    Aucun élément trouvé{' '}
+                    <Link to={iconsLibrary.navbar[2].link}>{iconsLibrary.navbar[2].icon}</Link>
                   </span>
                 )}
               </div>

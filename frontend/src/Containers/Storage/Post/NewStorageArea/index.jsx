@@ -12,9 +12,10 @@ function NewStorageArea() {
     setNewStock(event.target.value)
   }
 
-  const handleSubmitNewStock = (event) => {
+  const handleSubmitNewStock = async (event) => {
     event.preventDefault()
-    dispatch(newStorageArea(newStock))
+    await dispatch(newStorageArea(newStock))
+    dispatch(getStorage())
     refForm.current.reset()
   }
 

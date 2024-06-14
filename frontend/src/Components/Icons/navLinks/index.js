@@ -19,7 +19,7 @@ export const links = [
   },
   {
     name: 'settings',
-    link: '/settings',
+    link: '/user/settings',
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -36,7 +36,7 @@ export const links = [
   },
   {
     name: 'ajout produit',
-    link: '/addProduct',
+    link: '/user/addProduct',
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"

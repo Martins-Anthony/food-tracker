@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { iconsLibrary } from '../../../Components/Icons/library'
+import NavItems from '../../../Components/NavItems'
 function Sidebar() {
   const [isSidebarVisible, setSidebarVisible] = useState(false)
 
@@ -17,11 +18,7 @@ function Sidebar() {
   return (
     <>
       <div className={`col-2 p-0 sidebar text-center ${isSidebarVisible ? 'show' : ''}`}>
-        <ul className="nav nav-tabs flex-column bg-light navbar-light fixed-right h-100 pt-5">
-          <li className="nav-item">
-            <button className="btn btn-primary">zone de stockage</button>
-          </li>
-        </ul>
+        <NavItems />
       </div>
       <div className="d-md-none p-2 mt-5">
         <button className="btn btn-primary" onClick={toggleSidebar}>

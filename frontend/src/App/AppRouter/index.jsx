@@ -9,6 +9,7 @@ import Settings from '../../Pages/Settings'
 import Error from '../../Pages/Error'
 import AddProduct from '../../Pages/AddProduct'
 import User from '../../Pages/User'
+import PostStorages from '../../Pages/User/PostStorages'
 import Login from '../../Pages/Login'
 import Signup from '../../Pages/Signup'
 import Enter from '../../Containers/Forms/Authentication/Enter'
@@ -35,8 +36,12 @@ function AppRouter() {
               <Route path="/signup" element={<Signup />} />
               <Route path="/enter/:email/:magicLink" element={<Enter />} />
               <Route path="/user" element={<ProtectedRoute element={User} />} />
-              <Route path="/settings" element={<ProtectedRoute element={Settings} />} />
-              <Route path="/addProduct" element={<ProtectedRoute element={AddProduct} />} />
+              <Route path="/user/settings" element={<ProtectedRoute element={Settings} />} />
+              <Route
+                path="/user/postStorages"
+                element={<ProtectedRoute element={PostStorages} />}
+              />
+              <Route path="/user/addProduct" element={<ProtectedRoute element={AddProduct} />} />
               <Route path="*" element={<Error />} />
             </Routes>
           </main>
