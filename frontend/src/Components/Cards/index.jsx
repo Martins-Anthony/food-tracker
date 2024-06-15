@@ -57,7 +57,7 @@ function Cards({ title, type, items }) {
 Cards.propTypes = {
   title: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
-  items: PropTypes.string.isRequired
+  items: PropTypes.node.isRequired
 }
 
 export default Cards

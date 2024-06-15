@@ -2,11 +2,16 @@ import { select } from '../../App/store/selectors'
 import { useSelector } from 'react-redux'
 import { iconsLibrary } from '../../Components/Icons/library'
 import { Link } from 'react-router-dom'
+import Spinners from '../../Components/Spinners'
 
 function NavItems() {
-  const storageArea = useSelector(select.storage).data.storageArea
-  // const deleteIcon = iconsLibrary.unclassifiable.find((icon) => icon.name === 'delete').icon
-  // const editIcon = iconsLibrary.unclassifiable.find((icon) => icon.name === 'edit').icon
+  const storageData = useSelector(select.storage)
+
+  if (!storageData || !storageData.data) {
+    return <Spinners />
+  }
+
+  const storageArea = storageData.data.storageArea
 
   return (
     <ul className="nav nav-tabs flex-column bg-light h-100 pt-5">

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { select } from '../../App/store/selectors'
@@ -11,12 +11,12 @@ import Modal from '../../Containers/Modal'
 function StockTable() {
   const storageArea = useSelector(select.storage).data.storageArea
   const storageItem = useSelector(select.storageItem)
-  const handleModal = useSelector(select.modal).show
+  const selectModal = useSelector(select.modal)
   const dispatch = useDispatch()
 
   const handleClick = (event) => {
     event.preventDefault()
-    dispatch(showModal('test'))
+    dispatch(showModal(event.target.dataset.tag))
   }
 
   return (
@@ -24,18 +24,16 @@ function StockTable() {
       {storageArea.map((storageAreaItem, index) => {
         return (
           <>
-            <div key={index}>
+            <div key={storageArea[index]}>
               <div className="d-flex justify-content-center align-items-center">
                 <h2 className="me-3">{storageAreaItem}</h2>
-                <button type="button" className="btn btn-outline-secondary" onClick={handleClick}>
+                <button
+                  type="button"
+                  className="btn btn-outline-secondary"
+                  data-tag={storageAreaItem}
+                  onClick={handleClick}>
                   {iconList.editIcon}
                 </button>
-                <Modal
-                  id="messageModal"
-                  body={<span>{storageAreaItem && storageArea[index]}</span>}
-                  title="Mode edition"
-                  isOpen={handleModal}
-                />
               </div>
               <p>
                 (Nombre de produits :{' '}
@@ -43,7 +41,7 @@ function StockTable() {
               </p>
               <div className="row gy-4 gy-md-0 mt-4 mb-5">
                 {storageItem[storageAreaItem] ? (
-                  storageItem[storageAreaItem].map((item, index) => {
+                  storageItem[storageAreaItem].map((item, itemIndex) => {
                     const date = new Date(item.date)
                     const formattedDate = date.toLocaleDateString()
                     const result = (
@@ -55,7 +53,14 @@ function StockTable() {
                         </li>
                       </>
                     )
-                    return <Cards key={index} type={'product'} title={item.name} items={result} />
+                    return (
+                      <Cards
+                        key={`product-${index}-${itemIndex}`}
+                        type={'product'}
+                        title={item.name}
+                        items={result}
+                      />
+                    )
                   })
                 ) : (
                   <span>
@@ -68,6 +73,12 @@ function StockTable() {
           </>
         )
       })}
+      <Modal
+        id="messageModal"
+        body={<span>{selectModal.message}</span>}
+        title="Mode edition"
+        isOpen={selectModal.show}
+      />
     </section>
   )
 }
