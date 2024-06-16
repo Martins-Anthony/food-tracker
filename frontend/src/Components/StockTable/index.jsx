@@ -1,4 +1,3 @@
-import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { select } from '../../App/store/selectors'
@@ -9,7 +8,7 @@ import { showModal } from '../../Containers/Modal/modalSlice'
 import Modal from '../../Containers/Modal'
 
 function StockTable() {
-  const storageArea = useSelector(select.storage).data.storageArea
+  const storageData = useSelector(select.storage)
   const storageItem = useSelector(select.storageItem)
   const selectModal = useSelector(select.modal)
   const dispatch = useDispatch()
@@ -21,16 +20,16 @@ function StockTable() {
 
   return (
     <section className="container">
-      {storageArea.map((storageAreaItem, index) => {
+      {storageData.data.map((storageAreaItem, index) => {
         return (
           <>
-            <div key={storageArea[index]}>
+            <div key={storageAreaItem[index]}>
               <div className="d-flex justify-content-center align-items-center">
-                <h2 className="me-3">{storageAreaItem}</h2>
+                <h2 className="me-3">{storageAreaItem.name}</h2>
                 <button
                   type="button"
                   className="btn btn-outline-secondary"
-                  data-tag={storageAreaItem}
+                  data-tag={storageAreaItem.name}
                   onClick={handleClick}>
                   {iconList.editIcon}
                 </button>

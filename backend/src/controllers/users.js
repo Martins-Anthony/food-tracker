@@ -6,7 +6,6 @@ const { checkMagicLink } = require('./magicLink/check')
 
 const createUser = async (email) => {
   try {
-
     const newUser = {
       email: email,
       MagicLink: {

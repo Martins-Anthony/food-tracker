@@ -1,17 +1,17 @@
 const mongoose = require('mongoose')
 
-const storageSchema = mongoose.Schema({
-  storageArea: {
-    type: Array,
-    required: true,
-    unique: true,
-    default: [],
+const storageSchema = mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    items: {
+      type: [String],
+      required: true,
+    },
   },
-  storageItems: {
-    type: Object,
-    required: true,
-    default: {},
-  }
-})
+  { _id: false },
+)
 
 module.exports = storageSchema

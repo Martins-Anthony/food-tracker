@@ -30,10 +30,10 @@ const userSchema = mongoose.Schema(
       },
     },
     storage: {
-      type: storageSchema,
+      type: [storageSchema],
       required: true,
-      default: {},
-    }
+      default: [],
+    },
   },
   { strictQuery: false },
 )

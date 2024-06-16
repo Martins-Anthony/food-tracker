@@ -20,7 +20,7 @@ function User() {
     <section className="container">
       <div className="row justify-content-center align-items-center">
         <div className="mt-5">
-          {storageArea === null || storageArea.storageArea.length === 0 ? (
+          {storageArea === null || storageArea.length === undefined || storageArea.length === 0 ? (
             <div className="row justify-content-center">
               <WelcomeMessage />
               <NewStorageArea />
@@ -37,3 +37,4 @@ function User() {
 }
 
 export default User
+// || storageArea.storageArea.length === 0
