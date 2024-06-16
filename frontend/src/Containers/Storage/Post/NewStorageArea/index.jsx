@@ -16,7 +16,7 @@ function NewStorageArea() {
     event.preventDefault()
     await dispatch(newStorageArea(newStock))
     dispatch(getStorage())
-    refForm.current.reset()
+    // refForm.current.reset()
   }
 
   useEffect(() => {

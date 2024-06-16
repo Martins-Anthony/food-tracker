@@ -11,7 +11,7 @@ function NavItems() {
     return <Spinners />
   }
 
-  const storageArea = storageData.data.storageArea
+  const storageArea = storageData.data
 
   return (
     <ul className="nav nav-tabs flex-column bg-light h-100 pt-5">
@@ -31,7 +31,7 @@ function NavItems() {
               storageArea.map((storage, index) => {
                 return (
                   <li className="dropdown-item" key={index}>
-                    <button className="dropdown-item">{storage}</button>
+                    <button className="dropdown-item">{storage.name}</button>
                   </li>
                 )
               })}

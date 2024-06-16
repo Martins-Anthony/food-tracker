@@ -1,18 +1,18 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
-export const newStorageArea = createAsyncThunk(
-  'storageArea/createStorageArea',
-  async (newStorageArea, thunkAPI) => {
+export const deleteStorageArea = createAsyncThunk(
+  'storageArea/deleteStorageArea',
+  async (deleteStorageArea, thunkAPI) => {
     const { getState, rejectWithValue } = thunkAPI
     try {
       const { auth } = getState()
-      const response = await fetch(auth.api + '/users/storage/postStorageArea', {
-        method: 'POST',
+      const response = await fetch(auth.api + '/users/storage/deleteStorageArea', {
+        method: 'DELETE',
         headers: {
           Authorization: `Bearer ${auth.token}`,
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ newStorageArea })
+        body: JSON.stringify({ deleteStorageArea })
       })
       return response.json()
     } catch (error) {

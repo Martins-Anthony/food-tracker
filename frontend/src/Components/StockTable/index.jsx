@@ -6,6 +6,8 @@ import { iconsLibrary, iconList } from '../Icons/library'
 import Cards from '../Cards'
 import { showModal } from '../../Containers/Modal/modalSlice'
 import Modal from '../../Containers/Modal'
+import { deleteStorageArea } from '../../Containers/Storage/Delete/storageArea/deleteStorageArea'
+import { getStorage } from '../../Containers/Storage/Get/getStorage'
 
 function StockTable() {
   const storageData = useSelector(select.storage)
@@ -15,7 +17,15 @@ function StockTable() {
 
   const handleClick = (event) => {
     event.preventDefault()
-    dispatch(showModal(event.target.dataset.tag))
+    const tag = event.currentTarget.dataset.tag
+    dispatch(showModal(tag))
+  }
+
+  const handleClickDelete = async (event) => {
+    event.preventDefault()
+    const tag = event.currentTarget.dataset.tag
+    await dispatch(deleteStorageArea(tag))
+    dispatch(getStorage())
   }
 
   return (
@@ -32,6 +42,13 @@ function StockTable() {
                   data-tag={storageAreaItem.name}
                   onClick={handleClick}>
                   {iconList.editIcon}
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-outline-secondary"
+                  data-tag={storageAreaItem.name}
+                  onClick={handleClickDelete}>
+                  {iconList.deleteIcon}
                 </button>
               </div>
               <p>
