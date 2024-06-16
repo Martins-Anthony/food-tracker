@@ -8,11 +8,15 @@ import PropTypes from 'prop-types'
 function ProtectedRoute({ element: Component }) {
   const { isAuthenticated, loading } = useSelector(select.auth)
 
-  return loading ? <Spinners /> : isAuthenticated ? <Component /> : <Navigate to={'/login'} />
+  if (loading) {
+    return <Spinners />
+  }
+
+  return isAuthenticated ? <Component /> : <Navigate to={'/login'} />
 }
 
 ProtectedRoute.propTypes = {
-  element: PropTypes.elementType
+  element: PropTypes.elementType.isRequired
 }
 
 export default ProtectedRoute
