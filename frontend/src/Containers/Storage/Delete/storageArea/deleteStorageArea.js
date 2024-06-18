@@ -6,7 +6,7 @@ export const deleteStorageArea = createAsyncThunk(
     const { getState, rejectWithValue } = thunkAPI
     try {
       const { auth } = getState()
-      const response = await fetch(auth.api + '/users/storage/deleteStorageArea', {
+      const response = await fetch(auth.api + '/users/storage/StorageArea', {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${auth.token}`,

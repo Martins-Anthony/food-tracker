@@ -12,5 +12,8 @@ export const iconsLibrary = {
 
 export const iconList = {
   deleteIcon: iconsLibrary.unclassifiable.find((icon) => icon.name === 'delete').icon,
-  editIcon: iconsLibrary.unclassifiable.find((icon) => icon.name === 'edit').icon
+  editIcon: iconsLibrary.unclassifiable.find((icon) => icon.name === 'edit').icon,
+  checkIcon: iconsLibrary.unclassifiable.find((icon) => icon.name === 'check').icon,
+  chevronLeftIcon: iconsLibrary.sidebar.find((icon) => icon.name === 'chevron-left').icon,
+  chevronRightIcon: iconsLibrary.sidebar.find((icon) => icon.name === 'chevron-right').icon
 }

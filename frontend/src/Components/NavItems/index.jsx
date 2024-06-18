@@ -39,7 +39,7 @@ function NavItems() {
               <hr className="dropdown-divider" />
             </li>
             <li>
-              <Link className="dropdown-item" to={'/user/postStorages'}>
+              <Link className="dropdown-item" to={'/user/storages/name/post'}>
                 {iconsLibrary.navbar[2].icon} ajouter zone
               </Link>
             </li>

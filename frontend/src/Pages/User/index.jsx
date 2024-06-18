@@ -37,4 +37,3 @@ function User() {
 }
 
 export default User
-// || storageArea.storageArea.length === 0

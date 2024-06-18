@@ -1,12 +1,16 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
+import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
 import { newStorageArea } from './newStorageAreaSlice'
+import { putStorageArea } from '../../Put/putStorageArea'
 import { getStorage } from '../../Get/getStorage'
+// import { useParams } from 'react-router-dom'
 
-function NewStorageArea() {
+function NewStorageArea({ nameValue }) {
   const dispatch = useDispatch()
+  // const { methodRoutes } = useParams()
   const [newStock, setNewStock] = useState('')
-  const refForm = React.createRef()
+  const refForm = useRef(null)
 
   const handleNewStock = (event) => {
     setNewStock(event.target.value)
@@ -14,9 +18,14 @@ function NewStorageArea() {
 
   const handleSubmitNewStock = async (event) => {
     event.preventDefault()
-    await dispatch(newStorageArea(newStock))
+    if (nameValue === undefined) {
+      await dispatch(newStorageArea(newStock))
+    } else {
+      await dispatch(putStorageArea({ newStorageArea: newStock, oldStorageArea: nameValue }))
+    }
+    setNewStock('')
     dispatch(getStorage())
-    // refForm.current.reset()
+    refForm.current.reset()
   }
 
   useEffect(() => {
@@ -24,24 +33,39 @@ function NewStorageArea() {
   }, [refForm])
 
   return (
-    <form ref={refForm} onSubmit={handleSubmitNewStock} className="col">
-      <div className="my-3">
-        <label className="form-label" htmlFor="InputAddStorageArea">
-          <input
-            type="text"
-            name="newStorageArea"
-            placeholder="Ajouter un nom"
-            onChange={handleNewStock}
-            className="form-control mt-3"
-            id="InputAddStorageArea"
-          />
-        </label>
-      </div>
-      <button type="submit" className="btn btn-primary">
-        Validez
-      </button>
-    </form>
+    <div className="col-md-6 col-lg-4">
+      <form
+        ref={refForm}
+        onSubmit={handleSubmitNewStock}
+        className="border rounded-4 px-3"
+        style={{ minWidth: '200px' }}>
+        <div className="row justify-content-center">
+          <div className="col-auto pt-3">
+            <label className="form-label mb-0" htmlFor="InputAddStorageArea">
+              <input
+                type="text"
+                name="newStorageArea"
+                placeholder={nameValue === undefined ? 'Ajouter un nom' : nameValue}
+                onChange={handleNewStock}
+                className="form-control"
+                id="InputAddStorageArea"
+                value={newStock}
+              />
+            </label>
+          </div>
+          <div className="col-auto py-3">
+            <button type="submit" className="btn btn-primary">
+              Validez
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
   )
+}
+
+NewStorageArea.propTypes = {
+  nameValue: PropTypes.string
 }
 
 export default NewStorageArea

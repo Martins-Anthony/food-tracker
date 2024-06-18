@@ -4,8 +4,9 @@ const auth = require('../middleware/auth')
 const storageAreaCtrl = require('../controllers/storage/storageArea')
 const storageCtrl = require('../controllers/storage/getStorage')
 
-router.post('/postStorageArea', auth, storageAreaCtrl.postStorageArea)
-router.delete('/deleteStorageArea', auth, storageAreaCtrl.deleteStorageArea)
+router.post('/StorageArea', auth, storageAreaCtrl.postStorageArea)
+router.delete('/StorageArea', auth, storageAreaCtrl.deleteStorageArea)
+router.put('/StorageArea', auth, storageAreaCtrl.putStorageArea)
 router.get('/storages', auth, storageCtrl.getStorage)
 
 module.exports = router

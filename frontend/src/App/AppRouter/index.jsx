@@ -29,7 +29,7 @@ function AppRouter() {
       <div className="d-flex flex-column min-vh-100">
         <Header />
         <div className="d-flex flex-grow-1">
-          {isAuthenticated ? <Sidebar /> : null}
+          {isAuthenticated && <Sidebar />}
           <main className="text-center d-flex flex-column flex-grow-1 style-background">
             <LoadingWrapper>
               <Routes>
@@ -43,7 +43,7 @@ function AppRouter() {
                 <Route path="/user" element={<ProtectedRoute element={User} />} />
                 <Route path="/user/settings" element={<ProtectedRoute element={Settings} />} />
                 <Route
-                  path="/user/postStorages"
+                  path="/user/storages/name/:methodRoutes"
                   element={<ProtectedRoute element={PostStorages} />}
                 />
                 <Route path="/user/addProduct" element={<ProtectedRoute element={AddProduct} />} />
