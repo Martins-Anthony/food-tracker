@@ -1,16 +1,16 @@
-import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { select } from '../../../App/store/selectors'
 import { storageAreaSelected } from '../storageSlice'
 
 function StorageAreaSelection() {
-  const storageArea = useSelector(select.storage).data.storageArea
-  const storageAreaSelection = useSelector(select.storage).data.storageArea[0]
+  const storageData = useSelector(select.storage)
   const dispatch = useDispatch()
 
   const handleStorageAreaSelected = (event) => {
     dispatch(storageAreaSelected(event.target.value))
   }
+
+  const defaultStorageName = storageData.data.length > 0 ? storageData.data[0].name : ''
 
   return (
     <>
@@ -19,12 +19,12 @@ function StorageAreaSelection() {
         <select
           name="storageArea"
           onChange={handleStorageAreaSelected}
-          defaultValue={storageAreaSelection}
+          defaultValue={defaultStorageName}
           className="form-select">
-          {storageArea.map((item, index) => {
+          {storageData.data.map((item, index) => {
             return (
               <option key={index} value={item}>
-                {item}
+                {item.name}
               </option>
             )
           })}

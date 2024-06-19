@@ -14,7 +14,6 @@ import NewStorageArea from '../../Containers/Storage/Post/NewStorageArea'
 function StockTable() {
   const [editMode, setEditMode] = useState(false)
   const storageData = useSelector(select.storage)
-  const storageItem = useSelector(select.storageItem)
   const selectModal = useSelector(select.modal)
   const dispatch = useDispatch()
 
@@ -75,13 +74,10 @@ function StockTable() {
                 </button>
               )}
             </div>
-            <p>
-              (Nombre de produits :{' '}
-              {storageItem[storageAreaItem] && storageItem[storageAreaItem].length})
-            </p>
+            <p>(Nombre de produits : {storageAreaItem.name && storageAreaItem.items.length})</p>
             <div className="row gy-4 gy-md-0 mt-4 mb-5">
-              {storageItem[storageAreaItem] ? (
-                storageItem[storageAreaItem].map((item, itemIndex) => {
+              {storageAreaItem.name && storageAreaItem.items.length ? (
+                storageAreaItem.items.map((item, itemIndex) => {
                   const date = new Date(item.date)
                   const formattedDate = date.toLocaleDateString()
                   const result = (
