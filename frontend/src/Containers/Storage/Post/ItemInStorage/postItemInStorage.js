@@ -1,8 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
-export const postStorageArea = createAsyncThunk(
-  'storageArea/createStorageArea',
-  async (newItem, thunkAPI) => {
+export const postItemInStorage = createAsyncThunk(
+  'storageArea/createItemInStorage',
+  async ({ areaName, newItem }, thunkAPI) => {
     const { getState, rejectWithValue } = thunkAPI
     try {
       const { auth } = getState()
@@ -12,7 +12,7 @@ export const postStorageArea = createAsyncThunk(
           Authorization: `Bearer ${auth.token}`,
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ newItem })
+        body: JSON.stringify({ areaName, newItem })
       })
       return response.json()
     } catch (error) {

@@ -2,13 +2,12 @@ import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { select } from '../../../../../App/store/selectors'
 import FoodCategory from '../../../FoodCategory'
-import { addItemToStorage } from '../storageItemSlice'
 import { Navigate } from 'react-router-dom'
+import { postItemInStorage } from '../../../../Storage/Post/ItemInStorage/postItemInStorage'
 
 function Manually() {
-  const storageArea = useSelector(select.storage).data.storageArea
-  const storageAreaSelection = useSelector(select.storage).selected
-  let selectedItemArea
+  const storageData = useSelector(select.storage)
+
   const dispatch = useDispatch()
   const [productName, setProduct] = useState('')
   const [productCategory, setProductCategory] = useState('')
@@ -17,11 +16,6 @@ function Manually() {
   const [stock, setStock] = useState([])
   const [redirect, setRedirect] = useState(false)
 
-  if (storageAreaSelection === '') {
-    selectedItemArea = storageArea[0]
-  } else {
-    selectedItemArea = storageAreaSelection
-  }
   const handleProductName = (event) => {
     setProduct(event.target.value)
   }
@@ -41,9 +35,9 @@ function Manually() {
       { name: productName, category: productCategory, date: productDate, quantity: productQuantity }
     ])
     dispatch(
-      addItemToStorage({
-        areaName: selectedItemArea,
-        item: {
+      postItemInStorage({
+        areaName: storageData.selected,
+        newItem: {
           name: productName,
           category: productCategory,
           date: productDate,

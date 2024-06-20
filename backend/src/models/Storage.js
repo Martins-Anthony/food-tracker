@@ -7,7 +7,7 @@ const storageSchema = mongoose.Schema(
       required: true,
     },
     items: {
-      type: [String],
+      type: [Object],
       required: true,
     },
   },

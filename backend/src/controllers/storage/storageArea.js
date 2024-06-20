@@ -4,7 +4,6 @@ const deleteStorageArea = async (req, res) => {
   const { deleteStorageArea } = req.body
   const { userId } = req.auth
   try {
-    console.log('delete storage', userId)
     const user = await User.findOne({
       _id: userId,
       'storage.name': deleteStorageArea,
