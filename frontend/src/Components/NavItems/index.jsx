@@ -1,7 +1,7 @@
 import { select } from '../../App/store/selectors'
 import { useSelector } from 'react-redux'
 import { iconsLibrary } from '../../Components/Icons/library'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import Spinners from '../../Components/Spinners'
 
 function NavItems() {
@@ -39,13 +39,28 @@ function NavItems() {
               <hr className="dropdown-divider" />
             </li>
             <li>
-              <Link className="dropdown-item" to={'/user/storages/name/post'}>
+              <NavLink className="dropdown-item" to={'/user/storages/name/post'}>
                 {iconsLibrary.navbar[2].icon} ajouter zone
-              </Link>
+              </NavLink>
             </li>
           </ul>
         </div>
       </li>
+      {storageData.data.length > 0 ? (
+        <li className="mt-3">
+          <button className="btn btn-primary">
+            <NavLink
+              className="dropdown-item"
+              to={iconsLibrary.navbar[2].link}
+              data-bs-placement="top"
+              title={iconsLibrary.navbar[2].name}
+              data-bs-toggle={iconsLibrary.navbar[2].dataBsToggle}
+              data-bs-target={iconsLibrary.navbar[2].dataBsTarget}>
+              {iconsLibrary.navbar[2].icon} ajout produit
+            </NavLink>
+          </button>
+        </li>
+      ) : null}
     </ul>
   )
 }
