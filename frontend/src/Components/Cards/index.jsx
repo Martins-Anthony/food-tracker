@@ -1,8 +1,11 @@
+import { useSelector } from 'react-redux'
+import { select } from '../../App/store/selectors'
 import PropTypes from 'prop-types'
 import RoundedImage from '../RoundedImage'
 import imageTest from '../../assets/bocaux.jpg'
 import { iconList } from '../../Components/Icons/library'
 function Cards({ title, type, items }) {
+  const editMode = useSelector(select.editMode).status
   let component = null
   const defaultImage = { src: imageTest, alt: 'default image' }
 
@@ -34,12 +37,16 @@ function Cards({ title, type, items }) {
             </div>
             <div className="card-body">
               <ul className="list-group list-group-flush">{items}</ul>
-              <button type="button" className="btn btn-outline-secondary me-4">
-                {iconList.editIcon}
-              </button>
-              <button type="button" className="btn btn-outline-danger">
-                {iconList.deleteIcon}
-              </button>
+              {editMode ? (
+                <>
+                  <button type="button" className="btn btn-outline-secondary me-4">
+                    {iconList.editIcon}
+                  </button>
+                  <button type="button" className="btn btn-outline-danger">
+                    {iconList.deleteIcon}
+                  </button>
+                </>
+              ) : null}
             </div>
           </div>
         </div>

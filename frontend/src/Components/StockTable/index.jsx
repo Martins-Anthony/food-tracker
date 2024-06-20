@@ -6,14 +6,14 @@ import { iconList, iconsLibrary } from '../Icons/library'
 import Cards from '../Cards'
 import { showModal, hideModal } from '../../Containers/Modal/modalSlice'
 import Modal from '../../Containers/Modal'
-import { useState } from 'react'
+import { handleEditMode } from '../../Containers/EditMode/editModeSlice'
 import { deleteStorageArea } from '../../Containers/Storage/Delete/storageArea/deleteStorageArea'
 import { getStorage } from '../../Containers/Storage/Get/getStorage'
 import NewStorageArea from '../../Containers/Storage/Post/StorageArea'
 import { storageAreaSelected } from '../../Containers/Storage/storageSlice'
 
 function StockTable() {
-  const [editMode, setEditMode] = useState(false)
+  const editMode = useSelector(select.editMode).status
   const storageData = useSelector(select.storage)
   const selectModal = useSelector(select.modal)
   const dispatch = useDispatch()
@@ -44,7 +44,7 @@ function StockTable() {
             type="button"
             className="btn btn-outline-secondary col-auto"
             onClick={() => {
-              setEditMode(false)
+              dispatch(handleEditMode())
             }}>
             {iconList.checkIcon}
           </button>
@@ -53,7 +53,7 @@ function StockTable() {
             type="button"
             className="btn outline-secondary col-auto"
             onClick={() => {
-              setEditMode(true)
+              dispatch(handleEditMode())
             }}>
             {iconList.editIcon}
           </button>

@@ -5,6 +5,7 @@ import authReducer from '../../Containers/Forms/Authentication/authSlice'
 import storageReducer from '../../Containers/Storage/storageSlice'
 import { localStorageSync, persistedState } from './middleware/localStorage'
 import modalReducer from '../../Containers/Modal/modalSlice'
+import editModeSliceReducer from '../../Containers/EditMode/editModeSlice'
 
 export const store = configureStore({
   devTools: true,
@@ -12,6 +13,7 @@ export const store = configureStore({
   reducer: {
     auth: authReducer,
     storage: storageReducer,
+    editMode: editModeSliceReducer,
     foodCategory: foodCategoryReducer,
     scanner: scannerReducer,
     modal: modalReducer

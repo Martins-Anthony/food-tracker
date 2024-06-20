@@ -18,7 +18,7 @@ const deleteStorageArea = async (req, res) => {
 
     const result = await User.updateOne(
       { _id: userId },
-      { $pull: { storage: { name: deleteStorageArea, items: [] } } },
+      { $pull: { storage: { name: deleteStorageArea } } },
     )
 
     if (result.nModified === 0) {
