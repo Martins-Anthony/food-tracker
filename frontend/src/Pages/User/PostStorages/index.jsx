@@ -1,4 +1,4 @@
-import NewStorageArea from '../../../Containers/Storage/Post/NewStorageArea'
+import NewStorageArea from '../../../Containers/Storage/Post/StorageArea'
 
 function PostStorages() {
   return (

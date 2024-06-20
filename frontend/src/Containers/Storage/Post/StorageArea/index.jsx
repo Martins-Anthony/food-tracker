@@ -1,14 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
-import { newStorageArea } from './newStorageAreaSlice'
+import { postStorageArea } from './postStorageAreaSlice'
 import { putStorageArea } from '../../Put/putStorageArea'
 import { getStorage } from '../../Get/getStorage'
-// import { useParams } from 'react-router-dom'
 
 function NewStorageArea({ nameValue }) {
   const dispatch = useDispatch()
-  // const { methodRoutes } = useParams()
   const [newStock, setNewStock] = useState('')
   const refForm = useRef(null)
 
@@ -19,7 +17,7 @@ function NewStorageArea({ nameValue }) {
   const handleSubmitNewStock = async (event) => {
     event.preventDefault()
     if (nameValue === undefined) {
-      await dispatch(newStorageArea(newStock))
+      await dispatch(postStorageArea(newStock))
     } else {
       await dispatch(putStorageArea({ newStorageArea: newStock, oldStorageArea: nameValue }))
     }

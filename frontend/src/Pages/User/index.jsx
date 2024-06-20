@@ -1,5 +1,5 @@
 import React from 'react'
-import NewStorageArea from '../../Containers/Storage/Post/NewStorageArea'
+import NewStorageArea from '../../Containers/Storage/Post/StorageArea'
 import StockTable from '../../Components/StockTable'
 
 import { select } from '../../App/store/selectors'

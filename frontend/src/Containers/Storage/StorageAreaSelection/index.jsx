@@ -10,8 +10,6 @@ function StorageAreaSelection() {
     dispatch(storageAreaSelected(event.target.value))
   }
 
-  const defaultStorageName = storageData.data.length > 0 ? storageData.data[0].name : ''
-
   return (
     <>
       <label>
@@ -19,11 +17,11 @@ function StorageAreaSelection() {
         <select
           name="storageArea"
           onChange={handleStorageAreaSelected}
-          defaultValue={defaultStorageName}
+          value={storageData.selected}
           className="form-select">
           {storageData.data.map((item, index) => {
             return (
-              <option key={index} value={item}>
+              <option key={index} value={item.name}>
                 {item.name}
               </option>
             )

@@ -9,7 +9,8 @@ import Modal from '../../Containers/Modal'
 import { useState } from 'react'
 import { deleteStorageArea } from '../../Containers/Storage/Delete/storageArea/deleteStorageArea'
 import { getStorage } from '../../Containers/Storage/Get/getStorage'
-import NewStorageArea from '../../Containers/Storage/Post/NewStorageArea'
+import NewStorageArea from '../../Containers/Storage/Post/StorageArea'
+import { storageAreaSelected } from '../../Containers/Storage/storageSlice'
 
 function StockTable() {
   const [editMode, setEditMode] = useState(false)
@@ -28,6 +29,11 @@ function StockTable() {
     await dispatch(deleteStorageArea(selectModal.message.data))
     dispatch(getStorage())
     dispatch(hideModal())
+  }
+
+  const dispatchSelected = (event) => {
+    const tag = event.currentTarget.dataset.tag
+    dispatch(storageAreaSelected(tag))
   }
 
   return (
@@ -101,7 +107,12 @@ function StockTable() {
               ) : (
                 <span>
                   Aucun élément trouvé{' '}
-                  <Link to={iconsLibrary.navbar[2].link}>{iconsLibrary.navbar[2].icon}</Link>
+                  <Link
+                    to={iconsLibrary.navbar[2].link}
+                    data-tag={storageAreaItem.name}
+                    onClick={dispatchSelected}>
+                    {iconsLibrary.navbar[2].icon}
+                  </Link>
                 </span>
               )}
             </div>
