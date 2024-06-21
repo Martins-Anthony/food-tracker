@@ -16,6 +16,9 @@ const storageSlice = createSlice({
       if (!state.selected && state.data.length > 0) {
         state.selected = state.data[0].name
       }
+      if (state.data.length === 1) {
+        state.selected = state.data[0].name
+      }
     })
   }
 })
