@@ -1,39 +1,38 @@
 const User = require('../../models/User')
 const { generateExpirationMagicLink } = require('./generateExpiration')
-const { generateAccessToken } = require('../token/generateAccess')
+const {
+  generateAccessToken,
+  generateRefreshToken,
+} = require('../token/generateAccess')
 const { updateMagicLink } = require('./update')
 
 const checkMagicLink = async (user, magicLink) => {
   try {
     if (user.MagicLink.link === magicLink && !user.MagicLink.active) {
-      const token = generateAccessToken(user)
       await generateExpirationMagicLink(user)
+      const refreshToken = generateRefreshToken(user)
+      user.refreshToken = refreshToken
+      await user.save()
+
+      const token = generateAccessToken(user)
+
       return {
         ok: true,
         message: `Welcome ${user.name}`,
         token,
+        refreshToken,
         email: user.email,
-        magicLink: user.MagicLink.link,
       }
     } else if (user.MagicLink.expiration < Date.now()) {
-      updateMagicLink(user)
-    } else if (
-      user.MagicLink.expiration > Date.now() &&
-      user.MagicLink.active
-    ) {
-      const token = generateAccessToken(user)
       return {
-        ok: true,
-        message: `Welcome ${user.name}`,
-        token,
-        email: user.email,
-        magicLink: user.MagicLink.link,
+        ok: false,
+        message: 'Le lien magique a expiré. Nouveau lien envoyé par email',
       }
     } else {
-      return { ok: false, message: 'Votre lien est déjà envoyé par e-mail' }
+      return { ok: false, message: 'Lien magique invalide ou déjà utilisé' }
     }
   } catch (error) {
-    throw new Error('Could not check magic link')
+    throw new Error('Impossible de vérifier le lien magique')
   }
 }
 

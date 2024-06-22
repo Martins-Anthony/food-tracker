@@ -29,6 +29,9 @@ const userSchema = mongoose.Schema(
         default: false,
       },
     },
+    refreshToken: {
+      type: String,
+    },
     storage: {
       type: [storageSchema],
       required: true,

@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
-import { logout } from '../Forms/Authentication/authSlice'
+import { logout } from '../Forms/Authentication/Logout/logoutSlice'
+import { clearState } from '../Forms/Authentication/authSlice'
 import { hideModal } from './modalSlice'
 import { useNavigate } from 'react-router-dom'
 
@@ -10,7 +11,11 @@ function Modal({ id, title, body, footer, isOpen }) {
   const navigate = useNavigate()
 
   const handleClickFooter = () => {
-    dispatch(logout())
+    dispatch(
+      logout().then(() => {
+        dispatch(clearState())
+      })
+    )
   }
 
   const handleClickHideModal = () => {

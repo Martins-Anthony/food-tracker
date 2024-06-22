@@ -5,14 +5,19 @@ const { sendMagicLink } = require('../emails')
 const updateMagicLink = async (user) => {
   try {
     const newMagicLink = uuidv4()
-    await User.updateOne(
-      { email: user.email },
-      { MagicLink: { link: newMagicLink, active: false } },
-    )
+    user.MagicLink = {
+      link: newMagicLink,
+      active: false,
+      expiration: new Date(Date.now() + 24 * 60 * 60 * 1000),
+    }
+    await user.save()
     await sendMagicLink(user.email, newMagicLink, 'signup')
-    return { ok: true, message: 'Magic link expired. New link sent to email' }
+    return {
+      ok: true,
+      message: 'Le lien magique a expiré. Nouveau lien envoyé par email',
+    }
   } catch (error) {
-    throw new Error('Could not update magic link')
+    throw new Error('Impossible de mettre à jour le lien magique')
   }
 }
 

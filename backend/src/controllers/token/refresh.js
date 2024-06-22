@@ -2,20 +2,25 @@ const User = require('../../models/User')
 const { generateAccessToken } = require('./generateAccess')
 
 const refresh = async (req, res) => {
-  const { userId } = req.auth
+  const refreshToken = req.header('Authorization').replace('Bearer ', '')
+
+  if (!refreshToken) {
+    return res.status(401).json({ message: 'Refresh token is missing' })
+  }
 
   try {
-    const user = await User.findById({ _id: userId })
+    const decoded = jwt.verify(refreshToken, jwt_secret_refresh)
+    const user = await User.findById(decoded.userId)
 
-    if (!user) {
-      throw new Error('User not found')
+    if (!user || user.refreshToken !== refreshToken) {
+      throw new Error('Utilisateur non trouvé')
     }
 
     const newAccessToken = generateAccessToken(user)
-
+    console.log(newAccessToken)
     return res.status(200).json({ newAccessToken })
   } catch (error) {
-    return res.status(401).json({ message: 'Invalid refresh token' })
+    return res.status(401).json({ message: `Jeton d'actualisation invalide` })
   }
 }
 

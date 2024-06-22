@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { urlApi } from '../../../../utils/api/basePath'
-import { logout } from '../authSlice'
+import { logout } from '../Logout/logoutSlice'
+import { clearState } from '../authSlice'
 
 export const refreshAccessToken = createAsyncThunk(
   'auth/refresh_accessToken',
@@ -19,7 +20,11 @@ export const refreshAccessToken = createAsyncThunk(
       if (data.newAccessToken) {
         return data.newAccessToken
       } else {
-        dispatch(logout())
+        dispatch(
+          logout().then(() => {
+            dispatch(clearState())
+          })
+        )
         return rejectWithValue(data.message)
       }
     } catch (error) {
