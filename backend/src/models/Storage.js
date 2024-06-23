@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const itemSchema = require('./ItemSchema')
 
 const storageSchema = mongoose.Schema(
   {
@@ -7,8 +8,9 @@ const storageSchema = mongoose.Schema(
       required: true,
     },
     items: {
-      type: [Object],
+      type: [itemSchema],
       required: true,
+      default: [],
     },
   },
   { _id: false },

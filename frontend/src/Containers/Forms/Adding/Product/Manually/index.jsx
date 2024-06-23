@@ -4,6 +4,7 @@ import { select } from '../../../../../App/store/selectors'
 import FoodCategory from '../../../FoodCategory'
 import { Navigate } from 'react-router-dom'
 import { postItemInStorage } from '../../../../Storage/Post/ItemInStorage/postItemInStorage'
+import { getStorage } from '../../../../Storage/Get/getStorage'
 
 function Manually() {
   const storageData = useSelector(select.storage)
@@ -44,7 +45,7 @@ function Manually() {
           quantity: productQuantity
         }
       })
-    )
+    ).then(() => dispatch(getStorage()))
     setProduct('')
     setProductCategory('')
     setProductQuantity(0)
