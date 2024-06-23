@@ -14,8 +14,9 @@ export const enter = createAsyncThunk('enterUser', async (payload, thunkAPI) => 
     })
     const data = await response.json()
     if (data.ok === false) {
-      dispatch(showModal())
-      dispatch(setMessage(data.message))
+      dispatch(showModal()).then(() => {
+        dispatch(setMessage(data.message))
+      })
       return rejectWithValue({ error: data.message })
     } else if (data.checkResult.token) {
       return data

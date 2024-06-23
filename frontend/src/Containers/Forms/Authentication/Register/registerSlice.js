@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { showModal, setMessage } from '../../../Modal/modalSlice'
+import { setMessage } from '../../../Modal/modalSlice'
 
 export const register = createAsyncThunk('registerUser', async (payload, thunkAPI) => {
   const { dispatch, rejectWithValue, getState } = thunkAPI
@@ -15,7 +15,6 @@ export const register = createAsyncThunk('registerUser', async (payload, thunkAP
     const data = await response.json()
 
     if (response.ok) {
-      dispatch(showModal())
       dispatch(setMessage(data.message))
       return data
     }

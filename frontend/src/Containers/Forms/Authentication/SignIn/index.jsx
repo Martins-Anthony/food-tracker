@@ -24,7 +24,7 @@ function SignIn() {
       if (auth.magicLink) {
         navigate(`/enter/${email}/${auth}`)
       } else {
-        dispatch(register({ email: email }))
+        dispatch(register({ email: email })).then(() => dispatch(showModal()))
       }
     }
   }
