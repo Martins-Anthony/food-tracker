@@ -7,19 +7,19 @@ import { hideModal } from '../../../Modal/modalSlice'
 
 const AuthProvider = ({ children }) => {
   const dispatch = useDispatch()
-  const { token, refreshToken } = useSelector(select.auth)
+  const { refreshToken } = useSelector(select.auth)
 
   useEffect(() => {
     dispatch(hideModal())
   }, [dispatch])
 
   useEffect(() => {
-    if (!token) return
+    if (!refreshToken) return
     const intervalId = setInterval(() => {
       dispatch(refreshAccessToken(refreshToken))
     }, 1800000)
     return () => clearInterval(intervalId)
-  }, [dispatch, token, refreshToken])
+  }, [dispatch, refreshToken])
 
   return <>{children}</>
 }

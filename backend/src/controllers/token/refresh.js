@@ -9,15 +9,14 @@ const refresh = async (req, res) => {
   }
 
   try {
-    const decoded = jwt.verify(refreshToken, jwt_secret_refresh)
-    const user = await User.findById(decoded.userId)
+    const user = await User.findById(req.auth.userId)
 
     if (!user || user.refreshToken !== refreshToken) {
       throw new Error('Utilisateur non trouvé')
     }
 
     const newAccessToken = generateAccessToken(user)
-    console.log(newAccessToken)
+
     return res.status(200).json({ newAccessToken })
   } catch (error) {
     return res.status(401).json({ message: `Jeton d'actualisation invalide` })
