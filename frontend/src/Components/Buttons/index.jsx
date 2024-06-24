@@ -1,51 +1,101 @@
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import Modal from '../../Containers/Modal'
 import PropTypes from 'prop-types'
 
 export const BUTTONS_TYPES = {
-  LINK_REGISTER: 1,
-  LINK_LOGIN: 2,
-  BUTTONS: 3
+  BUTTON: 'button',
+  LINK: 'link',
+  MODAL: 'modal'
 }
+function Buttons({
+  type,
+  address,
+  label,
+  onClick,
+  className,
+  modalMessage,
+  modalTitle,
+  modalConfirmLabel,
+  modalCancelLabel,
+  modalId,
+  ...props
+}) {
+  const [modalIsOpen, setModalIsOpen] = useState(false)
 
-function Buttons({ address, label, type }) {
-  let component
-  let classBouton = 'btn btn-primary mt-3'
+  const handleOpenModal = () => setModalIsOpen(true)
+  const handleCloseModal = () => setModalIsOpen(false)
+
+  const handleConfirmAction = () => {
+    handleCloseModal()
+    if (onClick) onClick()
+  }
+
+  const baseClass = 'btn mt-3'
+  const buttonClass = className ? `${baseClass} ${className}` : baseClass
+
   switch (type) {
-    case BUTTONS_TYPES.LINK_REGISTER:
-      component = (
-        <Link to={'/signup'} className={classBouton}>
-          S&apos;inscrire
+    case BUTTONS_TYPES.LINK:
+      return (
+        <Link to={address} className={buttonClass} {...props}>
+          {label}
         </Link>
       )
-      break
-    case BUTTONS_TYPES.LINK_LOGIN:
-      component = (
-        <Link to={'/login'} className={classBouton}>
-          Se connecter
-        </Link>
+
+    case BUTTONS_TYPES.MODAL:
+      return (
+        <>
+          <button className={buttonClass} onClick={handleOpenModal} {...props}>
+            {label}
+          </button>
+          <Modal
+            id={modalId}
+            title={modalTitle}
+            body={
+              <div>
+                <p>{modalMessage}</p>
+                <div className="modal-footer">
+                  <button className="btn btn-secondary" onClick={handleCloseModal}>
+                    {modalCancelLabel}
+                  </button>
+                  <button className="btn btn-danger" onClick={handleConfirmAction}>
+                    {modalConfirmLabel}
+                  </button>
+                </div>
+              </div>
+            }
+            isOpen={modalIsOpen}
+          />
+        </>
       )
-      break
-    case BUTTONS_TYPES.BUTTONS:
-      component = (
-        <button className={classBouton} type="submit">
+
+    case BUTTONS_TYPES.BUTTON:
+    default:
+      return (
+        <button className={buttonClass} onClick={onClick} {...props}>
           {label}
         </button>
       )
-      break
-    default:
-      component = (
-        <Link to={address} className={classBouton}>
-          {label}
-        </Link>
-      )
-      break
   }
-  return component
 }
 
 Buttons.propTypes = {
+  type: PropTypes.oneOf(Object.values(BUTTONS_TYPES)),
   address: PropTypes.string,
-  label: PropTypes.string
+  label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]).isRequired,
+  onClick: PropTypes.func,
+  className: PropTypes.string,
+  modalMessage: PropTypes.string,
+  modalTitle: PropTypes.string,
+  modalConfirmLabel: PropTypes.string,
+  modalCancelLabel: PropTypes.string,
+  modalId: PropTypes.string.isRequired
+}
+
+Buttons.defaultProps = {
+  type: BUTTONS_TYPES.BUTTON,
+  modalConfirmLabel: 'Confirm',
+  modalCancelLabel: 'Cancel'
 }
 
 export default Buttons
