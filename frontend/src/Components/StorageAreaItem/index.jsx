@@ -1,7 +1,6 @@
-import { useDispatch } from 'react-redux' // , useSelector
+import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import { showModal } from '../../Containers/Modal/modalSlice'
 import NewStorageArea from '../../Containers/Storage/Post/StorageArea'
 import Buttons from '../Buttons'
 import { iconList, iconsLibrary } from '../Icons/library'
@@ -11,12 +10,6 @@ import { storageAreaSelected } from '../../Containers/Storage/storageSlice'
 
 function StorageAreaItem({ storageAreaItem, editMode }) {
   const dispatch = useDispatch()
-
-  const handleClickDelete = (event) => {
-    event.preventDefault()
-    const tag = event.currentTarget.dataset.tag
-    dispatch(showModal({ text: `Attention !! voulez vous supprimer ${tag}?`, data: tag }))
-  }
 
   const dispatchSelected = (event) => {
     const tag = event.currentTarget.dataset.tag
@@ -37,12 +30,8 @@ function StorageAreaItem({ storageAreaItem, editMode }) {
             type="modal"
             className="btn btn-outline-secondary"
             data-tag={storageAreaItem.name}
-            onClick={handleClickDelete}
             label={iconList.deleteIcon}
-            modalTitle="Confirmation de suppression"
             modalMessage={`Êtes-vous sûr de vouloir supprimer ${storageAreaItem.name} ?`}
-            modalConfirmLabel="Supprimer"
-            modalCancelLabel="Annuler"
             modalId="deleteModal"
           />
         )}

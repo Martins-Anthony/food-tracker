@@ -1,38 +1,23 @@
-import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import Modal from '../../Containers/Modal'
+import { showModal } from '../../Containers/Modal/modalSlice'
 import PropTypes from 'prop-types'
+import { useDispatch } from 'react-redux'
 
 export const BUTTONS_TYPES = {
   BUTTON: 'button',
   LINK: 'link',
   MODAL: 'modal'
 }
-function Buttons({
-  type,
-  address,
-  label,
-  onClick,
-  className,
-  modalMessage,
-  modalTitle,
-  modalConfirmLabel,
-  modalCancelLabel,
-  modalId,
-  ...props
-}) {
-  const [modalIsOpen, setModalIsOpen] = useState(false)
+function Buttons({ type, address, label, onClick, className, modalMessage, modalId, ...props }) {
+  const dispatch = useDispatch()
 
-  const handleOpenModal = () => setModalIsOpen(true)
-  const handleCloseModal = () => setModalIsOpen(false)
-
-  const handleConfirmAction = () => {
-    handleCloseModal()
-    if (onClick) onClick()
+  const handleOpenModal = (event) => {
+    event.preventDefault()
+    dispatch(showModal({ message: modalMessage, id: modalId }))
   }
 
   const baseClass = 'btn mt-3'
-  const buttonClass = className ? `${baseClass} ${className}` : baseClass
+  const buttonClass = className ? `${className}` : baseClass
 
   switch (type) {
     case BUTTONS_TYPES.LINK:
@@ -44,29 +29,9 @@ function Buttons({
 
     case BUTTONS_TYPES.MODAL:
       return (
-        <>
-          <button className={buttonClass} onClick={handleOpenModal} {...props}>
-            {label}
-          </button>
-          <Modal
-            id={modalId}
-            title={modalTitle}
-            body={
-              <div>
-                <p>{modalMessage}</p>
-                <div className="modal-footer">
-                  <button className="btn btn-secondary" onClick={handleCloseModal}>
-                    {modalCancelLabel}
-                  </button>
-                  <button className="btn btn-danger" onClick={handleConfirmAction}>
-                    {modalConfirmLabel}
-                  </button>
-                </div>
-              </div>
-            }
-            isOpen={modalIsOpen}
-          />
-        </>
+        <button className={buttonClass} onClick={handleOpenModal} {...props}>
+          {label}
+        </button>
       )
 
     case BUTTONS_TYPES.BUTTON:
@@ -86,16 +51,17 @@ Buttons.propTypes = {
   onClick: PropTypes.func,
   className: PropTypes.string,
   modalMessage: PropTypes.string,
-  modalTitle: PropTypes.string,
-  modalConfirmLabel: PropTypes.string,
-  modalCancelLabel: PropTypes.string,
-  modalId: PropTypes.string.isRequired
+  modalId: (props, propName, componentName) => {
+    if (props.type === BUTTONS_TYPES.MODAL && !props[propName]) {
+      return new Error(
+        `Invalid prop \`${propName}\` supplied to \`${componentName}\`. Validation failed. \`${propName}\` is required when \`type\` is \`MODAL\`.`
+      )
+    }
+  }
 }
 
 Buttons.defaultProps = {
-  type: BUTTONS_TYPES.BUTTON,
-  modalConfirmLabel: 'Confirm',
-  modalCancelLabel: 'Cancel'
+  type: BUTTONS_TYPES.BUTTON
 }
 
 export default Buttons

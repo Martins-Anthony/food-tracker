@@ -4,16 +4,19 @@ const modalSlice = createSlice({
   name: 'modal',
   initialState: {
     show: false,
-    message: ''
+    message: '',
+    id: null
   },
   reducers: {
     showModal: (state, action) => {
       state.show = true
       state.message = action.payload
+      state.id = action.payload.id
     },
     hideModal: (state) => {
       state.show = false
       state.message = ''
+      state.id = null
     },
     setMessage: (state, action) => {
       state.message = action.payload

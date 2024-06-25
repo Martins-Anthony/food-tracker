@@ -3,13 +3,24 @@ import { NavLink } from 'react-router-dom'
 import { Logo } from '../../../Components/Logo'
 import { iconsLibrary } from '../../../Components/Icons/library'
 import { select } from '../../../App/store/selectors'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Modal from '../../Modal'
+import { logout } from '../../Forms/Authentication/Logout/logoutSlice'
+import { clearState } from '../../Forms/Authentication/authSlice'
 
 function Navbar() {
   const isAuthenticated = useSelector(select.auth).isAuthenticated
   const [renderedLinks, setRenderedLinks] = useState([])
   const connectionIcon = iconsLibrary.navbar.find((link) => link.name === 'connection').icon
+  const dispatch = useDispatch()
+
+  const handleClickFooter = () => {
+    dispatch(
+      logout().then(() => {
+        dispatch(clearState())
+      })
+    )
+  }
 
   const renderedLogin = (
     <li className="nav-item">
@@ -83,7 +94,21 @@ function Navbar() {
         id={'disconnectionModal'}
         title={'Déconnexion'}
         body={<p className="text-center">Êtes-vous sûr de vouloir vous déconnecter ?</p>}
-        footer={true}
+        footer={
+          <>
+            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">
+              Annuler
+            </button>
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={handleClickFooter}
+              data-bs-dismiss="modal"
+              aria-label="Déconnexion">
+              Déconnecter
+            </button>
+          </>
+        }
       />
     </>
   )

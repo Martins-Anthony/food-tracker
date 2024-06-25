@@ -12,39 +12,34 @@ function DeleteModal() {
 
   const handleClickConfirmDelete = async (event) => {
     event.preventDefault()
-    await dispatch(deleteStorageArea(selectModal.message.data))
+    await dispatch(deleteStorageArea(selectModal.message.message))
     dispatch(getStorage())
     dispatch(hideModal())
   }
 
   return (
     <Modal
-      id="messageModal"
-      body={
+      id="deleteModal"
+      title="Confirmation de suppression"
+      body={<span className="text-danger">{selectModal.message.message}</span>}
+      footer={
         <>
-          <span className="text-danger">{selectModal.message.text}</span>{' '}
-          <div className="modal-footer">
-            <Buttons
-              type="button"
-              className="btn btn-secondary"
-              onClick={() => {
-                dispatch(hideModal())
-              }}
-              label="Annuler"
-              modalId="cancel"
-            />
-            <Buttons
-              type="button"
-              className="btn btn-danger"
-              onClick={handleClickConfirmDelete}
-              label="Supprimer"
-              modalId="delete"
-            />
-          </div>
+          <Buttons
+            type="button"
+            className="btn btn-secondary"
+            onClick={() => {
+              dispatch(hideModal())
+            }}
+            label="Annuler"
+          />
+          <Buttons
+            type="button"
+            className="btn btn-danger"
+            onClick={handleClickConfirmDelete}
+            label="Supprimer"
+          />
         </>
       }
-      title="Mode édition"
-      isOpen={selectModal.show}
     />
   )
 }
