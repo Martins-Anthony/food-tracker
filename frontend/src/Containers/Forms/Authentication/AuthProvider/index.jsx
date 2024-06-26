@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 import { refreshAccessToken } from './refreshAccessTokenSlice'
@@ -8,13 +8,18 @@ import { hideModal } from '../../../Modal/modalSlice'
 const AuthProvider = ({ children }) => {
   const dispatch = useDispatch()
   const { refreshToken } = useSelector(select.auth)
+  const [hasRefreshedToken, setHasRefreshedToken] = useState(false)
 
   useEffect(() => {
     dispatch(hideModal())
   }, [dispatch])
 
   useEffect(() => {
-    if (!refreshToken) return
+    if (!refreshToken || hasRefreshedToken) return
+
+    dispatch(refreshAccessToken(refreshToken))
+    setHasRefreshedToken(true)
+
     const intervalId = setInterval(() => {
       dispatch(refreshAccessToken(refreshToken))
     }, 1800000)
