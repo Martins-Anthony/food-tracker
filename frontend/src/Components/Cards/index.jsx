@@ -4,7 +4,8 @@ import PropTypes from 'prop-types'
 import RoundedImage from '../RoundedImage'
 import imageTest from '../../assets/bocaux.jpg'
 import { iconList } from '../../Components/Icons/library'
-function Cards({ title, type, items }) {
+import Buttons from '../Buttons'
+function Cards({ title, type, items, tag }) {
   const editMode = useSelector(select.editMode).status
   let component = null
   const defaultImage = { src: imageTest, alt: 'default image' }
@@ -39,12 +40,19 @@ function Cards({ title, type, items }) {
               <ul className="list-group list-group-flush">{items}</ul>
               {editMode ? (
                 <>
-                  <button type="button" className="btn btn-outline-secondary me-4">
-                    {iconList.editIcon}
-                  </button>
-                  <button type="button" className="btn btn-outline-danger">
-                    {iconList.deleteIcon}
-                  </button>
+                  <Buttons
+                    type="button"
+                    className="btn btn-outline-secondary me-4"
+                    label={iconList.editIcon}
+                  />
+                  <Buttons
+                    type="modal"
+                    className="btn btn-outline-danger"
+                    tag={tag}
+                    label={iconList.deleteIcon}
+                    modalMessage={`Êtes-vous sûr de vouloir supprimer ${title} ?`}
+                    modalId="deleteModalItem"
+                  />
                 </>
               ) : null}
             </div>
@@ -64,7 +72,8 @@ function Cards({ title, type, items }) {
 Cards.propTypes = {
   title: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
-  items: PropTypes.node.isRequired
+  items: PropTypes.node.isRequired,
+  tag: PropTypes.string
 }
 
 export default Cards

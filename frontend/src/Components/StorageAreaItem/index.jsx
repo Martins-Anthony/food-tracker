@@ -29,10 +29,10 @@ function StorageAreaItem({ storageAreaItem, editMode }) {
           <Buttons
             type="modal"
             className="btn btn-outline-secondary"
-            data-tag={storageAreaItem.name}
+            tag={storageAreaItem.name}
             label={iconList.deleteIcon}
             modalMessage={`Êtes-vous sûr de vouloir supprimer ${storageAreaItem.name} ?`}
-            modalId="deleteModal"
+            modalId="deleteModalStorageArea"
           />
         )}
       </div>
@@ -57,6 +57,7 @@ function StorageAreaItem({ storageAreaItem, editMode }) {
                 type={'product'}
                 title={item.name}
                 items={result}
+                tag={item._id}
               />
             )
           })

@@ -3,6 +3,8 @@ import { select } from '../../App/store/selectors'
 import EditButton from '../Buttons/EditButton'
 import StorageAreaList from '../StorageAreaList'
 import DeleteModal from '../../Containers/Modal/DeleteModal'
+import { deleteStorageArea } from '../../Containers/Storage/Delete/storageArea/deleteStorageArea'
+import { deleteItemInStorage } from '../../Containers/Storage/Delete/ItemInStorage/deleteItemInStorage'
 
 function StockTable() {
   const editMode = useSelector(select.editMode).status
@@ -11,7 +13,8 @@ function StockTable() {
     <section className={`container p-3 ${editMode ? 'border' : ''}`}>
       <EditButton />
       <StorageAreaList />
-      <DeleteModal />
+      <DeleteModal deleteAction={deleteStorageArea} modalId="deleteModalStorageArea" />
+      <DeleteModal deleteAction={deleteItemInStorage} modalId="deleteModalItem" />
     </section>
   )
 }

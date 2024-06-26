@@ -1,27 +1,28 @@
 import { useDispatch, useSelector } from 'react-redux'
+import PropTypes from 'prop-types'
 import Modal from '../'
 import Buttons from '../../../Components/Buttons'
 import { hideModal } from '../modalSlice'
-import { deleteStorageArea } from '../../Storage/Delete/storageArea/deleteStorageArea'
+// import { deleteStorageArea } from '../../Storage/Delete/storageArea/deleteStorageArea'
 import { getStorage } from '../../Storage/Get/getStorage'
 import { select } from '../../../App/store/selectors'
 
-function DeleteModal() {
+function DeleteModal({ deleteAction, modalId }) {
   const dispatch = useDispatch()
   const selectModal = useSelector(select.modal)
 
   const handleClickConfirmDelete = async (event) => {
     event.preventDefault()
-    await dispatch(deleteStorageArea(selectModal.message.message))
+    await dispatch(deleteAction(selectModal.tag))
     dispatch(getStorage())
     dispatch(hideModal())
   }
 
   return (
     <Modal
-      id="deleteModal"
+      id={modalId}
       title="Confirmation de suppression"
-      body={<span className="text-danger">{selectModal.message.message}</span>}
+      body={<span className="text-danger">{selectModal.message}</span>}
       footer={
         <>
           <Buttons
@@ -42,6 +43,11 @@ function DeleteModal() {
       }
     />
   )
+}
+
+DeleteModal.propTypes = {
+  deleteAction: PropTypes.func.isRequired,
+  modalId: PropTypes.string.isRequired
 }
 
 export default DeleteModal

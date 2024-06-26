@@ -10,7 +10,6 @@ const postItemInStorage = async (req, res) => {
     })
 
     if (!user) {
-      console.log('Zone de stockage introuvable:', areaName)
       return res
         .status(200)
         .json({ ok: true, message: 'Zone de stockage introuvable' })
@@ -36,4 +35,37 @@ const postItemInStorage = async (req, res) => {
   }
 }
 
-module.exports = { postItemInStorage }
+const deleteItemInStorage = async (req, res) => {
+  const { deleteItemInStorage } = req.body
+  const { userId } = req.auth
+  try {
+    const user = await User.findOne({
+      _id: userId,
+      'storage.items._id': deleteItemInStorage,
+    })
+
+    if (!user) {
+      return res.status(200).json({ ok: true, message: 'Élément introuvable' })
+    }
+
+    const result = await User.updateOne(
+      { _id: userId, 'storage.items._id': deleteItemInStorage },
+      { $pull: { 'storage.$.items': { _id: deleteItemInStorage } } },
+    )
+
+    if (result.nModified === 0) {
+      return res.status(200).json({
+        ok: false,
+        message: "Échec de la suppression de l'élément",
+      })
+    }
+
+    return res
+      .status(200)
+      .json({ ok: true, message: 'Élément supprimer avec succès' })
+  } catch (error) {
+    return res.status(400).json({ ok: false, error: error.message })
+  }
+}
+
+module.exports = { postItemInStorage, deleteItemInStorage }

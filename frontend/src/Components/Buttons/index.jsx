@@ -13,7 +13,7 @@ function Buttons({ type, address, label, onClick, className, modalMessage, modal
 
   const handleOpenModal = (event) => {
     event.preventDefault()
-    dispatch(showModal({ message: modalMessage, id: modalId }))
+    dispatch(showModal({ message: modalMessage, id: modalId, ...props }))
   }
 
   const baseClass = 'btn mt-3'
