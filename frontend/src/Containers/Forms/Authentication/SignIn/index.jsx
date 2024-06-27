@@ -31,10 +31,15 @@ function SignIn() {
   return (
     <form onSubmit={handleEmailSubmit}>
       <section className="row justify-content-center">
-        <Fields type={TYPE_FIELD.INPUT_MAIL} />
+        <Fields
+          type={TYPE_FIELD.INPUT_MAIL}
+          id="email"
+          placeholder="entrez votre email"
+          autoFocus
+        />
       </section>
       <Buttons
-        type={BUTTONS_TYPES.BUTTONS}
+        type={BUTTONS_TYPES.BUTTON}
         label={auth.resendLink ? 'Renvoyer le lien' : 'Se connecter'}
       />
     </form>

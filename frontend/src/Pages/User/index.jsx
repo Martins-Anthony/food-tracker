@@ -5,6 +5,7 @@ import StockTable from '../../Components/StockTable'
 import { select } from '../../App/store/selectors'
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react'
+import { refreshAccessToken } from '../../Containers/Forms/Authentication/AuthProvider/refreshAccessTokenSlice'
 import { getStorage } from '../../Containers/Storage/Get/getStorage'
 import { WelcomeMessage } from '../../Components/WelcomeMessage'
 
@@ -13,6 +14,7 @@ function User() {
   const dispatch = useDispatch()
 
   useEffect(() => {
+    dispatch(refreshAccessToken())
     dispatch(getStorage())
   }, [dispatch])
 

@@ -1,25 +1,32 @@
-import { useDispatch, useSelector } from 'react-redux'
-import { handleEditMode } from '../../../Containers/EditMode/editModeSlice'
+import PropTypes from 'prop-types'
+import { useDispatch } from 'react-redux'
 import Buttons from '..'
-import { iconList } from '../../Icons/library'
-import { select } from '../../../App/store/selectors'
 
-function EditButton() {
-  const editMode = useSelector(select.editMode).status
+function EditButton({ editMode, toggleEditMode, icon, className, label }) {
   const dispatch = useDispatch()
 
   return (
-    <div className="d-flex flex-row-reverse">
-      <Buttons
-        className={`btn ${editMode ? 'btn-outline-secondary' : 'outline-secondary'} col-auto`}
-        onClick={() => {
-          dispatch(handleEditMode())
-        }}
-        label={editMode ? iconList.checkIcon : iconList.editIcon}
-        modalId="messageModal"
-      />
-    </div>
+    <Buttons
+      className={`btn ${editMode ? 'btn-outline-secondary' : 'outline-secondary'} col-auto`}
+      onClick={() => {
+        dispatch(toggleEditMode())
+      }}
+      label={editMode ? icon.checkIcon : icon.editIcon}
+    />
   )
+}
+
+EditButton.propTypes = {
+  editMode: PropTypes.bool.isRequired,
+  toggleEditMode: PropTypes.func.isRequired,
+  icon: PropTypes.object.isRequired,
+  className: PropTypes.string,
+  label: PropTypes.string
+}
+
+EditButton.defaultProps = {
+  className: '',
+  label: ''
 }
 
 export default EditButton

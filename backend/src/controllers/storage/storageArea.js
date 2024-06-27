@@ -10,7 +10,6 @@ const deleteStorageArea = async (req, res) => {
     })
 
     if (!user) {
-      console.log('Zone de stockage introuvable:', deleteStorageArea)
       return res
         .status(200)
         .json({ ok: true, message: 'Zone de stockage introuvable' })
@@ -32,7 +31,6 @@ const deleteStorageArea = async (req, res) => {
       .status(200)
       .json({ ok: true, message: 'Zone de stockage supprimer avec succès' })
   } catch (error) {
-    console.log(error)
     return res.status(400).json({ ok: false, error: error.message })
   }
 }
@@ -62,7 +60,6 @@ const postStorageArea = async (req, res) => {
       .status(200)
       .json({ ok: true, message: 'Zone de stockage ajoutée' })
   } catch (error) {
-    console.log(error)
     return res.status(400).json({ ok: false, error: error.message })
   }
 }
@@ -77,7 +74,6 @@ const putStorageArea = async (req, res) => {
     })
 
     if (!user) {
-      console.log('Zone de stockage introuvable:', oldStorageArea)
       return res
         .status(200)
         .json({ ok: true, message: 'Zone de stockage introuvable' })

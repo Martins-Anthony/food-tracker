@@ -68,4 +68,40 @@ const deleteItemInStorage = async (req, res) => {
   }
 }
 
-module.exports = { postItemInStorage, deleteItemInStorage }
+const putItemInStorage = async (req, res) => {
+  const { newItemInStorage, oldItemInStorage } = req.body
+  const { userId } = req.auth
+  try {
+    const user = await User.findOne({
+      _id: userId,
+      'storage.items': oldItemInStorage,
+    })
+
+    if (!user) {
+      return res
+        .status(200)
+        .json({ ok: true, message: 'Zone de stockage introuvable' })
+    }
+
+    const result = await User.updateOne(
+      { _id: userId, 'storage.items': oldItemInStorage },
+      { $set: { 'storage.$.items': newItemInStorage } },
+    )
+
+    if (result.nModified === 0) {
+      return res.status(200).json({
+        ok: false,
+        message: 'Échec de la mise à jour de la zone de stockage',
+      })
+    }
+    return res.status(200).json({
+      ok: true,
+      message: 'Zone de stockage mise à jour avec succès',
+    })
+  } catch (error) {
+    console.log(error)
+    return res.status(400).json({ ok: false, error: error.message })
+  }
+}
+
+module.exports = { postItemInStorage, deleteItemInStorage, putItemInStorage }
