@@ -18,7 +18,7 @@ const userSchema = mongoose.Schema(
     MagicLink: {
       link: {
         type: String,
-        required: false,
+        required: true,
         default: uuidv4(),
       },
       expiration: {
@@ -26,7 +26,7 @@ const userSchema = mongoose.Schema(
       },
       active: {
         type: Boolean,
-        default: false,
+        default: true,
       },
     },
     refreshToken: {

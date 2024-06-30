@@ -9,7 +9,7 @@ export const TYPE_FIELD = {
 
 function Fields({ type, id, label, readOnly, defaultValue, onChange, ...props }) {
   return (
-    <div className="d-flex align-items-center mb-2">
+    <div className="d-flex align-items-center mb-2 justify-content-center">
       {label && (
         <div className="col">
           <label className="form-label me-2 m-0" htmlFor={id}>
@@ -18,7 +18,7 @@ function Fields({ type, id, label, readOnly, defaultValue, onChange, ...props })
         </div>
       )}
 
-      <div className="col">
+      <div className="col-auto">
         <input
           id={id}
           name={id}

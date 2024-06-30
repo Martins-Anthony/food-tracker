@@ -1,8 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { setMessage } from '../../../Modal/modalSlice'
 
 export const resendLink = createAsyncThunk('resendLink', async (payload, thunkAPI) => {
-  const { rejectWithValue, dispatch, getState } = thunkAPI
+  const { rejectWithValue, getState } = thunkAPI
   try {
     const response = await fetch(getState().auth.api + '/users/resendLink', {
       method: 'POST',
@@ -13,7 +12,6 @@ export const resendLink = createAsyncThunk('resendLink', async (payload, thunkAP
     })
     const data = await response.json()
     if (response.ok) {
-      dispatch(setMessage(data.message))
       return data
     } else {
       return rejectWithValue({ error: data.error })

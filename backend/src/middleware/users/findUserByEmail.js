@@ -1,4 +1,5 @@
 const User = require('../../models/User')
+const { resendLink } = require('../../controllers/users')
 
 module.exports = async (req, res, next) => {
   const { email } = req.body
@@ -19,9 +20,8 @@ module.exports = async (req, res, next) => {
         break
       case '/register':
         if (user) {
-          return res
-            .status(200)
-            .json({ ok: true, message: 'Vous êtes déjà inscrit' })
+          req.user = user
+          return resendLink(req, res)
         } else {
           req.user = user
         }

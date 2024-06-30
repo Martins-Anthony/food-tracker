@@ -11,9 +11,15 @@ const modalSlice = createSlice({
   reducers: {
     showModal: (state, action) => {
       state.show = true
-      state.message = action.payload.message
-      state.tag = action.payload.tag
-      state.id = action.payload.id
+      if (action.payload.message) {
+        state.message = action.payload.message
+      }
+      if (action.payload.tag) {
+        state.tag = action.payload.tag
+      }
+      if (action.payload.id) {
+        state.id = action.payload.id
+      }
     },
     hideModal: (state) => {
       state.show = false
@@ -22,7 +28,10 @@ const modalSlice = createSlice({
       state.id = null
     },
     setMessage: (state, action) => {
-      state.message = action.payload
+      state.message = action.payload.message
+      if (action.payload.id) {
+        state.id = action.payload.id
+      }
     }
   }
 })

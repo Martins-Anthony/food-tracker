@@ -15,11 +15,9 @@ function Navbar() {
   const dispatch = useDispatch()
 
   const handleClickFooter = () => {
-    dispatch(
-      logout().then(() => {
-        dispatch(clearState())
-      })
-    )
+    dispatch(logout()).then(() => {
+      dispatch(clearState())
+    })
   }
 
   const renderedLogin = (

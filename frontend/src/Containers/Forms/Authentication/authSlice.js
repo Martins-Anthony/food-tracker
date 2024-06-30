@@ -29,6 +29,15 @@ export const authSlice = createSlice({
     },
     resendLinkActive(state) {
       state.resendLink = true
+    },
+    setAuthenticated(state, action) {
+      state.isAuthenticated = true
+      state.token = action.payload.token
+      state.refreshToken = action.payload.refreshToken
+      state.email = action.payload.email
+    },
+    setMagicLink(state, action) {
+      state.magicLink = action.payload.magicLink
     }
   },
   extraReducers: (builder) => {
@@ -61,7 +70,6 @@ export const authSlice = createSlice({
             state.token = action.payload.checkResult.token
             state.refreshToken = action.payload.checkResult.refreshToken
             state.email = action.payload.checkResult.email
-            state.magicLink = action.payload.checkResult.magicLink
             state.isAuthenticated = true
             break
           case refreshAccessToken.fulfilled.type:
@@ -108,5 +116,5 @@ export const authSlice = createSlice({
   }
 })
 
-export const { clearState, resendLinkActive } = authSlice.actions
+export const { clearState, resendLinkActive, setAuthenticated, setMagicLink } = authSlice.actions
 export default authSlice.reducer

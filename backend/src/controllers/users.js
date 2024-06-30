@@ -58,8 +58,9 @@ const login = async (req, res) => {
     const checkResult = await checkMagicLink(user, magicLink)
     if (checkResult.ok) {
       return res.status(200).json({ ok: true, checkResult })
+    } else {
+      return res.status(401).json({ ok: false, message: checkResult.message })
     }
-    return res.status(401).json({ ok: false, message: checkResult.message })
   } catch (error) {
     return res.status(400).json({
       ok: false,
@@ -70,10 +71,17 @@ const login = async (req, res) => {
 
 const resendLink = async (req, res) => {
   try {
-    const { email } = req.body
     const user = req.user
+    user.MagicLink = {
+      link: uuidv4(),
+      active: true,
+    }
+    user.refreshToken = null
 
-    await sendMagicLink(email, user.MagicLink.link, 'login')
+    await user.save()
+
+    await sendMagicLink(user.email, user.MagicLink.link, 'login')
+
     return res.status(200).json({ ok: true, message: 'Lien envoyé par email' })
   } catch (error) {
     return res.status(400).json({

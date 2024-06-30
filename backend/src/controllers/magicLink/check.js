@@ -4,17 +4,24 @@ const {
   generateAccessToken,
   generateRefreshToken,
 } = require('../token/generateAccess')
-const { updateMagicLink } = require('./update')
 
 const checkMagicLink = async (user, magicLink) => {
   try {
-    if (user.MagicLink.link === magicLink && !user.MagicLink.active) {
+    if (user.MagicLink.expiration < Date.now()) {
+      return {
+        ok: false,
+        message: 'Le lien magique a expiré. Nouveau lien envoyé par email',
+      }
+    }
+
+    if (user.MagicLink.link === magicLink && user.MagicLink.active) {
+      const token = generateAccessToken(user)
       await generateExpirationMagicLink(user)
       const refreshToken = generateRefreshToken(user)
       user.refreshToken = refreshToken
-      await user.save()
 
-      const token = generateAccessToken(user)
+      user.MagicLink.active = false
+      await user.save()
 
       return {
         ok: true,
@@ -23,12 +30,8 @@ const checkMagicLink = async (user, magicLink) => {
         refreshToken,
         email: user.email,
       }
-    } else if (user.MagicLink.expiration < Date.now()) {
-      return {
-        ok: false,
-        message: 'Le lien magique a expiré. Nouveau lien envoyé par email',
-      }
     } else {
+      console.log('Invalid login', user, magicLink)
       return { ok: false, message: 'Lien magique invalide ou déjà utilisé' }
     }
   } catch (error) {

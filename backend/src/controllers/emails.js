@@ -22,7 +22,7 @@ const sendMagicLink = async (email, link, which) => {
           '<p>Hello friend and welcome to our website. This is your link to confirm your account: ' +
           linkSite +
           '</p><p>Needless to remind you not to share this link with anyone 🤫</p>')
-    } else {
+    } else if (which === 'login') {
       ;(subj = 'Your sign in link'),
         (body =
           '<p>Hello friend and welcome back. This is your link to sign in: ' +

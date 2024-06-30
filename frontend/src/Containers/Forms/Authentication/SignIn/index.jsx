@@ -1,6 +1,5 @@
 import Fields, { TYPE_FIELD } from '../../../../Components/Fields'
 import Buttons, { BUTTONS_TYPES } from '../../../../Components/Buttons'
-import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { select } from '../../../../App/store/selectors'
 import { register } from '../Register/registerSlice'
@@ -9,23 +8,19 @@ import { resendLinkActive } from '../authSlice'
 import { showModal } from '../../../Modal/modalSlice'
 
 function SignIn() {
-  const navigate = useNavigate()
   const dispatch = useDispatch()
   const auth = useSelector(select.auth)
 
   const handleEmailSubmit = (event) => {
     event.preventDefault()
     const email = event.target.email.value.toLowerCase()
+
     if (auth.resendLink) {
       dispatch(resendLink({ email: email }))
       dispatch(resendLinkActive())
       dispatch(showModal())
     } else {
-      if (auth.magicLink) {
-        navigate(`/enter/${email}/${auth}`)
-      } else {
-        dispatch(register({ email: email })).then(() => dispatch(showModal()))
-      }
+      dispatch(register({ email: email }))
     }
   }
   return (
