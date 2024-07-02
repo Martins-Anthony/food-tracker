@@ -4,6 +4,8 @@ import { useDispatch } from 'react-redux'
 import { postStorageArea } from './postStorageAreaSlice'
 import { putStorageArea } from '../../Put/putStorageArea'
 import { getStorage } from '../../Get/getStorage'
+import Buttons from '../../../../Components/Buttons'
+import Fields from '../../../../Components/Fields'
 
 function NewStorageArea({ nameValue }) {
   const dispatch = useDispatch()
@@ -39,22 +41,15 @@ function NewStorageArea({ nameValue }) {
         style={{ minWidth: '200px' }}>
         <div className="row justify-content-center">
           <div className="col-auto pt-3">
-            <label className="form-label mb-0" htmlFor="InputAddStorageArea">
-              <input
-                type="text"
-                name="newStorageArea"
-                placeholder={nameValue === undefined ? 'Ajouter un nom' : nameValue}
-                onChange={handleNewStock}
-                className="form-control"
-                id="InputAddStorageArea"
-                value={newStock}
-              />
-            </label>
+            <Fields
+              type="text"
+              id="InputAddStorageArea"
+              onChange={handleNewStock}
+              defaultValue={nameValue === undefined ? 'Ajouter un nom' : nameValue}
+            />
           </div>
           <div className="col-auto py-3">
-            <button type="submit" className="btn btn-primary">
-              Validez
-            </button>
+            <Buttons type="button" label="Validez" />
           </div>
         </div>
       </form>
