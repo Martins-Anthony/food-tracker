@@ -9,29 +9,25 @@ export const TYPE_FIELD = {
 
 function Fields({ type, id, label, readOnly, defaultValue, onChange, ...props }) {
   return (
-    <div className="d-flex align-items-center mb-2 justify-content-center">
+    <div className="input-wrapper">
       {label && (
-        <div className="col">
-          <label className="form-label me-2 m-0" htmlFor={id}>
-            {label.charAt(0).toUpperCase() + label.slice(1)}
-          </label>
-        </div>
+        <label className="form-label" htmlFor={id}>
+          {label.charAt(0).toUpperCase() + label.slice(1)}
+        </label>
       )}
 
-      <div className="col-auto">
-        <input
-          id={id}
-          name={id}
-          type={type}
-          autoComplete={type === TYPE_FIELD.INPUT_MAIL ? 'username' : 'off'}
-          required={type === TYPE_FIELD.INPUT_MAIL}
-          readOnly={readOnly}
-          className={`form-control ${readOnly ? 'form-control-plaintext' : ''}`}
-          defaultValue={defaultValue}
-          onChange={onChange}
-          {...props}
-        />
-      </div>
+      <input
+        id={id}
+        name={id}
+        type={type}
+        autoComplete={type === TYPE_FIELD.INPUT_MAIL ? 'username' : 'off'}
+        required={type === TYPE_FIELD.INPUT_MAIL}
+        readOnly={readOnly}
+        className={`form-control ${readOnly ? 'form-control-plaintext' : ''}`}
+        defaultValue={defaultValue}
+        onChange={onChange}
+        {...props}
+      />
     </div>
   )
 }

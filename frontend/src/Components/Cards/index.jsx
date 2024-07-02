@@ -34,13 +34,13 @@ function Cards({ title, type, items, tag }) {
         )
       case 'product':
         return (
-          <div className="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+          <div className="col-xs-12 col-sm-6 col-lg-5">
             <div className="card">
               <div className="row align-items-center p-3">
-                <div className="col-auto">
+                <div className="col">
                   <RoundedImage image={defaultImage} />
                 </div>
-                <div className="col-sm-5 col-md-6">
+                <div className="col">
                   <h5 className="card-title mt-4 mb-0">
                     <Fields
                       type={TYPE_FIELD.INPUT_TEXT}
