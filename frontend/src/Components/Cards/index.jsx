@@ -1,19 +1,46 @@
-import { useSelector } from 'react-redux'
-import { select } from '../../App/store/selectors'
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
 import RoundedImage from '../RoundedImage'
 import imageTest from '../../assets/bocaux.jpg'
 import { iconList } from '../../Components/Icons/library'
-import Buttons from '../Buttons'
 import EditButton from '../Buttons/EditButton'
-import { handleEditModeCard } from '../../Containers/EditMode/editModeSlice'
 import ProductItem from '../ProductItem'
 import Fields, { TYPE_FIELD } from '../Fields'
+import { putItemInStorage } from '../../Containers/Storage/Put/ItemInStorage/putItemInStorage'
 function Cards({ title, type, items, tag }) {
-  const editMode = useSelector(select.editMode)
+  const dispatch = useDispatch()
+  const [editMode, setEditMode] = useState(false)
+  const [localTitle, setLocalTitle] = useState(title)
+  const [localItems, setLocalItems] = useState(items)
 
   const defaultImage = { src: imageTest, alt: 'default image' }
 
+  const handleFieldChange = (field, value) => {
+    setLocalItems({ ...localItems, [field]: value })
+  }
+
+  const handleTitleChange = (event) => {
+    setLocalTitle(event.target.value)
+  }
+
+  const handleSave = () => {
+    const oldItemInStorage = { title, items, tag }
+    const newItemInStorage = { title: localTitle, items: localItems, tag }
+
+    dispatch(putItemInStorage({ newItemInStorage, oldItemInStorage }))
+    setEditMode(false)
+  }
+
+  const handleDelete = () => {
+    console.log(`Delete item with tag ${tag}`)
+  }
+
+  const handleCancel = () => {
+    setLocalTitle(title)
+    setLocalItems(items)
+    setEditMode(false)
+  }
   const getComponent = () => {
     switch (type) {
       case 'presentation':
@@ -26,8 +53,8 @@ function Cards({ title, type, items, tag }) {
                 alt="..."
               />
               <div className="card-body">
-                <h5 className="card-title">{title}</h5>
-                <p className="card-text">{items}</p>
+                <h5 className="card-title">{localTitle}</h5>
+                <p className="card-text">{localItems}</p>
               </div>
             </div>
           </div>
@@ -45,34 +72,40 @@ function Cards({ title, type, items, tag }) {
                     <Fields
                       type={TYPE_FIELD.INPUT_TEXT}
                       id="title"
-                      defaultValue={title}
-                      readOnly={!editMode.cardStatus}
-                      aria-label={`titre du produits ${title}`}
+                      defaultValue={localTitle}
+                      readOnly={!editMode}
+                      aria-label={`titre du produits ${localTitle}`}
+                      onChange={handleTitleChange}
                     />
                   </h5>
                 </div>
               </div>
               <div className="card-body">
-                <ProductItem item={items} />
-                {editMode.status ? (
-                  <div className="d-flex justify-content-around">
-                    <EditButton
-                      editMode={editMode.cardStatus}
-                      toggleEditMode={handleEditModeCard}
-                      icon={iconList}
-                    />
-                    {editMode.cardStatus ? (
-                      <Buttons
-                        type="modal"
-                        className="btn btn-outline-danger"
-                        tag={tag}
-                        label={iconList.deleteIcon}
-                        modalMessage={`Êtes-vous sûr de vouloir supprimer ${title} ?`}
-                        modalId="deleteModalItem"
-                      />
-                    ) : null}
-                  </div>
-                ) : null}
+                <ProductItem
+                  item={localItems}
+                  onFieldChange={handleFieldChange}
+                  editMode={editMode}
+                />
+                {editMode ? (
+                  <EditButton
+                    icon={iconList}
+                    className="d-flex justify-content-around"
+                    onSave={handleSave}
+                    onCancel={handleCancel}
+                    onDelete={handleDelete}
+                    tag={tag}
+                    modalMessage={`Êtes-vous sûr de vouloir supprimer ${title} ?`}
+                    onEditModeChange={setEditMode}
+                    editMode={editMode}
+                  />
+                ) : (
+                  <EditButton
+                    icon={iconList}
+                    className="position-absolute top-0 end-0 m-2"
+                    onEditModeChange={setEditMode}
+                    editMode={editMode}
+                  />
+                )}
               </div>
             </div>
           </div>
@@ -88,7 +121,7 @@ function Cards({ title, type, items, tag }) {
 Cards.propTypes = {
   title: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
-
+  items: PropTypes.object.isRequired,
   tag: PropTypes.string
 }
 

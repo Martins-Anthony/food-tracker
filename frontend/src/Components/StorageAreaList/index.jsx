@@ -1,10 +1,10 @@
+import PropTypes from 'prop-types'
 import StorageAreaItem from '../StorageAreaItem'
 import { useSelector } from 'react-redux'
 import { select } from '../../App/store/selectors'
 
-function StorageAreaList() {
+function StorageAreaList({ editMode }) {
   const storageData = useSelector(select.storage)
-  const editMode = useSelector(select.editMode).status
 
   return (
     <div>
@@ -17,6 +17,10 @@ function StorageAreaList() {
       ))}
     </div>
   )
+}
+
+StorageAreaList.propTypes = {
+  editMode: PropTypes.bool.isRequired
 }
 
 export default StorageAreaList
