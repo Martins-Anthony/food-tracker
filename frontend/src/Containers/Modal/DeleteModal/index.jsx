@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import Modal from '../'
 import Buttons from '../../../Components/Buttons'
 import { hideModal } from '../modalSlice'
-// import { deleteStorageArea } from '../../Storage/Delete/storageArea/deleteStorageArea'
 import { getStorage } from '../../Storage/Get/getStorage'
 import { select } from '../../../App/store/selectors'
 
@@ -14,8 +13,8 @@ function DeleteModal({ deleteAction, modalId }) {
   const handleClickConfirmDelete = async (event) => {
     event.preventDefault()
     await dispatch(deleteAction(selectModal.tag))
-    dispatch(getStorage())
     dispatch(hideModal())
+    dispatch(getStorage())
   }
 
   return (

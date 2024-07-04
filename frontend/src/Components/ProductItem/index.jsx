@@ -16,7 +16,7 @@ const ProductItem = ({ item, onFieldChange, editMode }) => {
           readOnly={!editMode}
           defaultValue={item.quantity}
           aria-label={`Quantité du produits`}
-          onChange={(event) => onFieldChange('quantity', event.target.value)}
+          onChange={(event) => onFieldChange('quantity', Number(event.target.value))}
         />
       </li>
       <li className="list-group-item">

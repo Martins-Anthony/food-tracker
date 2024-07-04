@@ -74,7 +74,7 @@ const putItemInStorage = async (req, res) => {
   try {
     const user = await User.findOne({
       _id: userId,
-      'storage.items': oldItemInStorage,
+      'storage.items': oldItemInStorage.items,
     })
 
     if (!user) {
@@ -84,8 +84,8 @@ const putItemInStorage = async (req, res) => {
     }
 
     const result = await User.updateOne(
-      { _id: userId, 'storage.items': oldItemInStorage },
-      { $set: { 'storage.$.items': newItemInStorage } },
+      { _id: userId, 'storage.items': oldItemInStorage.items },
+      { $set: { 'storage.$.items': newItemInStorage.items } },
     )
 
     if (result.nModified === 0) {

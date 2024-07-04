@@ -12,6 +12,7 @@ router.delete('/StorageArea', auth, storageAreaCtrl.deleteStorageArea)
 router.delete('/ItemInStorage', auth, itemInStorageCtrl.deleteItemInStorage)
 
 router.put('/StorageArea', auth, storageAreaCtrl.putStorageArea)
+router.put('/ItemInStorage', auth, itemInStorageCtrl.putItemInStorage)
 
 router.get('/storages', auth, storageCtrl.getStorage)
 

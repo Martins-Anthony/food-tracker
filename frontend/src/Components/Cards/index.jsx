@@ -8,6 +8,7 @@ import EditButton from '../Buttons/EditButton'
 import ProductItem from '../ProductItem'
 import Fields, { TYPE_FIELD } from '../Fields'
 import { putItemInStorage } from '../../Containers/Storage/Put/ItemInStorage/putItemInStorage'
+import { deleteItemInStorage } from '../../Containers/Storage/Delete/ItemInStorage/deleteItemInStorage'
 function Cards({ title, type, items, tag }) {
   const dispatch = useDispatch()
   const [editMode, setEditMode] = useState(false)
@@ -17,6 +18,9 @@ function Cards({ title, type, items, tag }) {
   const defaultImage = { src: imageTest, alt: 'default image' }
 
   const handleFieldChange = (field, value) => {
+    if (field === 'quantity') {
+      value = Number(value)
+    }
     setLocalItems({ ...localItems, [field]: value })
   }
 
@@ -25,15 +29,11 @@ function Cards({ title, type, items, tag }) {
   }
 
   const handleSave = () => {
-    const oldItemInStorage = { title, items, tag }
-    const newItemInStorage = { title: localTitle, items: localItems, tag }
-
+    const oldItemInStorage = { items }
+    const newItems = { ...localItems, name: localTitle }
+    const newItemInStorage = { items: newItems }
     dispatch(putItemInStorage({ newItemInStorage, oldItemInStorage }))
     setEditMode(false)
-  }
-
-  const handleDelete = () => {
-    console.log(`Delete item with tag ${tag}`)
   }
 
   const handleCancel = () => {
@@ -92,11 +92,11 @@ function Cards({ title, type, items, tag }) {
                     className="d-flex justify-content-around"
                     onSave={handleSave}
                     onCancel={handleCancel}
-                    onDelete={handleDelete}
                     tag={tag}
                     modalMessage={`Êtes-vous sûr de vouloir supprimer ${title} ?`}
                     onEditModeChange={setEditMode}
                     editMode={editMode}
+                    modalDeleteAction={deleteItemInStorage}
                   />
                 ) : (
                   <EditButton
