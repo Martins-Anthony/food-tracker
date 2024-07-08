@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
 import RoundedImage from '../RoundedImage'
-import imageTest from '../../assets/bocaux.jpg'
 import { iconList } from '../../Components/Icons/library'
 import EditButton from '../Buttons/EditButton'
 import ProductItem from '../ProductItem'
@@ -14,8 +13,6 @@ function Cards({ title, type, items, tag }) {
   const [editMode, setEditMode] = useState(false)
   const [localTitle, setLocalTitle] = useState(title)
   const [localItems, setLocalItems] = useState(items)
-
-  const defaultImage = { src: imageTest, alt: 'default image' }
 
   const handleFieldChange = (field, value) => {
     if (field === 'quantity') {
@@ -41,20 +38,42 @@ function Cards({ title, type, items, tag }) {
     setLocalItems(items)
     setEditMode(false)
   }
+
+  const renderRoundedImage = () => {
+    const image = localItems.image ? (
+      <img
+        src={localItems.image.src}
+        className="card-img-top custom-img-size"
+        alt={localItems.image.alt}
+      />
+    ) : (
+      <img
+        src="https://picsum.photos/300/150?random=2"
+        alt="default image"
+        className="card-img-top"
+      />
+    )
+    return image
+  }
+
   const getComponent = () => {
     switch (type) {
       case 'presentation':
         return (
           <div className="col-xs-12 col-sm-6 col-md-4">
             <div className="card">
-              <img
-                src="https://picsum.photos/300/150?random=2"
-                className="card-img-top"
-                alt="..."
-              />
+              {items ? (
+                renderRoundedImage()
+              ) : (
+                <img
+                  src="https://picsum.photos/300/150?random=2"
+                  className="card-img-top"
+                  alt="..."
+                />
+              )}
               <div className="card-body">
                 <h5 className="card-title">{localTitle}</h5>
-                <p className="card-text">{localItems}</p>
+                <p className="card-text">{localItems?.brands || localItems}</p>
               </div>
             </div>
           </div>
@@ -65,7 +84,7 @@ function Cards({ title, type, items, tag }) {
             <div className="card">
               <div className="row align-items-center p-3">
                 <div className="col">
-                  <RoundedImage image={defaultImage} />
+                  <RoundedImage />
                 </div>
                 <div className="col">
                   <h5 className="card-title mt-4 mb-0">
@@ -121,7 +140,7 @@ function Cards({ title, type, items, tag }) {
 Cards.propTypes = {
   title: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
-  items: PropTypes.object.isRequired,
+  items: PropTypes.oneOfType([PropTypes.object, PropTypes.arrayOf(PropTypes.object)]).isRequired,
   tag: PropTypes.string
 }
 

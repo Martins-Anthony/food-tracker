@@ -3,6 +3,7 @@ import EditButton from '../Buttons/EditButton'
 import StorageAreaList from '../StorageAreaList'
 
 import { iconList } from '../../Components/Icons/library'
+import ProductSearch from '../../Containers/ProductSearch'
 
 function StockTable() {
   const [editMode, setEditMode] = useState(false)
@@ -22,6 +23,7 @@ function StockTable() {
           showDeleteButton={false}
         />
       </div>
+      <ProductSearch />
       <StorageAreaList editMode={editMode} />
     </section>
   )

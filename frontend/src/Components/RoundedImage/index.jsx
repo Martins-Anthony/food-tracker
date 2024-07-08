@@ -1,14 +1,25 @@
 import PropTypes from 'prop-types'
+import defaultImage from '../../assets/bocaux.jpg'
 
 function RoundedImage({ image }) {
-  return <img src={image.src} alt={image.alt} className="roundedImage" />
+  const imageSrc = image?.src || defaultImage
+  const imageAlt = image?.alt || 'default image'
+
+  return <img src={imageSrc} alt={imageAlt} className="roundedImage" />
 }
 
 RoundedImage.propTypes = {
   image: PropTypes.shape({
     src: PropTypes.string.isRequired,
     alt: PropTypes.string.isRequired
-  }).isRequired
+  })
+}
+
+RoundedImage.defaultProps = {
+  image: {
+    src: defaultImage,
+    alt: 'default image'
+  }
 }
 
 export default RoundedImage

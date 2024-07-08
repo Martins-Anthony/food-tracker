@@ -9,6 +9,7 @@ const cors = require('cors')
 
 const userRoutes = require('../routes/users')
 const storageRoutes = require('../routes/storage')
+const productRoutes = require('../routes/openFoodFacts')
 
 const app = express()
 
@@ -28,5 +29,6 @@ app.get('/', (req, res) => {
 
 app.use(`${basePathVersion}+/users`, userRoutes)
 app.use(`${basePathVersion}+/users/storage`, storageRoutes)
+app.use(`${basePathVersion}+/users/openFoodFacts`, productRoutes)
 
 module.exports = app
