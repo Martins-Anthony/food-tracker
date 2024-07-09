@@ -40,7 +40,7 @@ function Cards({ title, type, items, tag }) {
   }
 
   const renderRoundedImage = () => {
-    const image = localItems.image ? (
+    const image = localItems?.image?.src ? (
       <img
         src={localItems.image.src}
         className="card-img-top custom-img-size"
