@@ -51,6 +51,7 @@ function ProductSearch() {
     <div>
       <h1>Search Products</h1>
       <Fields
+        id="search-products"
         type="text"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
