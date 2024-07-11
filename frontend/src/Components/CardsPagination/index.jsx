@@ -1,13 +1,32 @@
 import { Pagination } from 'react-bootstrap'
 import PropTypes from 'prop-types'
 
-const CardsPagination = ({ totalItems, itemsPerPage, currentPage, onPageChange }) => {
-  const totalPages = Math.ceil(totalItems / itemsPerPage)
-
+const CardsPagination = ({ totalPages, currentPage, onPageChange }) => {
   const handlePageChange = (pageNumber) => {
     if (pageNumber !== currentPage) {
       onPageChange(pageNumber)
     }
+  }
+
+  const getPaginationItems = () => {
+    let startPage = Math.max(1, currentPage - 2)
+    let endPage = Math.min(totalPages, currentPage + 2)
+
+    if (currentPage <= 3) {
+      endPage = Math.min(5, totalPages)
+    } else if (currentPage + 2 >= totalPages) {
+      startPage = Math.max(totalPages - 4, 1)
+    }
+
+    const pages = []
+    for (let i = startPage; i <= endPage; i++) {
+      pages.push(
+        <Pagination.Item key={i} active={i === currentPage} onClick={() => handlePageChange(i)}>
+          {i}
+        </Pagination.Item>
+      )
+    }
+    return pages
   }
 
   return (
@@ -18,14 +37,9 @@ const CardsPagination = ({ totalItems, itemsPerPage, currentPage, onPageChange }
         disabled={currentPage === 1}
       />
 
-      {[...Array(totalPages)].map((_, index) => (
-        <Pagination.Item
-          key={index + 1}
-          active={index + 1 === currentPage}
-          onClick={() => handlePageChange(index + 1)}>
-          {index + 1}
-        </Pagination.Item>
-      ))}
+      {getPaginationItems()}
+
+      {totalPages > 5 && totalPages - currentPage > 2 ? <Pagination.Ellipsis /> : null}
 
       <Pagination.Next
         onClick={() => handlePageChange(currentPage + 1)}
@@ -40,8 +54,7 @@ const CardsPagination = ({ totalItems, itemsPerPage, currentPage, onPageChange }
 }
 
 CardsPagination.propTypes = {
-  totalItems: PropTypes.number.isRequired,
-  itemsPerPage: PropTypes.number.isRequired,
+  totalPages: PropTypes.number.isRequired,
   currentPage: PropTypes.number.isRequired,
   onPageChange: PropTypes.func.isRequired
 }

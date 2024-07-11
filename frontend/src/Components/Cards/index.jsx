@@ -40,7 +40,7 @@ function Cards({ title, type, items, tag }) {
   }
 
   const renderRoundedImage = () => {
-    const image = localItems?.image?.src ? (
+    const image = localItems.image.src ? (
       <img
         src={localItems.image.src}
         className="card-img-top custom-img-size"
@@ -73,7 +73,7 @@ function Cards({ title, type, items, tag }) {
               )}
               <div className="card-body">
                 <h5 className="card-title">{localTitle}</h5>
-                <p className="card-text">{localItems?.brands || localItems}</p>
+                <p className="card-text">{localItems?.brands || 'No brand information'}</p>
               </div>
             </div>
           </div>

@@ -1,16 +1,18 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Cards from '../../Components/Cards'
 import CardsPagination from '../CardsPagination'
 import PropTypes from 'prop-types'
 
-const ProductDisplay = ({ products }) => {
-  const [currentPage, setCurrentPage] = useState(1)
-  const itemsPerPage = 6
+const ProductDisplay = ({ products, itemsPerPage, currentPage, totalPages, onPageChange }) => {
+  const [displayedProducts, setDisplayedProducts] = useState([])
 
-  const startIndex = (currentPage - 1) * itemsPerPage
-  const displayedProducts = products.slice(startIndex, startIndex + itemsPerPage)
+  useEffect(() => {
+    const startIndex = (currentPage - 1) * itemsPerPage
+    const endIndex = startIndex + itemsPerPage
+    setDisplayedProducts(products.slice(startIndex, endIndex))
+  }, [currentPage, products, itemsPerPage])
 
-  if (products.length === 0) return null
+  if (!Array.isArray(products) || products.length === 0) return null
 
   return (
     <div>
@@ -29,10 +31,11 @@ const ProductDisplay = ({ products }) => {
       </div>
       <div className="d-flex justify-content-center mt-5">
         <CardsPagination
-          totalItems={products.length}
+          totalItems={totalPages * itemsPerPage}
           itemsPerPage={itemsPerPage}
           currentPage={currentPage}
-          onPageChange={setCurrentPage}
+          onPageChange={onPageChange}
+          totalPages={totalPages}
         />
       </div>
     </div>
@@ -40,7 +43,15 @@ const ProductDisplay = ({ products }) => {
 }
 
 ProductDisplay.propTypes = {
-  products: PropTypes.arrayOf(PropTypes.object).isRequired
+  products: PropTypes.arrayOf(PropTypes.object).isRequired,
+  itemsPerPage: PropTypes.number,
+  currentPage: PropTypes.number.isRequired,
+  totalPages: PropTypes.number.isRequired,
+  onPageChange: PropTypes.func.isRequired
+}
+
+ProductDisplay.defaultProps = {
+  itemsPerPage: 6
 }
 
 export default ProductDisplay

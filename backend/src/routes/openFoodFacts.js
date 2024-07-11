@@ -6,7 +6,11 @@ const {
 } = require('../controllers/openFoodFacts/service.js')
 
 router.get('/search', async (req, res) => {
-  const { query } = req.query
+  const { query, offset, limit } = req.query
+
+  const offsetNum = parseInt(offset, 10)
+  const limitNum = parseInt(limit, 10)
+
   try {
     if (!query) {
       return res.status(400).json({ error: 'Please provide a search query' })
@@ -17,10 +21,14 @@ router.get('/search', async (req, res) => {
 
     if (isBarcode) {
       const productData = await fetchProductByBarcode(query)
-      return res.json(productData)
+      return res.json({ products: [productData], totalPages: 1 })
     } else {
-      const products = await searchProducts(query)
-      return res.json(products)
+      const { products, totalPages } = await searchProducts(
+        query,
+        offsetNum,
+        limitNum,
+      )
+      return res.json({ products, totalPages })
     }
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch product data' })

@@ -1,22 +1,46 @@
 const fetch = (...args) =>
   import('node-fetch').then(({ default: fetch }) => fetch(...args))
+
 const NodeCache = require('node-cache')
 const cache = new NodeCache({ stdTTL: 3600 })
 
 const BASE_URL = 'https://world.openfoodfacts.org'
 
+const fetchWithRetry = async (
+  url,
+  options = {},
+  retries = 5,
+  backoff = 300,
+) => {
+  for (let i = 0; i < retries; i++) {
+    try {
+      const response = await fetch(url, options)
+      if (!response.ok) {
+        throw new Error('Network response was not ok')
+      }
+      return response.json()
+    } catch (error) {
+      console.error(`Attempt ${i + 1} failed: ${error.message}`)
+      if (i < retries - 1) {
+        await new Promise((res) => setTimeout(res, backoff * Math.pow(2, i)))
+      } else {
+        throw error
+      }
+    }
+  }
+}
+
 const fetchProductByBarcode = async (barcode) => {
   const cacheKey = `barcode_${barcode}`
-  if (cache.has(cacheKey)) {
-    return cache.get(cacheKey)
+  const cachedProduct = cache.get(cacheKey)
+  if (cachedProduct) {
+    return cachedProduct
   }
 
   try {
-    const response = await fetch(`${BASE_URL}/api/v0/product/${barcode}.json`)
-    if (!response.ok) {
-      throw new Error(`Network response was not ok, status: ${response.status}`)
-    }
-    const data = await response.json()
+    const data = await fetchWithRetry(
+      `${BASE_URL}/api/v0/product/${barcode}.json`,
+    )
     cache.set(cacheKey, data)
     return data
   } catch (error) {
@@ -25,26 +49,28 @@ const fetchProductByBarcode = async (barcode) => {
   }
 }
 
-const searchProducts = async (query) => {
-  const cacheKey = `search_${query}`
-  if (cache.has(cacheKey)) {
-    return cache.get(cacheKey)
+const searchProducts = async (query, offset = 0, limit = 10) => {
+  const cacheKey = `search_${query}_${offset}_${limit}`
+  const cachedProducts = cache.get(cacheKey)
+  if (cachedProducts) {
+    return cachedProducts
   }
 
   try {
-    console.log('********** test product ******** ', query)
-    const response = await fetch(
-      `${BASE_URL}/cgi/search.pl?search_terms=${query}&search_simple=1&action=process&json=1`,
+    const data = await fetchWithRetry(
+      `${BASE_URL}/cgi/search.pl?search_terms=${query}&search_simple=1&action=process&json=1&start=${offset}&page_size=${limit}`,
     )
-    if (!response.ok) {
-      throw new Error(`Network response was not ok, status: ${response.status}`)
+    const totalPages = Math.ceil(data.count / limit)
+    const result = {
+      products: data.products,
+      totalPages,
+      totalCount: data.count,
     }
-    const data = await response.json()
-    cache.set(cacheKey, data)
-    console.log("************* cache key: ${cacheKey} data: ${data  **********")
-    console.log(data)
-    console.log("************* cache key: ${cacheKey} data: ${data  **********")
-    return data
+    cache.set(cacheKey, result)
+    console.log('Searching products ************')
+
+    console.log('Searching products ************')
+    return result
   } catch (error) {
     console.error('Error searching products:', error)
     throw error
