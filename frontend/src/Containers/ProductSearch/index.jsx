@@ -49,11 +49,7 @@ function ProductSearch() {
       setLoading(false)
     }
 
-    const delayDebounceFn = setTimeout(() => {
-      handleSearch()
-    }, 300)
-
-    return () => clearTimeout(delayDebounceFn)
+    handleSearch()
   }, [query, currentPage, auth.api])
 
   const handlePageChange = (pageNumber) => {
@@ -69,7 +65,7 @@ function ProductSearch() {
           type="text"
           value={query}
           onChange={(e) => {
-            setQuery(e.target.value)
+            setQuery(e.target.value.toLowerCase())
             setCurrentPage(1)
           }}
           placeholder="Enter name or barcode"

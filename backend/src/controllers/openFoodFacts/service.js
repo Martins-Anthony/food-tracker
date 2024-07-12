@@ -49,8 +49,8 @@ const fetchProductByBarcode = async (barcode) => {
   }
 }
 
-const searchProducts = async (query, offset = 0, limit = 10) => {
-  const cacheKey = `search_${query}_${offset}_${limit}`
+const searchProducts = async (query, offset = 1, limit = 10) => {
+  const cacheKey = `search_${query}_page_${offset}_limit_${limit}`
   const cachedProducts = cache.get(cacheKey)
   if (cachedProducts) {
     return cachedProducts
@@ -58,7 +58,7 @@ const searchProducts = async (query, offset = 0, limit = 10) => {
 
   try {
     const data = await fetchWithRetry(
-      `${BASE_URL}/cgi/search.pl?search_terms=${query}&search_simple=1&action=process&json=1&start=${offset}&page_size=${limit}`,
+      `${BASE_URL}/cgi/search.pl?search_terms=${query}&search_simple=1&action=process&json=1&page=${offset}&page_size=${limit}`,
     )
     const totalPages = Math.ceil(data.count / limit)
     const result = {
@@ -67,9 +67,6 @@ const searchProducts = async (query, offset = 0, limit = 10) => {
       totalCount: data.count,
     }
     cache.set(cacheKey, result)
-    console.log('Searching products ************')
-
-    console.log('Searching products ************')
     return result
   } catch (error) {
     console.error('Error searching products:', error)
