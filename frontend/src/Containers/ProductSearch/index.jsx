@@ -15,41 +15,45 @@ function ProductSearch() {
   const [currentPage, setCurrentPage] = useState(1)
   const itemsPerPage = 6
 
-  useEffect(() => {
-    const handleSearch = async () => {
-      if (query.trim() === '') {
-        setProducts([])
-        return
+  const handleSearch = async (searchQuery, page) => {
+    if (searchQuery.trim() === '') {
+      setProducts([])
+      return
+    }
+    setLoading(true)
+    try {
+      const response = await fetch(
+        `${auth.api}/users/openFoodFacts/search?query=${query}&page=${page}&limit=${itemsPerPage}`
+      )
+      if (!response.ok) {
+        throw new Error('Network response was not ok')
       }
-      setLoading(true)
-      try {
-        const response = await fetch(
-          `${auth.api}/users/openFoodFacts/search?query=${query}&page=${currentPage}&limit=${itemsPerPage}`
-        )
-        if (!response.ok) {
-          throw new Error('Network response was not ok')
-        }
-        const data = await response.json()
-        if (data.products) {
-          setProducts(data.products)
-          setTotalPages(data.totalPages)
-        } else if (data.product) {
-          setProducts([data.product])
-          setTotalPages(1)
-        } else {
-          setProducts([])
-          setTotalPages(1)
-        }
-        setError(null)
-      } catch (error) {
-        setError('Could not search products')
+      const data = await response.json()
+      if (data.products) {
+        setProducts(data.products)
+        setTotalPages(data.totalPages)
+      } else if (data.product) {
+        setProducts([data.product])
+        setTotalPages(1)
+      } else {
         setProducts([])
         setTotalPages(1)
       }
-      setLoading(false)
+      setError(null)
+    } catch (error) {
+      setError('Could not search products')
+      setProducts([])
+      setTotalPages(1)
     }
+    setLoading(false)
+  }
 
-    handleSearch()
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      handleSearch(query, currentPage)
+    }, 500)
+
+    return () => clearTimeout(delayDebounceFn)
   }, [query, currentPage, auth.api])
 
   const handlePageChange = (pageNumber) => {
