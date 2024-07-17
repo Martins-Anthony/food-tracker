@@ -17,8 +17,8 @@ router.get('/search', async (req, res) => {
     const isBarcode = /^\d{8,13}$/.test(query)
 
     if (isBarcode) {
-      const productData = await fetchProductByBarcode(query)
-      return res.json({ products: [productData], totalPages: 1 })
+      const { products } = await fetchProductByBarcode(query)
+      return res.json({ products, totalPages: 1 })
     } else {
       const { products, totalPages } = await searchProducts(
         query,

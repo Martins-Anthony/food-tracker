@@ -36,9 +36,6 @@ function ProductSearch() {
       if (data.products) {
         setProducts(data.products)
         setTotalPages(data.totalPages)
-      } else if (data.product) {
-        setProducts([data.product])
-        setTotalPages(1)
       } else {
         setProducts([])
         setTotalPages(1)
@@ -53,6 +50,13 @@ function ProductSearch() {
   }
 
   useEffect(() => {
+    if (scannedCode) {
+      setQuery(scannedCode)
+      dispatch(scanRemove())
+    }
+  }, [scannedCode, dispatch])
+
+  useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
       handleSearch(query, currentPage)
     }, 500)
@@ -62,12 +66,6 @@ function ProductSearch() {
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber)
-  }
-
-  if (scannedCode) {
-    setQuery(scannedCode)
-    dispatch(scanRemove())
-    console.log(scannedCode)
   }
 
   return (
@@ -95,17 +93,19 @@ function ProductSearch() {
         </div>
       )}
       {error && <p>{error}</p>}
-      <section className="container my-5">
-        <div className="row gy-4 gy-md-0 mt-4">
-          <ProductDisplay
-            products={products}
-            itemsPerPage={itemsPerPage}
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={handlePageChange}
-          />
-        </div>
-      </section>
+      {query && products && (
+        <section className="container my-5">
+          <div className="row gy-4 gy-md-0 mt-4">
+            <ProductDisplay
+              products={products}
+              itemsPerPage={itemsPerPage}
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={handlePageChange}
+            />
+          </div>
+        </section>
+      )}
     </div>
   )
 }

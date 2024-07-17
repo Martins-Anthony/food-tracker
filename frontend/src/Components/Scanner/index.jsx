@@ -98,7 +98,6 @@ const Scanner = () => {
 
   const detected = (result) => {
     dispatch(scanSuccess(result.codeResult.code))
-    console.log(result)
   }
 
   const handleDeviceChange = (event) => {

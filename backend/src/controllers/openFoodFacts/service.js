@@ -41,8 +41,11 @@ const fetchProductByBarcode = async (barcode) => {
     const data = await fetchWithRetry(
       `${BASE_URL}/api/v0/product/${barcode}.json`,
     )
-    cache.set(cacheKey, data)
-    return data
+    const result = {
+      products: [data.product],
+    }
+    cache.set(cacheKey, result)
+    return result
   } catch (error) {
     console.error('Error fetching product data by barcode:', error)
     throw error
