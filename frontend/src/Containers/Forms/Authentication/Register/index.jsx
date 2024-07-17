@@ -14,12 +14,14 @@ function Register() {
   return (
     <form onSubmit={handleEmailSubmit}>
       <section className="row justify-content-center">
-        <Fields
-          type={TYPE_FIELD.INPUT_MAIL}
-          id="email"
-          placeholder="entrez votre email"
-          autoFocus
-        />
+        <div className="col col-sm-10 col-mb-7 mx-2">
+          <Fields
+            type={TYPE_FIELD.INPUT_MAIL}
+            id="email"
+            placeholder="entrez votre email"
+            autoFocus
+          />
+        </div>
       </section>
       <Buttons type={BUTTONS_TYPES.BUTTON} label="S'inscrire" />
     </form>

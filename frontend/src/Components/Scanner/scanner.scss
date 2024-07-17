@@ -1,16 +1,63 @@
 #interactive {
   position: relative;
+  width: 100%;
+  max-width: 600px;
+  height: 100%;
+  margin: 0 auto;
+  border: 2px solid #000;
+  background-color: #000;
 }
 
 #interactive.viewport {
-  width: 400px;
-  height: 300px;
+  width: 200px;
+  height: 150px;
+  position: relative;
 }
 
 #interactive.viewport canvas,
-video {
-  width: 400px;
-  height: 300px;
+#interactive.viewport video {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#interactive .guidelines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+#interactive .guidelines .horizontal,
+#interactive .guidelines .vertical {
+  position: absolute;
+  background-color: rgba(255, 0, 0, 0.5);
+}
+
+#interactive .guidelines .horizontal {
+  width: 80%;
+  height: 2px;
+}
+
+#interactive .guidelines .vertical {
+  height: 80%;
+  width: 2px;
+}
+
+
+/*
+#interactive.viewport canvas,
+#interactive.viewport video {
+  width: 100%;
+  height: 100%;
   position: absolute;
   top: 0;
   left: 0;
@@ -18,6 +65,7 @@ video {
 
 #interactive.viewport canvas.drawingBuffer,
 video.drawingBuffer {
-  width: 400px;
-  height: 300px;
+  width: 150px;
+  height: 150px;
 }
+*/

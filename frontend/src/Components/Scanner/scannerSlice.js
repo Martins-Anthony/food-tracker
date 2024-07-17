@@ -10,10 +10,13 @@ const scannerSlice = createSlice({
   reducers: {
     scanSuccess(state, action) {
       state.scannedCode = action.payload
+    },
+    scanRemove(state) {
+      state.scannedCode = null
     }
   }
 })
 
-export const { scanSuccess } = scannerSlice.actions
+export const { scanSuccess, scanRemove } = scannerSlice.actions
 
 export default scannerSlice.reducer

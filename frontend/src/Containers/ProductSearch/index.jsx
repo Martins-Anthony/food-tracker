@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import { Spinner } from 'react-bootstrap'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { select } from '../../App/store/selectors'
 import Fields from '../../Components/Fields'
 import ProductDisplay from '../../Components/ProductDisplay'
+import ItemScanner from '../../Components/Scanner/ItemScanner'
+import { scanRemove } from '../../Components/Scanner/scannerSlice'
 
 function ProductSearch() {
   const auth = useSelector(select.auth)
+  const scannedCode = useSelector(select.scanner).scannedCode
+  const dispatch = useDispatch()
   const [query, setQuery] = useState('')
   const [products, setProducts] = useState([])
   const [totalPages, setTotalPages] = useState(1)
@@ -60,6 +64,12 @@ function ProductSearch() {
     setCurrentPage(pageNumber)
   }
 
+  if (scannedCode) {
+    setQuery(scannedCode)
+    dispatch(scanRemove())
+    console.log(scannedCode)
+  }
+
   return (
     <div className="d-flex flex-column">
       <h1>Search Products</h1>
@@ -74,7 +84,11 @@ function ProductSearch() {
           }}
           placeholder="Enter name or barcode"
         />
+        <div className="p-0 ms-2">
+          <ItemScanner />
+        </div>
       </div>
+
       {loading && (
         <div className="container my-5">
           <Spinner />{' '}

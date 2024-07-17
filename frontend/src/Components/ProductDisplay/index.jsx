@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 const ProductDisplay = ({ products, itemsPerPage, currentPage, totalPages, onPageChange }) => {
   if (!Array.isArray(products) || products.length === 0) return null
 
+  console.log('products de ProductDisplay 11', products)
   return (
     <div>
       <div className="row">

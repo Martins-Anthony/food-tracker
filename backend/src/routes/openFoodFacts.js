@@ -6,7 +6,7 @@ const {
 } = require('../controllers/openFoodFacts/service.js')
 
 router.get('/search', async (req, res) => {
-  const { query, offset = 1, limit = 6 } = req.query
+  const { query, page = 1, limit = 6 } = req.query
 
   try {
     if (!query) {
@@ -22,7 +22,7 @@ router.get('/search', async (req, res) => {
     } else {
       const { products, totalPages } = await searchProducts(
         query,
-        Number(offset),
+        Number(page),
         Number(limit),
       )
       return res.json({ products, totalPages })

@@ -8,6 +8,7 @@ import ProductItem from '../ProductItem'
 import Fields, { TYPE_FIELD } from '../Fields'
 import { putItemInStorage } from '../../Containers/Storage/Put/ItemInStorage/putItemInStorage'
 import { deleteItemInStorage } from '../../Containers/Storage/Delete/ItemInStorage/deleteItemInStorage'
+import imageDefault from '../../assets/bocaux.jpg'
 function Cards({ title, type, items, tag }) {
   const dispatch = useDispatch()
   const [editMode, setEditMode] = useState(false)
@@ -47,11 +48,7 @@ function Cards({ title, type, items, tag }) {
         alt={localItems.image.alt}
       />
     ) : (
-      <img
-        src="https://picsum.photos/300/150?random=2"
-        alt="default image"
-        className="card-img-top"
-      />
+      <img src={imageDefault} alt="default image" className="card-img-top" />
     )
     return image
   }
@@ -62,7 +59,7 @@ function Cards({ title, type, items, tag }) {
         return (
           <div className="col-xs-12 col-sm-6 col-md-4">
             <div className="card">
-              {items ? (
+              {items.image ? (
                 renderRoundedImage()
               ) : (
                 <img
@@ -73,7 +70,9 @@ function Cards({ title, type, items, tag }) {
               )}
               <div className="card-body">
                 <h5 className="card-title">{localTitle}</h5>
-                <p className="card-text">{localItems?.brands || 'No brand information'}</p>
+                <p className="card-text">
+                  {localItems?.brands || localItems?.text || 'No brand information'}
+                </p>
               </div>
             </div>
           </div>
