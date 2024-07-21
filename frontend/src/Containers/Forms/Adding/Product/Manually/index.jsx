@@ -1,57 +1,22 @@
-import React, { useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { select } from '../../../../../App/store/selectors'
 import FoodCategory from '../../../FoodCategory'
 import { Navigate } from 'react-router-dom'
-import { postItemInStorage } from '../../../../Storage/Post/ItemInStorage/postItemInStorage'
-import { getStorage } from '../../../../Storage/Get/getStorage'
+import Fields, { TYPE_FIELD } from '../../../../../Components/Fields'
+import Buttons, { BUTTONS_TYPES } from '../../../../../Components/Buttons'
+import { useProductForm } from '../useProductForm'
 
 function Manually() {
-  const storageData = useSelector(select.storage)
-
-  const dispatch = useDispatch()
-  const [productName, setProduct] = useState('')
-  const [productCategory, setProductCategory] = useState('')
-  const [productQuantity, setProductQuantity] = useState(0)
-  const [productDate, setProductDate] = useState(new Date().toISOString().slice(0, 10))
-  const [stock, setStock] = useState([])
-  const [redirect, setRedirect] = useState(false)
-
-  const handleProductName = (event) => {
-    setProduct(event.target.value)
-  }
-  const handleProductCategory = (event) => {
-    setProductCategory(event.target.value)
-  }
-  const handleProductQuantity = (event) => {
-    setProductQuantity(event.target.value)
-  }
-  const handleProductDate = (event) => {
-    setProductDate(event.target.value)
-  }
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    setStock([
-      ...stock,
-      { name: productName, category: productCategory, date: productDate, quantity: productQuantity }
-    ])
-    dispatch(
-      postItemInStorage({
-        areaName: storageData.selected,
-        newItem: {
-          name: productName,
-          category: productCategory,
-          date: productDate,
-          quantity: productQuantity
-        }
-      })
-    ).then(() => dispatch(getStorage()))
-    setProduct('')
-    setProductCategory('')
-    setProductQuantity(0)
-    setProductDate(new Date().toISOString().slice(0, 10))
-    setRedirect(true)
-  }
+  const initialState = { isNew: true }
+  const {
+    productName,
+    productQuantity,
+    productDate,
+    redirect,
+    handleProductName,
+    handleProductCategory,
+    handleProductQuantity,
+    handleProductDate,
+    handleSubmit
+  } = useProductForm(initialState)
 
   if (redirect) {
     return <Navigate to="/" />
@@ -59,46 +24,30 @@ function Manually() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <FoodCategory onChange={handleProductCategory} />
-      <label className="form-label p-3" htmlFor="InputProduct">
-        {' '}
-        Product{' '}
-        <input
-          type="text"
-          name="product"
-          onChange={handleProductName}
-          value={productName}
-          className="form-control"
-          id="InputProduct"
-        />
-      </label>
-      <label className="form-label p-3" htmlFor="InputQuantity">
-        {' '}
-        Quantity{' '}
-        <input
-          type="number"
-          min={0}
-          defaultValue={productQuantity}
-          onChange={handleProductQuantity}
-          className="form-control"
-          id="InputQuantity"
-        />
-      </label>
-      <label className="form-label p-3" htmlFor="InputDateLimit">
-        {' '}
-        Date limit{' '}
-        <input
-          type="date"
-          name="date"
-          onChange={handleProductDate}
-          value={productDate}
-          className="form-control"
-          id="InputDateLimit"
-        />
-      </label>
-      <button type="submit" className="btn btn-primary">
-        Validez
-      </button>
+      <FoodCategory onChange={handleProductCategory} id="catégorie" />
+      <Fields
+        type={TYPE_FIELD.INPUT_TEXT}
+        label={'Product'}
+        id={'product'}
+        onChange={handleProductName}
+        value={productName}
+      />
+      <Fields
+        type={TYPE_FIELD.INPUT_NUMBER}
+        label={'Quantity'}
+        id={'InputQuantity'}
+        min={1}
+        defaultValue={productQuantity}
+        onChange={handleProductQuantity}
+      />
+      <Fields
+        type={TYPE_FIELD.INPUT_DATE}
+        label={"date d'expiration"}
+        id={'InputDateLimit'}
+        onChange={handleProductDate}
+        value={productDate}
+      />
+      <Buttons type={BUTTONS_TYPES.SUBMIT} />
     </form>
   )
 }

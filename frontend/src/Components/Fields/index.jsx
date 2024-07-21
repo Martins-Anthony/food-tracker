@@ -15,7 +15,7 @@ function Fields({ type, id, label, readOnly, value, defaultValue, onChange, ...p
     autoComplete: type === TYPE_FIELD.INPUT_MAIL ? 'username' : 'off',
     required: type === TYPE_FIELD.INPUT_MAIL,
     readOnly,
-    className: `form-control ${readOnly ? 'form-control-plaintext' : ''}`,
+    className: `form-control col ${readOnly ? 'form-control-plaintext' : ''}`,
     onChange,
     ...props
   }
@@ -29,8 +29,8 @@ function Fields({ type, id, label, readOnly, value, defaultValue, onChange, ...p
   return (
     <div className="input-wrapper">
       {label && (
-        <label className="form-label" htmlFor={id}>
-          {label.charAt(0).toUpperCase() + label.slice(1)}
+        <label className="form-label col" htmlFor={id}>
+          {label.charAt(0).toUpperCase() + label.slice(1)} :
         </label>
       )}
       <input {...inputProps} />

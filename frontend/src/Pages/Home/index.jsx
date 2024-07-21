@@ -56,7 +56,7 @@ function Home() {
       <section className="container my-5">
         <div className="row gy-4 gy-md-0 mt-4">
           {data.cards.map((item, index) => {
-            return <Cards title={item.title} items={item} key={index} type={'presentation'} />
+            return <Cards items={item} key={index} type={'presentation'} />
           })}
         </div>
       </section>

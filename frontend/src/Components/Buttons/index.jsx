@@ -6,7 +6,8 @@ import { useDispatch } from 'react-redux'
 export const BUTTONS_TYPES = {
   BUTTON: 'button',
   LINK: 'link',
-  MODAL: 'modal'
+  MODAL: 'modal',
+  SUBMIT: 'submit'
 }
 function Buttons({ type, address, label, onClick, className, modalMessage, modalId, ...props }) {
   const dispatch = useDispatch()
@@ -18,6 +19,7 @@ function Buttons({ type, address, label, onClick, className, modalMessage, modal
 
   const baseClass = 'btn btn-primary mt-3'
   const buttonClass = className ? `${className}` : baseClass
+  const defaultLabel = label ? label : 'Validez'
 
   switch (type) {
     case BUTTONS_TYPES.LINK:
@@ -34,6 +36,13 @@ function Buttons({ type, address, label, onClick, className, modalMessage, modal
         </button>
       )
 
+    case BUTTONS_TYPES.SUBMIT:
+      return (
+        <button type="submit" className={buttonClass} {...props}>
+          {defaultLabel}
+        </button>
+      )
+
     case BUTTONS_TYPES.BUTTON:
     default:
       return (
@@ -47,7 +56,7 @@ function Buttons({ type, address, label, onClick, className, modalMessage, modal
 Buttons.propTypes = {
   type: PropTypes.oneOf(Object.values(BUTTONS_TYPES)),
   address: PropTypes.string,
-  label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]).isRequired,
+  label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   onClick: PropTypes.func,
   className: PropTypes.string,
   modalMessage: PropTypes.string,

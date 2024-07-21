@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import NewStorageArea from '../../Containers/Storage/Post/StorageArea'
-import Buttons from '../Buttons'
+import Buttons, { BUTTONS_TYPES } from '../Buttons'
 import { iconList, iconsLibrary } from '../Icons/library'
 import Cards from '../Cards'
 import { storageAreaSelected } from '../../Containers/Storage/storageSlice'
@@ -26,7 +26,7 @@ function StorageAreaItem({ storageAreaItem, editMode }) {
         </div>
         {editMode && (
           <Buttons
-            type="modal"
+            type={BUTTONS_TYPES.MODAL}
             className="btn btn-outline-secondary"
             tag={storageAreaItem.name}
             label={iconList.deleteIcon}

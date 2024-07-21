@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types'
-import Buttons from '..'
+import { useNavigate } from 'react-router-dom'
+import Buttons, { BUTTONS_TYPES } from '..'
 import DeleteModal from '../../../Containers/Modal/DeleteModal'
+import { iconList } from '../../../Components/Icons/library'
 
 function EditButton({
-  icon,
   className,
   onSave,
   onCancel,
@@ -16,22 +17,35 @@ function EditButton({
   showDeleteButton,
   editMode
 }) {
-  const handleToggleEditMode = () => {
+  const navigate = useNavigate()
+
+  const handleToggleEditMode = (event) => {
+    event.preventDefault()
     onEditModeChange(!editMode)
   }
 
-  const handleSave = () => {
+  const handleSave = (event) => {
+    event.preventDefault()
     if (onSave) {
       onSave()
     }
     onEditModeChange(false)
   }
 
-  const handleCancel = () => {
+  const handleCancel = (event) => {
+    event.preventDefault()
     if (onCancel) {
       onCancel()
     }
     onEditModeChange(false)
+    navigate('/user')
+  }
+
+  const handleDeleteClick = (event) => {
+    event.preventDefault()
+    if (tag) {
+      onDelete(event)
+    }
   }
 
   return (
@@ -39,33 +53,36 @@ function EditButton({
       {editMode ? (
         <>
           <Buttons
+            type={BUTTONS_TYPES.SUBMIT}
             className="btn btn-outline-success"
             onClick={handleSave}
-            label={icon.checkIcon}
+            label={iconList.checkIcon}
           />
           <Buttons
+            type={BUTTONS_TYPES.BUTTON}
             className="btn btn-outline-secondary"
             onClick={handleCancel}
-            label={icon.cancelIcon}
+            label={iconList.cancelIcon}
           />
           {showDeleteButton && (
             <Buttons
-              type="modal"
+              type={BUTTONS_TYPES.MODAL}
               className="btn btn-outline-danger"
               tag={tag}
-              label={icon.deleteIcon}
+              label={iconList.deleteIcon}
               modalMessage={modalMessage}
               modalId={modalIdButtonDelete}
-              onClick={onDelete}
+              onClick={handleDeleteClick}
             />
           )}
           <DeleteModal deleteAction={modalDeleteAction} modalId={modalIdButtonDelete} />
         </>
       ) : (
         <Buttons
-          className={`btn ${editMode ? 'btn-outline-secondary' : 'outline-secondary'} col-auto`}
+          type={BUTTONS_TYPES.BUTTON}
           onClick={handleToggleEditMode}
-          label={icon.editIcon}
+          className={`btn ${editMode ? 'btn-outline-secondary' : 'outline-secondary'} col-auto`}
+          label={iconList.editIcon}
         />
       )}
     </div>
@@ -73,7 +90,6 @@ function EditButton({
 }
 
 EditButton.propTypes = {
-  icon: PropTypes.object.isRequired,
   className: PropTypes.string,
   onSave: PropTypes.func,
   onCancel: PropTypes.func,

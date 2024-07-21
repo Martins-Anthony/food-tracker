@@ -2,10 +2,11 @@ import Cards from '../../Components/Cards'
 import CardsPagination from '../CardsPagination'
 import PropTypes from 'prop-types'
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const ProductDisplay = ({ products, itemsPerPage, currentPage, totalPages, onPageChange }) => {
-  // if (!Array.isArray(products) || products.length === 0) return null
   const [dataDisplay, setDataDisplay] = useState(products)
+  const navigate = useNavigate()
 
   useEffect(() => {
     setDataDisplay(products)
@@ -13,7 +14,10 @@ const ProductDisplay = ({ products, itemsPerPage, currentPage, totalPages, onPag
 
   if (!Array.isArray(products) || products.length === 0) return null
 
-  console.log('products de ProductDisplay 11', products)
+  const selectProduct = (product) => {
+    navigate('/user/addProduct', { state: { product } })
+  }
+
   return (
     <div>
       <div className="row">
@@ -28,6 +32,9 @@ const ProductDisplay = ({ products, itemsPerPage, currentPage, totalPages, onPag
                 alt: product.product_name
               },
               brands: product.brands
+            }}
+            onClick={() => {
+              selectProduct(product)
             }}
           />
         ))}

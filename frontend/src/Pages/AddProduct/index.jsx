@@ -1,29 +1,31 @@
-import React, { useState } from 'react'
+import Cards from '../../Components/Cards'
+import { useLocation } from 'react-router-dom'
 import Manually from '../../Containers/Forms/Adding/Product/Manually'
 import StorageAreaSelection from '../../Containers/Storage/StorageAreaSelection'
-import Scanner from '../../Components/Scanner'
 
 function AddProduct() {
-  const [camera, setCamera] = useState(false)
-  const [result, setResult] = useState(null)
-
-  const onDetected = (result) => {
-    setResult(result)
-  }
+  const location = useLocation()
+  const product = location.state?.product
 
   return (
     <section className="container">
       <div className="col-md-2 my-3">
         <StorageAreaSelection />
       </div>
-      <Manually />
-      <div className="container">
-        <button className="btn btn-primary" onClick={() => setCamera(!camera)}>
-          {camera ? 'Stop' : 'Scanner article'}
-        </button>
-        <p>{result ? result : null}</p>
-        <div className="container-camera">{camera && <Scanner onDetected={onDetected} />}</div>
-      </div>
+      {product ? (
+        <div className="d-flex justify-content-center">
+          <Cards
+            type={'product'}
+            items={product}
+            tag={product.id}
+            activeEditMode={true}
+            showDeleteButton={false}
+            isNewProduct={true}
+          />
+        </div>
+      ) : (
+        <Manually />
+      )}
     </section>
   )
 }

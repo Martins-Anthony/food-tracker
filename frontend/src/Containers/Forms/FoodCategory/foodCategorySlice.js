@@ -2,7 +2,15 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const foodCategorySlice = createSlice({
   name: 'foodCategory',
-  initialState: ['', 'fruits', 'légumes', 'viandes', 'poissons', 'boîtes de conserves'],
+  initialState: {
+    '': '',
+    'en:vegetables': 'légumes',
+    'en:legumes': 'légumes',
+    'en:fruits': 'fruits',
+    'en:meat': 'viandes',
+    'en:fish': 'poissons',
+    'en:cheeses': 'fromages'
+  },
   reducers: {
     addFoodCategory: (state, action) => {
       const newFoodCategory = action.payload
