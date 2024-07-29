@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
+import { useSelector } from 'react-redux'
+import { select } from '../../App/store/selectors'
 import RoundedImage from '../RoundedImage'
 import EditButton from '../Buttons/EditButton'
 import ProductItem from '../ProductItem'
@@ -18,9 +20,14 @@ function Cards({
   hoverActive,
   onSuccess
 }) {
-  const [editMode, setEditMode] = useState(activeEditMode)
+  const listCategory = useSelector(select.foodCategory)
 
-  const initialState = { ...items, isNew: isNewProduct }
+  const foundCategory = items.categories_tags
+    ? items.categories_tags.find((element) => Object.keys(listCategory).includes(element))
+    : null
+  const category = foundCategory ? listCategory[foundCategory] : items.category
+
+  const initialState = { ...items, isNew: isNewProduct, foundCategory: category }
 
   const {
     productName,
@@ -38,6 +45,8 @@ function Cards({
     setEditMode(false)
     onSuccess && onSuccess()
   })
+
+  const [editMode, setEditMode] = useState(activeEditMode)
 
   const handleFieldChange = (field, value) => {
     switch (field) {

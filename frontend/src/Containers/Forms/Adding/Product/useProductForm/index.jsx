@@ -12,7 +12,9 @@ export const useProductForm = (initialState = {}, onSuccess) => {
 
   const [productName, setProduct] = useState(initialState.product_name || initialState.name || '')
   const [productNumber, setProductNumber] = useState(initialState.number || 1)
-  const [productCategory, setProductCategory] = useState(initialState.category || '')
+  const [productCategory, setProductCategory] = useState(
+    initialState.category || initialState.foundCategory || ''
+  )
   const [productQuantity, setProductQuantity] = useState(initialState.quantity || '')
   const [productDate, setProductDate] = useState(initialState.date || DateToday())
   const [stock, setStock] = useState([])
