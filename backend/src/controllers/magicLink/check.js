@@ -21,7 +21,11 @@ const checkMagicLink = async (user, magicLink) => {
       user.refreshToken = refreshToken
 
       user.MagicLink.active = false
-      await user.save()
+
+      await user.updateOne({
+        MagicLink: user.MagicLink.active,
+        refreshToken: user.refreshToken,
+      })
 
       return {
         ok: true,
@@ -31,7 +35,6 @@ const checkMagicLink = async (user, magicLink) => {
         email: user.email,
       }
     } else {
-      console.log('Invalid login', user, magicLink)
       return { ok: false, message: 'Lien magique invalide ou déjà utilisé' }
     }
   } catch (error) {

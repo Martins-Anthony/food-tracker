@@ -8,10 +8,12 @@ function Manually() {
   const initialState = { isNew: true }
   const {
     productName,
+    productNumber,
     productQuantity,
     productDate,
     redirect,
     handleProductName,
+    handleProductNumber,
     handleProductCategory,
     handleProductQuantity,
     handleProductDate,
@@ -24,7 +26,6 @@ function Manually() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <FoodCategory onChange={handleProductCategory} id="catégorie" />
       <Fields
         type={TYPE_FIELD.INPUT_TEXT}
         label={'Product'}
@@ -34,9 +35,17 @@ function Manually() {
       />
       <Fields
         type={TYPE_FIELD.INPUT_NUMBER}
+        label={'Nombre'}
+        id={'InputNumber'}
+        min={1}
+        defaultValue={productNumber}
+        onChange={handleProductNumber}
+      />
+      <FoodCategory onChange={handleProductCategory} id="catégorie" />
+      <Fields
+        type={TYPE_FIELD.INPUT_TEXT}
         label={'Quantity'}
         id={'InputQuantity'}
-        min={1}
         defaultValue={productQuantity}
         onChange={handleProductQuantity}
       />

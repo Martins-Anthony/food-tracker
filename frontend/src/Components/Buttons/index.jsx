@@ -17,7 +17,7 @@ function Buttons({ type, address, label, onClick, className, modalMessage, modal
     dispatch(showModal({ message: modalMessage, id: modalId, ...props }))
   }
 
-  const baseClass = 'btn btn-primary mt-3'
+  const baseClass = 'btn btn-primary'
   const buttonClass = className ? `${className}` : baseClass
   const defaultLabel = label ? label : 'Validez'
 

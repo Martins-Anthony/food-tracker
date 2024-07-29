@@ -9,7 +9,8 @@ const foodCategorySlice = createSlice({
     'en:fruits': 'fruits',
     'en:meat': 'viandes',
     'en:fish': 'poissons',
-    'en:cheeses': 'fromages'
+    'en:cheeses': 'fromages',
+    'en:crisps': 'chips'
   },
   reducers: {
     addFoodCategory: (state, action) => {

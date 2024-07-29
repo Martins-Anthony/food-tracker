@@ -7,17 +7,28 @@ import Fields, { TYPE_FIELD } from '../Fields'
 import { deleteItemInStorage } from '../../Containers/Storage/Delete/ItemInStorage/deleteItemInStorage'
 import imageDefault from '../../assets/bocaux.jpg'
 import { useProductForm } from '../../Containers/Forms/Adding/Product/useProductForm'
-function Cards({ type, items, tag, onClick, activeEditMode, showDeleteButton, isNewProduct }) {
+function Cards({
+  type,
+  items,
+  tag,
+  onClick,
+  activeEditMode,
+  showDeleteButton,
+  isNewProduct,
+  hoverActive
+}) {
   const [editMode, setEditMode] = useState(activeEditMode)
 
   const initialState = { ...items, isNew: isNewProduct }
 
   const {
     productName,
+    productNumber,
     productCategory,
     productQuantity,
     productDate,
     handleProductName,
+    handleProductNumber,
     handleProductCategory,
     handleProductQuantity,
     handleProductDate,
@@ -36,6 +47,9 @@ function Cards({ type, items, tag, onClick, activeEditMode, showDeleteButton, is
         break
       case 'date':
         handleProductDate({ target: { value } })
+        break
+      case 'number':
+        handleProductNumber({ target: { value } })
         break
       default:
         break
@@ -60,7 +74,7 @@ function Cards({ type, items, tag, onClick, activeEditMode, showDeleteButton, is
       case 'presentation':
         return (
           <div className="col-xs-12 col-sm-6 col-md-4" onClick={onClick}>
-            <div className="card">
+            <div className={`card ${hoverActive}`}>
               {items.image ? (
                 renderRoundedImage()
               ) : (
@@ -81,11 +95,11 @@ function Cards({ type, items, tag, onClick, activeEditMode, showDeleteButton, is
         )
       case 'product':
         return (
-          <div className="col-xs-12 col-sm-6 col-lg-5">
-            <div className="card">
-              <form onSubmit={handleSubmit}>
+          <div className="col-xs-12 col-sm-6 col-md-4 my-2">
+            <form onSubmit={handleSubmit}>
+              <div className={`card ${hoverActive}`}>
                 <div className="row align-items-center p-3">
-                  <div className="col">
+                  <div className="col-auto">
                     <RoundedImage
                       image={
                         items.image_url ? { src: items.image_url, alt: items.product_name } : null
@@ -94,14 +108,18 @@ function Cards({ type, items, tag, onClick, activeEditMode, showDeleteButton, is
                   </div>
                   <div className="col">
                     <h5 className="card-title mt-4 mb-0">
-                      <Fields
-                        type={TYPE_FIELD.INPUT_TEXT}
-                        id="title"
-                        defaultValue={productName}
-                        readOnly={!editMode}
-                        aria-label={`titre du produits ${productName}`}
-                        onChange={handleProductName}
-                      />
+                      {editMode ? (
+                        <Fields
+                          type={TYPE_FIELD.INPUT_TEXT}
+                          id="title"
+                          defaultValue={productName}
+                          readOnly={!editMode}
+                          aria-label={`titre du produits ${productName}`}
+                          onChange={handleProductName}
+                        />
+                      ) : (
+                        productName
+                      )}
                     </h5>
                   </div>
                 </div>
@@ -109,6 +127,7 @@ function Cards({ type, items, tag, onClick, activeEditMode, showDeleteButton, is
                   <ProductItem
                     item={{
                       ...items,
+                      number: productNumber,
                       category: productCategory,
                       quantity: productQuantity,
                       date: productDate
@@ -136,8 +155,8 @@ function Cards({ type, items, tag, onClick, activeEditMode, showDeleteButton, is
                     />
                   )}
                 </div>
-              </form>
-            </div>
+              </div>
+            </form>
           </div>
         )
       default:
@@ -155,14 +174,16 @@ Cards.propTypes = {
   onClick: PropTypes.func,
   activeEditMode: PropTypes.bool,
   showDeleteButton: PropTypes.bool,
-  isNewProduct: PropTypes.bool
+  isNewProduct: PropTypes.bool,
+  hoverActive: PropTypes.string
 }
 
 Cards.defaultProps = {
   onClick: () => {},
   activeEditMode: false,
   showDeleteButton: true,
-  isNewProduct: false
+  isNewProduct: false,
+  hoverActive: ''
 }
 
 export default Cards

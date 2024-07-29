@@ -11,8 +11,9 @@ export const useProductForm = (initialState = {}, onSuccess) => {
   const dispatch = useDispatch()
 
   const [productName, setProduct] = useState(initialState.product_name || initialState.name || '')
+  const [productNumber, setProductNumber] = useState(initialState.number || 1)
   const [productCategory, setProductCategory] = useState(initialState.category || '')
-  const [productQuantity, setProductQuantity] = useState(initialState.quantity || 1)
+  const [productQuantity, setProductQuantity] = useState(initialState.quantity || '')
   const [productDate, setProductDate] = useState(initialState.date || DateToday())
   const [stock, setStock] = useState([])
   const [redirect, setRedirect] = useState(false)
@@ -21,6 +22,9 @@ export const useProductForm = (initialState = {}, onSuccess) => {
 
   const handleProductName = (event) => {
     setProduct(event.target.value)
+  }
+  const handleProductNumber = (event) => {
+    setProductNumber(Number(event.target.value))
   }
   const handleProductCategory = (event) => {
     setProductCategory(event.target.value)
@@ -34,12 +38,12 @@ export const useProductForm = (initialState = {}, onSuccess) => {
   const handleSubmit = (event) => {
     event.preventDefault()
     if (isSubmitting.current) return
-    console.log('event handleSubmit', event)
 
     isSubmitting.current = true
 
     const newItem = {
       name: productName,
+      number: productNumber,
       category: productCategory,
       date: productDate,
       quantity: productQuantity
@@ -52,37 +56,30 @@ export const useProductForm = (initialState = {}, onSuccess) => {
     }
 
     if (!isNew) {
-      console.log('initialState id', initialState)
       const oldItemInStorage = { items: initialState }
       const newItemInStorage = { items: newItem }
       dispatch(putItemInStorage({ newItemInStorage, oldItemInStorage })).then(() => {
         onSuccessCallback()
       })
-      console.log('test successful put')
     } else {
       setStock([...stock, newItem])
       dispatch(postItemInStorage({ areaName: storageData.selected, newItem })).then(() => {
         onSuccessCallback()
       })
-      console.log('test successful post')
     }
-    /*
-    setProduct('')
-    setProductCategory('')
-    setProductQuantity(1)
-    setProductDate(DateToday())
-    */
     setRedirect(true)
   }
 
   return {
     productName,
+    productNumber,
     productCategory,
     productQuantity,
     productDate,
     stock,
     redirect,
     handleProductName,
+    handleProductNumber,
     handleProductCategory,
     handleProductQuantity,
     handleProductDate,

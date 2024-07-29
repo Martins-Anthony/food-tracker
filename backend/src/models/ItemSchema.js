@@ -14,7 +14,12 @@ const itemSchema = new mongoose.Schema({
     required: true,
   },
   quantity: {
+    type: String,
+    required: true,
+  },
+  number: {
     type: Number,
+    default: 1,
     required: true,
   },
 })

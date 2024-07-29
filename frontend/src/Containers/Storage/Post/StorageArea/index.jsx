@@ -4,12 +4,12 @@ import { useDispatch } from 'react-redux'
 import { postStorageArea } from './postStorageAreaSlice'
 import { putStorageArea } from '../../Put/putStorageArea'
 import { getStorage } from '../../Get/getStorage'
-import Buttons from '../../../../Components/Buttons'
+import Buttons, { BUTTONS_TYPES } from '../../../../Components/Buttons'
 import Fields from '../../../../Components/Fields'
 
 function NewStorageArea({ nameValue }) {
   const dispatch = useDispatch()
-  const [newStock, setNewStock] = useState('')
+  const [newStock, setNewStock] = useState('Stock')
   const refForm = useRef(null)
 
   const handleNewStock = (event) => {
@@ -39,17 +39,17 @@ function NewStorageArea({ nameValue }) {
         onSubmit={handleSubmitNewStock}
         className="border rounded-4 px-3"
         style={{ minWidth: '200px' }}>
-        <div className="row justify-content-center">
-          <div className="col-auto pt-3">
+        <div className="row justify-content-center my-4 gap-3">
+          <div className="col-auto">
             <Fields
               type="text"
               id="InputAddStorageArea"
               onChange={handleNewStock}
-              defaultValue={nameValue === undefined ? 'Ajouter un nom' : nameValue}
+              defaultValue={nameValue === undefined ? newStock : nameValue}
             />
           </div>
-          <div className="col-auto py-3">
-            <Buttons type="button" label="Validez" />
+          <div className="col-auto">
+            <Buttons type={BUTTONS_TYPES.SUBMIT} />
           </div>
         </div>
       </form>

@@ -25,8 +25,8 @@ function SignIn() {
   }
   return (
     <form onSubmit={handleEmailSubmit}>
-      <section className="row justify-content-center">
-        <div className="col col-sm-10 col-mb-7 mx-2">
+      <div className="row justify-content-center my-4 gap-3">
+        <div className="col-9 col-lg-7 col-xl-5 mx-2">
           <Fields
             type={TYPE_FIELD.INPUT_MAIL}
             id="email"
@@ -34,9 +34,9 @@ function SignIn() {
             autoFocus
           />
         </div>
-      </section>
+      </div>
       <Buttons
-        type={BUTTONS_TYPES.BUTTON}
+        type={BUTTONS_TYPES.SUBMIT}
         label={auth.resendLink ? 'Renvoyer le lien' : 'Se connecter'}
       />
     </form>

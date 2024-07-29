@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import Buttons, { BUTTONS_TYPES } from '..'
 import DeleteModal from '../../../Containers/Modal/DeleteModal'
 import { iconList } from '../../../Components/Icons/library'
+import { getStorage } from '../../../Containers/Storage/Get/getStorage'
 
 function EditButton({
   className,
-  onSave,
   onCancel,
   onDelete,
   tag,
@@ -18,18 +19,11 @@ function EditButton({
   editMode
 }) {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const handleToggleEditMode = (event) => {
     event.preventDefault()
     onEditModeChange(!editMode)
-  }
-
-  const handleSave = (event) => {
-    event.preventDefault()
-    if (onSave) {
-      onSave()
-    }
-    onEditModeChange(false)
   }
 
   const handleCancel = (event) => {
@@ -39,12 +33,15 @@ function EditButton({
     }
     onEditModeChange(false)
     navigate('/user')
+    dispatch(getStorage())
   }
 
   const handleDeleteClick = (event) => {
     event.preventDefault()
+    console.log('delete', event)
     if (tag) {
       onDelete(event)
+      dispatch(getStorage())
     }
   }
 
@@ -55,7 +52,6 @@ function EditButton({
           <Buttons
             type={BUTTONS_TYPES.SUBMIT}
             className="btn btn-outline-success"
-            onClick={handleSave}
             label={iconList.checkIcon}
           />
           <Buttons
@@ -105,7 +101,6 @@ EditButton.propTypes = {
 
 EditButton.defaultProps = {
   className: '',
-  onSave: () => {},
   onCancel: () => {},
   onDelete: () => {},
   tag: '',

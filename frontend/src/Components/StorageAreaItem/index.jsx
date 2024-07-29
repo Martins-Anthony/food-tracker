@@ -14,6 +14,7 @@ function StorageAreaItem({ storageAreaItem, editMode }) {
     const tag = event.currentTarget.dataset.tag
     dispatch(storageAreaSelected(tag))
   }
+
   return (
     <div>
       <div className="d-flex justify-content-between align-items-center">
@@ -38,10 +39,10 @@ function StorageAreaItem({ storageAreaItem, editMode }) {
       <p>(Nombre de produits : {storageAreaItem.name && storageAreaItem.items.length})</p>
       <div className="row gy-4 gy-md-0 mt-4 mb-5">
         {storageAreaItem.name && storageAreaItem.items.length ? (
-          storageAreaItem.items.map((item, itemIndex) => {
+          storageAreaItem.items.map((item) => {
             return (
               <Cards
-                key={`product-${itemIndex}`}
+                key={`product-${item._id}`}
                 type={'product'}
                 title={item.name}
                 items={item}

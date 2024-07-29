@@ -20,7 +20,7 @@ const ProductDisplay = ({ products, itemsPerPage, currentPage, totalPages, onPag
 
   return (
     <div>
-      <div className="row">
+      <div className="row g-4">
         {dataDisplay.map((product, index) => (
           <Cards
             key={index}
@@ -36,6 +36,7 @@ const ProductDisplay = ({ products, itemsPerPage, currentPage, totalPages, onPag
             onClick={() => {
               selectProduct(product)
             }}
+            hoverActive="card-hover"
           />
         ))}
       </div>

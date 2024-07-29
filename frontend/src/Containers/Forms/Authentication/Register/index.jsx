@@ -13,8 +13,8 @@ function Register() {
   }
   return (
     <form onSubmit={handleEmailSubmit}>
-      <section className="row justify-content-center">
-        <div className="col col-sm-10 col-mb-7 mx-2">
+      <section className="row justify-content-center my-4 gap-3">
+        <div className="col-9 col-lg-7 col-xl-5 mx-2">
           <Fields
             type={TYPE_FIELD.INPUT_MAIL}
             id="email"
@@ -23,7 +23,7 @@ function Register() {
           />
         </div>
       </section>
-      <Buttons type={BUTTONS_TYPES.BUTTON} label="S'inscrire" />
+      <Buttons type={BUTTONS_TYPES.SUBMIT} label="S'inscrire" />
     </form>
   )
 }
