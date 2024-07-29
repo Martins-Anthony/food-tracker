@@ -1,11 +1,21 @@
+import React, { useState } from 'react'
 import Cards from '../../Components/Cards'
-import { useLocation } from 'react-router-dom'
+import { useLocation, Navigate } from 'react-router-dom'
 import Manually from '../../Containers/Forms/Adding/Product/Manually'
 import StorageAreaSelection from '../../Containers/Storage/StorageAreaSelection'
 
 function AddProduct() {
   const location = useLocation()
   const product = location.state?.product
+  const [redirect, setRedirect] = useState(false)
+
+  const handleSuccess = () => {
+    setRedirect(true)
+  }
+
+  if (redirect) {
+    return <Navigate to="/user" />
+  }
 
   return (
     <section className="container">
@@ -21,10 +31,11 @@ function AddProduct() {
             activeEditMode={true}
             showDeleteButton={false}
             isNewProduct={true}
+            onSuccess={handleSuccess}
           />
         </div>
       ) : (
-        <Manually />
+        <Manually onSuccess={handleSuccess} />
       )}
     </section>
   )

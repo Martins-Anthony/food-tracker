@@ -1,10 +1,11 @@
 import FoodCategory from '../../../FoodCategory'
+import PropTypes from 'prop-types'
 import { Navigate } from 'react-router-dom'
 import Fields, { TYPE_FIELD } from '../../../../../Components/Fields'
 import Buttons, { BUTTONS_TYPES } from '../../../../../Components/Buttons'
 import { useProductForm } from '../useProductForm'
 
-function Manually() {
+function Manually({ onSuccess }) {
   const initialState = { isNew: true }
   const {
     productName,
@@ -18,10 +19,10 @@ function Manually() {
     handleProductQuantity,
     handleProductDate,
     handleSubmit
-  } = useProductForm(initialState)
+  } = useProductForm(initialState, onSuccess)
 
   if (redirect) {
-    return <Navigate to="/" />
+    return <Navigate to="/user" />
   }
 
   return (
@@ -59,6 +60,14 @@ function Manually() {
       <Buttons type={BUTTONS_TYPES.SUBMIT} />
     </form>
   )
+}
+
+Manually.propTypes = {
+  onSuccess: PropTypes.func.isRequired
+}
+
+Manually.defaultProps = {
+  onSuccess: null
 }
 
 export default Manually

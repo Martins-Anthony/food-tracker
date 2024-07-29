@@ -15,7 +15,8 @@ function Cards({
   activeEditMode,
   showDeleteButton,
   isNewProduct,
-  hoverActive
+  hoverActive,
+  onSuccess
 }) {
   const [editMode, setEditMode] = useState(activeEditMode)
 
@@ -35,6 +36,7 @@ function Cards({
     handleSubmit
   } = useProductForm(initialState, () => {
     setEditMode(false)
+    onSuccess && onSuccess()
   })
 
   const handleFieldChange = (field, value) => {
@@ -175,7 +177,8 @@ Cards.propTypes = {
   activeEditMode: PropTypes.bool,
   showDeleteButton: PropTypes.bool,
   isNewProduct: PropTypes.bool,
-  hoverActive: PropTypes.string
+  hoverActive: PropTypes.string,
+  onSuccess: PropTypes.func
 }
 
 Cards.defaultProps = {
@@ -183,7 +186,8 @@ Cards.defaultProps = {
   activeEditMode: false,
   showDeleteButton: true,
   isNewProduct: false,
-  hoverActive: ''
+  hoverActive: '',
+  onSuccess: null
 }
 
 export default Cards
