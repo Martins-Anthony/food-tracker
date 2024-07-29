@@ -2,19 +2,19 @@ import { select } from '../../App/store/selectors'
 import { useSelector } from 'react-redux'
 
 function Setting() {
-  const storageArea = useSelector(select.storage).data.storageArea
+  const storageArea = useSelector(select.storage).data
 
   return (
     <section className="col p-2 m-2 mt-5">
-      <div className="container bg-light border rounded-4">
+      <div className="container border rounded-4">
         <div className="row my-4">
-          <div className="col">
+          <div className="col-auto">
             <h2 className="text-base">zone de stockage :</h2>
           </div>
-          <div className="col">
+          <div className="col-auto">
             <ul className="list-inline ">
-              {storageArea.map((item, index) => {
-                return <li key={index}>{item}</li>
+              {Object.keys(storageArea).map((item) => {
+                return <li key={item}>{storageArea[item].name}</li>
               })}
             </ul>
           </div>
