@@ -46,7 +46,8 @@ export const useProductForm = (initialState = {}, onSuccess) => {
       number: productNumber,
       category: productCategory,
       date: productDate,
-      quantity: productQuantity
+      quantity: productQuantity,
+      image_url: initialState.image_url
     }
 
     const onSuccessCallback = () => {

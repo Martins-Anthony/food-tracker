@@ -22,6 +22,9 @@ const itemSchema = new mongoose.Schema({
     default: 1,
     required: true,
   },
+  image_url: {
+    type: String,
+  },
 })
 
 module.exports = itemSchema

@@ -62,7 +62,7 @@ function Cards({
     setEditMode(false)
   }
 
-  const renderRoundedImage = () => {
+  const renderImage = () => {
     const image = items.image?.src ? (
       <img src={items.image.src} className="card-img-top custom-img-size" alt={items.image.alt} />
     ) : (
@@ -78,7 +78,7 @@ function Cards({
           <div className="col-xs-12 col-sm-6 col-md-4" onClick={onClick}>
             <div className={`card ${hoverActive}`}>
               {items.image ? (
-                renderRoundedImage()
+                renderImage()
               ) : (
                 <img
                   src="https://picsum.photos/300/150?random=2"
@@ -103,9 +103,7 @@ function Cards({
                 <div className="row align-items-center p-3">
                   <div className="col-auto">
                     <RoundedImage
-                      image={
-                        items.image_url ? { src: items.image_url, alt: items.product_name } : null
-                      }
+                      image={items.image_url ? { src: items.image_url, alt: productName } : null}
                     />
                   </div>
                   <div className="col">

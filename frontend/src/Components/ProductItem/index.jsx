@@ -17,7 +17,7 @@ const ProductItem = ({ item, onFieldChange, editMode }) => {
     ? item.categories_tags.find((element) => Object.keys(listCategory).includes(element))
     : null
   const category = foundCategory ? listCategory[foundCategory] : item.category
-  console.log('found categories', category)
+
   return (
     <ul className="list-group list-group-flush">
       <li className="list-group-item">
