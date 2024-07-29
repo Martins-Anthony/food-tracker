@@ -1,8 +1,18 @@
 import { select } from '../../App/store/selectors'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { setShowSidebar } from '../../Containers/Layouts/Sidebar/sidebarSlice'
+import { useEffect } from 'react'
 
 function Setting() {
   const storageArea = useSelector(select.storage).data
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(setShowSidebar(true))
+    return () => {
+      dispatch(setShowSidebar(false))
+    }
+  }, [dispatch])
 
   return (
     <section className="col p-2 m-2 mt-5">

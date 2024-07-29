@@ -4,5 +4,6 @@ export const select = {
   storage: (state) => state.storage,
   modal: (state) => state.modal,
   editMode: (state) => state.editMode,
-  scanner: (state) => state.scanner
+  scanner: (state) => state.scanner,
+  sidebar: (state) => state.sidebar
 }

@@ -1,4 +1,3 @@
-import React from 'react'
 import { HashRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { select } from '../store/selectors'
@@ -23,13 +22,14 @@ import ProtectedRoute from './ProtectedRoute'
 
 function AppRouter() {
   const { isAuthenticated } = useSelector(select.auth)
+  const { showSidebar } = useSelector(select.sidebar)
 
   return (
     <HashRouter>
       <div className="d-flex flex-column min-vh-100">
         <Header />
         <div className="d-flex flex-grow-1">
-          {isAuthenticated && <Sidebar />}
+          {isAuthenticated && showSidebar && <Sidebar />}
           <main className="text-center d-flex flex-column flex-grow-1 style-background">
             <LoadingWrapper>
               <Routes>
