@@ -30,7 +30,8 @@ function Navbar() {
         data-bs-toggle="tooltip">
         {cloneElement(connectionIcon, {
           width: 24,
-          height: 24
+          height: 24,
+          className: 'text-success'
         })}
       </NavLink>
     </li>
@@ -55,7 +56,8 @@ function Navbar() {
                 data-bs-target={link.dataBsTarget}>
                 {cloneElement(link.icon, {
                   width: 24,
-                  height: 24
+                  height: 24,
+                  className: 'text-success'
                 })}
               </NavLink>
             </li>

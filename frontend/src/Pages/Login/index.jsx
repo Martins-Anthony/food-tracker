@@ -9,7 +9,7 @@ function Login() {
       <div className="row justify-content-center mx-1">
         <div className="col-12 col-md-6 border py-5 rounded-5">
           <LogoAndIconUser />
-          <h2>Se connecter</h2>
+          <h2 className="text-primary-emphasis">Se connecter</h2>
           <SignIn />
           <div className="mt-5">
             <LinkSignup />

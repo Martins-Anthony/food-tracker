@@ -70,7 +70,7 @@ function Product({
   return (
     <div className="col-xs-12 col-sm-6 col-md-4 my-2">
       <form onSubmit={handleSubmit}>
-        <div className={`card ${hoverActive}`}>
+        <div className={`card rounded-4 ${hoverActive}`}>
           <div className="row align-items-center p-3">
             <div className="col-auto">
               <RoundedImage
@@ -78,7 +78,7 @@ function Product({
               />
             </div>
             <div className="col">
-              <h5 className="card-title mt-4 mb-0">
+              <h5 className="card-title mt-4 mb-0 text-info-emphasis">
                 {editMode ? (
                   <Fields
                     type={TYPE_FIELD.INPUT_TEXT}

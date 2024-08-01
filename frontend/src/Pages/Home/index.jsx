@@ -13,8 +13,10 @@ function Home() {
       </section>
       <section className="container my-5 text-start">
         <div className="row align-items-center">
-          <div className="col-12 col-md-5">
-            <h2 className="fw-light mb-4">Simplifiez la gestion de vos aliments</h2>
+          <div className="col-12 col-md-5 mb-4">
+            <h2 className="fw-light mb-4 text-primary-emphasis">
+              Simplifiez la gestion de vos aliments
+            </h2>
             <p>
               Avez-vous déjà oublié un aliment dans votre placard jusqu&apos;à ce qu&apos;il soit
               trop tard ? Ou peut-être vous êtes-vous retrouvé à jeter des produits périmés, faute
@@ -41,8 +43,10 @@ function Home() {
               className="w-100 rounded shadow"
             />
           </div>
-          <div className="col-12 col-md-5 offset-md-1">
-            <h2 className="fw-light mb-4">Ne perdez plus jamais de vue vos aliments</h2>
+          <div className="col-12 col-md-5 mt-4 offset-md-1">
+            <h2 className="fw-light mb-4 text-primary-emphasis">
+              Ne perdez plus jamais de vue vos aliments
+            </h2>
             <p>
               <Logo /> est bien plus qu&apos;une simple application de gestion des aliments.
               C&apos;est votre compagnon intelligent qui vous aide à garder une trace de tout ce qui
@@ -53,7 +57,7 @@ function Home() {
           </div>
         </div>
       </section>
-      <section className="container my-5">
+      <section className="container">
         <div className="row gy-4 gy-md-0 mt-4">
           {data.cards.map((item, index) => {
             return <Cards items={item} key={index} type={'presentation'} />
@@ -63,7 +67,7 @@ function Home() {
       <section className="container my-5 text-start">
         <div className="row justify-content-center align-items-center">
           <div className="col-12 col-md-5">
-            <h2 className="mb-4">
+            <h2 className="mb-4 text-primary-emphasis lh-base">
               Rejoignez la communauté <Logo /> dès aujourd&apos;hui
             </h2>
             <p>
@@ -74,7 +78,7 @@ function Home() {
             </p>
             <Buttons type={BUTTONS_TYPES.LINK} address={'/signup'} label="S'inscrire" />
           </div>
-          <div className="col-12 col-md-6 offset-md-1">
+          <div className="col-12 col-md-6 offset-md-1 mt-5">
             <img
               src="https://picsum.photos/600/300?random=3"
               alt=""

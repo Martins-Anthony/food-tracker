@@ -38,7 +38,6 @@ function EditButton({
 
   const handleDeleteClick = (event) => {
     event.preventDefault()
-    console.log('delete', event)
     if (tag) {
       onDelete(event)
       dispatch(getStorage())
@@ -46,9 +45,9 @@ function EditButton({
   }
 
   return (
-    <div className={`d-flex ${className}`}>
+    <>
       {editMode ? (
-        <>
+        <div className={`bg-white d-flex ${className}`}>
           <Buttons
             type={BUTTONS_TYPES.SUBMIT}
             className="btn btn-outline-success"
@@ -72,16 +71,18 @@ function EditButton({
             />
           )}
           <DeleteModal deleteAction={modalDeleteAction} modalId={modalIdButtonDelete} />
-        </>
+        </div>
       ) : (
-        <Buttons
-          type={BUTTONS_TYPES.BUTTON}
-          onClick={handleToggleEditMode}
-          className={`btn ${editMode ? 'btn-outline-secondary' : 'outline-secondary'} col-auto`}
-          label={iconList.editIcon}
-        />
+        <div className={`d-flex ${className}`}>
+          <Buttons
+            type={BUTTONS_TYPES.BUTTON}
+            onClick={handleToggleEditMode}
+            className={`btn ${editMode ? 'btn-outline-secondary' : 'outline-secondary'} col-auto`}
+            label={iconList.editIcon}
+          />
+        </div>
       )}
-    </div>
+    </>
   )
 }
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Buttons from '../../Buttons'
+import Buttons, { BUTTONS_TYPES } from '../../Buttons'
 import Scanner from '../index'
 
 function ItemScanner() {
@@ -8,10 +8,10 @@ function ItemScanner() {
   return (
     <>
       <Buttons
-        type={'button'}
+        type={BUTTONS_TYPES.BUTTON}
         onClick={() => setCamera(!camera)}
         label={camera ? 'Stop' : 'Scanner article'}
-        className={`btn btn-primary ${camera ? 'mb-2' : ''}`}
+        className={`btn btn-success ${camera ? 'mb-2' : ''}`}
       />
       <div className="container-camera">{camera && <Scanner />}</div>
     </>

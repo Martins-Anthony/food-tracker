@@ -12,8 +12,8 @@ const ProductItem = ({ item, onFieldChange, editMode }) => {
   const defaultValueCategory = item.category
 
   return (
-    <ul className="list-group list-group-flush">
-      <li className="list-group-item">
+    <ul className="list-group list-group-flush rounded-top-4">
+      <li className="list-group-item pt-3">
         {editMode ? (
           <Fields
             type={TYPE_FIELD.INPUT_NUMBER}

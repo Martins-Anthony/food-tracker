@@ -10,7 +10,7 @@ function Logo() {
       data-bs-toggle="tooltip"
       data-bs-placement="top"
       title="Logo FOOD TRACKER">
-      <span className="bg-primary bg-gradient p-1 rounded-3 text-light">Food</span> Tracker
+      <span className="bg-success bg-gradient p-1 rounded-3 text-light">Food</span> Tracker
     </Link>
   )
 }
@@ -25,7 +25,7 @@ function LogoAndIconUser() {
         {React.cloneElement(links[3].icon, {
           width: 160,
           height: 160,
-          fill: 'var(--bs-primary)'
+          fill: 'var(--bs-success)'
         })}
       </div>
     </>

@@ -14,7 +14,7 @@ function Register() {
   return (
     <form onSubmit={handleEmailSubmit}>
       <section className="row justify-content-center my-4 gap-3">
-        <div className="col-9 col-lg-7 col-xl-5 mx-2">
+        <div className="col-12 col-lg-8 col-xl-6 mx-2">
           <Fields
             type={TYPE_FIELD.INPUT_MAIL}
             id="email"
