@@ -85,7 +85,7 @@ const putItemInStorage = async (req, res) => {
 
     const result = await User.updateOne(
       { _id: userId, 'storage.items._id': oldItemInStorage.items._id },
-      { $set: { 'storage.$.items$[elem]': newItemInStorage.items } },
+      { $set: { 'storage.$.items.$[elem]': newItemInStorage.items } },
       { arrayFilters: [{ 'elem._id': oldItemInStorage.items._id }] },
     )
 
