@@ -1,0 +1,21 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Start Frontend",
+      "type": "npm",
+      "script": "start",
+      "isBackground": true,
+      "problemMatcher": [],
+      "auto": true // This property is required by the AutoLaunch extension
+    },
+    {
+      "label": "Test Frontend",
+      "type": "npm",
+      "script": "test",
+      "isBackground": false,
+      "problemMatcher": [],
+      "auto": true // This property is required by the AutoLaunch extension
+    }
+  ]
+}
