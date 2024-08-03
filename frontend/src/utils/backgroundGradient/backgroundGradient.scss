@@ -1,0 +1,15 @@
+.expired-gradient {
+  background: linear-gradient(to right, #ff4d4d, #ff1a1a);
+}
+
+.less-than-7-days-gradient {
+  background: linear-gradient(to right, #ffcc00, #ff6600);
+}
+
+.less-than-14-days-gradient {
+  background: linear-gradient(to right, #ffff66, #ffcc00);
+}
+
+.more-than-14-days-gradient {
+  background: linear-gradient(to right, #b3ffb3, #66ff66);
+}

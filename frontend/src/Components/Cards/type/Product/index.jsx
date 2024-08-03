@@ -8,6 +8,7 @@ import ProductItem from '../../../ProductItem'
 import Fields, { TYPE_FIELD } from '../../../Fields'
 import { deleteItemInStorage } from '../../../../Containers/Storage/Delete/ItemInStorage/deleteItemInStorage'
 import { useProductForm } from '../../../../Containers/Forms/Adding/Product/useProductForm'
+import { getBackgroundGradient } from '../../../../utils/backgroundGradient'
 
 function Product({
   items,
@@ -44,6 +45,7 @@ function Product({
     onSuccess && onSuccess()
   })
   const [editMode, setEditMode] = useState(activeEditMode)
+  const background = getBackgroundGradient(productDate)
 
   const handleFieldChange = (field, value) => {
     switch (field) {
@@ -70,14 +72,14 @@ function Product({
   return (
     <div className="col-xs-12 col-sm-6 col-md-4 my-2">
       <form onSubmit={handleSubmit}>
-        <div className={`card rounded-4 ${hoverActive}`}>
+        <div className={`card rounded-4 ${hoverActive} ${background} `}>
           <div className="row align-items-center p-3">
             <div className="col-auto">
               <RoundedImage
                 image={items.image_url ? { src: items.image_url, alt: productName } : null}
               />
             </div>
-            <div className="col">
+            <div className="col-auto">
               <h5 className="card-title mt-4 mb-0 text-info-emphasis">
                 {editMode ? (
                   <Fields

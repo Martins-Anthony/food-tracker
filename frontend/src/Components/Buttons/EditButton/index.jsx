@@ -47,7 +47,7 @@ function EditButton({
   return (
     <>
       {editMode ? (
-        <div className={`bg-white d-flex ${className}`}>
+        <div className={`bg-white d-flex ${className} pb-3 rounded-bottom-3`}>
           <Buttons
             type={BUTTONS_TYPES.SUBMIT}
             className="btn btn-outline-success"
