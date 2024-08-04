@@ -54,7 +54,8 @@ Cards.propTypes = {
   showDeleteButton: PropTypes.bool,
   isNewProduct: PropTypes.bool,
   hoverActive: PropTypes.string,
-  onSuccess: PropTypes.func
+  onSuccess: PropTypes.func,
+  onEditModeChange: PropTypes.func
 }
 
 Cards.defaultProps = {
@@ -63,7 +64,8 @@ Cards.defaultProps = {
   showDeleteButton: true,
   isNewProduct: false,
   hoverActive: '',
-  onSuccess: null
+  onSuccess: null,
+  onEditModeChange: () => {}
 }
 
 export default Cards
