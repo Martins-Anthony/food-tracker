@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
@@ -8,11 +9,16 @@ import Cards from '../Cards'
 import { storageAreaSelected } from '../../Containers/Storage/storageSlice'
 
 function StorageAreaItem({ storageAreaItem, editMode }) {
+  const [editingProductId, setEditingProductId] = useState(null)
   const dispatch = useDispatch()
 
   const dispatchSelected = (event) => {
     const tag = event.currentTarget.dataset.tag
     dispatch(storageAreaSelected(tag))
+  }
+
+  const handleEditModeChange = (productId, newState = true) => {
+    setEditingProductId(newState ? productId : null)
   }
 
   return (
@@ -47,6 +53,8 @@ function StorageAreaItem({ storageAreaItem, editMode }) {
                 title={item.name}
                 items={item}
                 tag={item._id}
+                activeEditMode={editingProductId === item._id}
+                onEditModeChange={(newState) => handleEditModeChange(item._id, newState)}
               />
             )
           })

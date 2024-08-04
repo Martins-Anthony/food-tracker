@@ -10,7 +10,8 @@ function Cards({
   showDeleteButton,
   isNewProduct,
   hoverActive,
-  onSuccess
+  onSuccess,
+  onEditModeChange
 }) {
   const getComponent = () => {
     switch (type) {
@@ -33,6 +34,7 @@ function Cards({
             isNewProduct={isNewProduct}
             hoverActive={hoverActive}
             onSuccess={onSuccess}
+            onEditModeChange={onEditModeChange}
           />
         )
       default:

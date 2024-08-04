@@ -7,3 +7,16 @@
 .card-hover:hover {
   cursor: pointer;
 }
+
+.style-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+@media (max-width: 555px) {
+  .style-title {
+    max-width: 150px;
+  }
+}

@@ -16,6 +16,21 @@ const ProductItem = ({ item, onFieldChange, editMode }) => {
       <li className="list-group-item pt-3">
         {editMode ? (
           <Fields
+            type={TYPE_FIELD.INPUT_TEXT}
+            id="title"
+            label={'Noms'}
+            defaultValue={item?.name}
+            readOnly={!editMode}
+            aria-label={`titre du produits ${item?.name}`}
+            onChange={(event) => onFieldChange('name', event.target.value)}
+          />
+        ) : (
+          <>Nombre : {defaultValueNumber}</>
+        )}
+      </li>
+      {editMode ? (
+        <li className="list-group-item">
+          <Fields
             type={TYPE_FIELD.INPUT_NUMBER}
             id="number"
             label="Nombre"
@@ -25,10 +40,8 @@ const ProductItem = ({ item, onFieldChange, editMode }) => {
             onChange={(event) => onFieldChange('number', Number(event.target.value))}
             min={1}
           />
-        ) : (
-          <>Nombre : {defaultValueNumber}</>
-        )}
-      </li>
+        </li>
+      ) : null}
       <li className="list-group-item">
         {editMode ? (
           <FoodCategory
@@ -81,6 +94,7 @@ const ProductItem = ({ item, onFieldChange, editMode }) => {
 
 ProductItem.propTypes = {
   item: PropTypes.shape({
+    name: PropTypes.string,
     number: PropTypes.number,
     category: PropTypes.string,
     quantity: PropTypes.string,
