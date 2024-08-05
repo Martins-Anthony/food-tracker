@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import Cards from '../../Components/Cards'
 import { useLocation, Navigate } from 'react-router-dom'
-import Manually from '../../Containers/Forms/Adding/Product/Manually'
 import StorageAreaSelection from '../../Containers/Storage/StorageAreaSelection'
 
 function AddProduct() {
@@ -35,7 +34,15 @@ function AddProduct() {
           />
         </div>
       ) : (
-        <Manually onSuccess={handleSuccess} />
+        <div className="d-flex justify-content-center">
+          <Cards
+            type={'product'}
+            activeEditMode={true}
+            showDeleteButton={false}
+            isNewProduct={true}
+            onSuccess={handleSuccess}
+          />
+        </div>
       )}
     </section>
   )

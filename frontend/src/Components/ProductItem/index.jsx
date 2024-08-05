@@ -19,9 +19,9 @@ const ProductItem = ({ item, onFieldChange, editMode }) => {
             type={TYPE_FIELD.INPUT_TEXT}
             id="title"
             label={'Noms'}
-            defaultValue={item?.name}
+            defaultValue={item?.name || ''}
             readOnly={!editMode}
-            aria-label={`titre du produits ${item?.name}`}
+            aria-label={`titre du produits ${item?.name || ''}`}
             onChange={(event) => onFieldChange('name', event.target.value)}
           />
         ) : (

@@ -47,7 +47,7 @@ function Cards({
 
 Cards.propTypes = {
   type: PropTypes.string.isRequired,
-  items: PropTypes.oneOfType([PropTypes.object, PropTypes.arrayOf(PropTypes.object)]).isRequired,
+  items: PropTypes.oneOfType([PropTypes.object, PropTypes.arrayOf(PropTypes.object)]),
   tag: PropTypes.string,
   onClick: PropTypes.func,
   activeEditMode: PropTypes.bool,

@@ -10,7 +10,7 @@ import { useProductForm } from '../../../../Containers/Forms/Adding/Product/useP
 import { getBackgroundGradient } from '../../../../utils/backgroundGradient'
 
 function Product({
-  items,
+  items = {},
   tag,
   activeEditMode,
   showDeleteButton,
@@ -24,7 +24,8 @@ function Product({
   const foundCategory = items.categories_tags
     ? items.categories_tags.find((element) => Object.keys(listCategory).includes(element))
     : null
-  const category = foundCategory ? listCategory[foundCategory] : items.category
+
+  const category = foundCategory ? listCategory[foundCategory] : ''
 
   const initialState = { ...items, isNew: isNewProduct, foundCategory: category }
 
@@ -53,7 +54,7 @@ function Product({
         handleProductName({ target: { value } })
         break
       case 'quantity':
-        handleProductQuantity({ target: { value: Number(value) } })
+        handleProductQuantity({ target: { value } })
         break
       case 'category':
         handleProductCategory({ target: { value } })
@@ -62,7 +63,7 @@ function Product({
         handleProductDate({ target: { value } })
         break
       case 'number':
-        handleProductNumber({ target: { value } })
+        handleProductNumber({ target: { value: Number(value) } })
         break
       default:
         break
@@ -146,7 +147,7 @@ function Product({
 }
 
 Product.propTypes = {
-  items: PropTypes.object.isRequired,
+  items: PropTypes.object,
   tag: PropTypes.string,
   activeEditMode: PropTypes.bool,
   showDeleteButton: PropTypes.bool,
