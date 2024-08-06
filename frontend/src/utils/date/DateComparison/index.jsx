@@ -3,31 +3,17 @@ import { differenceInDays } from 'date-fns'
 
 function DateComparison({ date }) {
   const daysRemaining = differenceInDays(date, new Date())
-
   return getDaysRemainingText(daysRemaining)
-}
-
-const getDaysRemainingClass = (daysRemaining) => {
-  if (daysRemaining < 0) {
-    return 'text-danger'
-  }
 }
 
 const getDaysRemainingText = (daysRemaining) => {
   if (daysRemaining < 0) {
-    return (
-      <span className={getDaysRemainingClass(daysRemaining)}>
-        expirer depuis {daysRemaining} jours
-      </span>
-    )
+    const result = String(daysRemaining).split('-')
+    return <span className="text-danger">expirer depuis {result[1]} jours</span>
   } else if (daysRemaining > 0) {
-    return (
-      <span className={getDaysRemainingClass(daysRemaining)}>{daysRemaining} jours restants</span>
-    )
+    return <span>{daysRemaining} jours restants</span>
   } else if (daysRemaining === 0) {
-    return (
-      <span className={getDaysRemainingClass(daysRemaining)}>dernier jour avant expiration</span>
-    )
+    return <span>dernier jour avant expiration</span>
   }
 }
 
