@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types'
-import DateComparison from '../../Containers/DateComparison'
-import { DateToday } from '../../Containers/DateToday'
+import DateComparison from '../../utils/date/DateComparison'
+import { DateToday } from '../../utils/date/DateToday'
 import FoodCategory from '../../Containers/Forms/FoodCategory'
+import DateFormatted from '../../utils/date/DateFormatted'
 import Fields, { TYPE_FIELD } from '../Fields'
 
 const ProductItem = ({ item, onFieldChange, editMode }) => {
-  const date = item.date ? new Date(item.date) : Date()
-  const formattedDate = item.date ? date.toISOString().split('T')[0] : DateToday()
+  const dateFormatted = (type) => DateFormatted(item.date || DateToday(), type)
   const defaultValueNumber = item.number ? Number(item.number) : 1
   const defaultValueQuantity = item.quantity ? item.quantity : ''
   const defaultValueCategory = item.category
@@ -75,17 +75,17 @@ const ProductItem = ({ item, onFieldChange, editMode }) => {
             id="expire"
             label="Expire le"
             readOnly={!editMode}
-            defaultValue={formattedDate}
+            defaultValue={dateFormatted('en')}
             aria-label={`Date d'expiration du produits`}
             onChange={(event) => onFieldChange('date', event.target.value)}
           />
         ) : (
-          <>Expire le : {formattedDate} </>
+          <>Expire le : {dateFormatted('fr')} </>
         )}
       </li>
       {item.date ? (
         <li className="list-group-item">
-          <DateComparison date={formattedDate} /> jours restants
+          <DateComparison date={dateFormatted('en')} />
         </li>
       ) : null}
     </ul>

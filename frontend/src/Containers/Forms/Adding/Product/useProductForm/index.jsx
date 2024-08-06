@@ -4,7 +4,7 @@ import { select } from '../../../../../App/store/selectors'
 import { postItemInStorage } from '../../../../Storage/Post/ItemInStorage/postItemInStorage'
 import { getStorage } from '../../../../Storage/Get/getStorage'
 import { putItemInStorage } from '../../../../Storage/Put/ItemInStorage/putItemInStorage'
-import { DateToday } from '../../../../DateToday'
+import { DateToday } from '../../../../../utils/date/DateToday'
 
 export const useProductForm = (initialState = {}, onSuccess) => {
   const storageData = useSelector(select.storage)
