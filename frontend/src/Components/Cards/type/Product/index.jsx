@@ -27,7 +27,11 @@ function Product({
 
   const category = foundCategory ? listCategory[foundCategory] : ''
 
-  const initialState = { ...items, isNew: isNewProduct, foundCategory: category }
+  const initialState = {
+    ...items,
+    isNew: isNewProduct,
+    foundCategory: category
+  }
 
   const {
     productName,
@@ -35,11 +39,13 @@ function Product({
     productCategory,
     productQuantity,
     productDate,
+    productExpirationDate,
     handleProductName,
     handleProductNumber,
     handleProductCategory,
     handleProductQuantity,
     handleProductDate,
+    handleProductExpirationDate,
     handleSubmit
   } = useProductForm(initialState, () => {
     setEditMode(false)
@@ -64,6 +70,9 @@ function Product({
         break
       case 'number':
         handleProductNumber({ target: { value: Number(value) } })
+        break
+      case 'expirationDate':
+        handleProductExpirationDate(value)
         break
       default:
         break
@@ -115,7 +124,8 @@ function Product({
                 number: productNumber,
                 category: productCategory,
                 quantity: productQuantity,
-                date: productDate
+                date: productDate,
+                expirationDate: productExpirationDate
               }}
               onFieldChange={handleFieldChange}
               editMode={editMode}

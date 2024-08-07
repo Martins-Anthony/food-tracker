@@ -5,6 +5,7 @@ import { postItemInStorage } from '../../../../Storage/Post/ItemInStorage/postIt
 import { getStorage } from '../../../../Storage/Get/getStorage'
 import { putItemInStorage } from '../../../../Storage/Put/ItemInStorage/putItemInStorage'
 import { DateToday } from '../../../../../utils/date/DateToday'
+import { itemExpired } from '../../../../Storage/storageSlice'
 
 export const useProductForm = (initialState = {}, onSuccess) => {
   const storageData = useSelector(select.storage)
@@ -17,6 +18,9 @@ export const useProductForm = (initialState = {}, onSuccess) => {
   )
   const [productQuantity, setProductQuantity] = useState(initialState.quantity || '')
   const [productDate, setProductDate] = useState(initialState.date || DateToday())
+  const [productExpirationDate, setProductExpirationDate] = useState(
+    initialState.expirationDate || false
+  )
   const [stock, setStock] = useState([])
   const [redirect, setRedirect] = useState(false)
   const isSubmitting = useRef(false)
@@ -37,6 +41,12 @@ export const useProductForm = (initialState = {}, onSuccess) => {
   const handleProductDate = (event) => {
     setProductDate(event.target.value)
   }
+  const handleProductExpirationDate = (result) => {
+    setProductExpirationDate(result)
+    if (result.checkResult) {
+      dispatch(itemExpired({ itemId: initialState._id, expirationDate: result }))
+    }
+  }
   const handleSubmit = (event) => {
     event.preventDefault()
     if (isSubmitting.current) return
@@ -49,7 +59,8 @@ export const useProductForm = (initialState = {}, onSuccess) => {
       category: productCategory,
       date: productDate,
       quantity: productQuantity,
-      image_url: initialState.image_url
+      image_url: initialState.image_url,
+      expirationDate: productExpirationDate
     }
 
     const onSuccessCallback = () => {
@@ -86,6 +97,7 @@ export const useProductForm = (initialState = {}, onSuccess) => {
     handleProductCategory,
     handleProductQuantity,
     handleProductDate,
+    handleProductExpirationDate,
     handleSubmit
   }
 }

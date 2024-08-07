@@ -1,9 +1,11 @@
 import PropTypes from 'prop-types'
 import { differenceInDays } from 'date-fns'
 
-function DateComparison({ date }) {
+const DateComparison = (date) => {
   const daysRemaining = differenceInDays(date, new Date())
-  return getDaysRemainingText(daysRemaining)
+  const daysRemainingText = getDaysRemainingText(daysRemaining)
+  const checkDate = checkExpiredDate(daysRemaining)
+  return { daysRemainingText, daysRemaining, checkDate }
 }
 
 const getDaysRemainingText = (daysRemaining) => {
@@ -14,6 +16,15 @@ const getDaysRemainingText = (daysRemaining) => {
     return <span>{daysRemaining} jours restants</span>
   } else if (daysRemaining === 0) {
     return <span>dernier jour avant expiration</span>
+  }
+}
+
+const checkExpiredDate = (date) => {
+  let resultCheckExpiredDate = false
+  if (date <= 0) {
+    return resultCheckExpiredDate
+  } else if (date >= 0) {
+    return (resultCheckExpiredDate = true)
   }
 }
 

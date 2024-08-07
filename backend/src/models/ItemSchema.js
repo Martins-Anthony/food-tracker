@@ -25,6 +25,10 @@ const itemSchema = new mongoose.Schema({
   image_url: {
     type: String,
   },
+  expirationDate: {
+    type: Boolean,
+    default: false,
+  }
 })
 
 module.exports = itemSchema

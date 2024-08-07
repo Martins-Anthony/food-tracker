@@ -4,12 +4,21 @@ import { DateToday } from '../../utils/date/DateToday'
 import FoodCategory from '../../Containers/Forms/FoodCategory'
 import DateFormatted from '../../utils/date/DateFormatted'
 import Fields, { TYPE_FIELD } from '../Fields'
+import { useEffect } from 'react'
 
 const ProductItem = ({ item, onFieldChange, editMode }) => {
   const dateFormatted = (type) => DateFormatted(item.date || DateToday(), type)
+  const { daysRemainingText, checkDate } = DateComparison(dateFormatted('en'))
+
   const defaultValueNumber = item.number ? Number(item.number) : 1
   const defaultValueQuantity = item.quantity ? item.quantity : ''
   const defaultValueCategory = item.category
+
+  useEffect(() => {
+    if (item && item._id) {
+      onFieldChange('expirationDate', !checkDate)
+    }
+  }, [item])
 
   return (
     <ul className="list-group list-group-flush rounded-top-4">
@@ -83,11 +92,7 @@ const ProductItem = ({ item, onFieldChange, editMode }) => {
           <>Expire le : {dateFormatted('fr')} </>
         )}
       </li>
-      {item.date ? (
-        <li className="list-group-item">
-          <DateComparison date={dateFormatted('en')} />
-        </li>
-      ) : null}
+      {item.date ? <li className="list-group-item">{daysRemainingText}</li> : null}
     </ul>
   )
 }
@@ -98,7 +103,8 @@ ProductItem.propTypes = {
     number: PropTypes.number,
     category: PropTypes.string,
     quantity: PropTypes.string,
-    date: PropTypes.string
+    date: PropTypes.string,
+    _id: PropTypes.string
   }).isRequired,
   onFieldChange: PropTypes.func.isRequired,
   editMode: PropTypes.bool
