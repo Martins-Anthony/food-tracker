@@ -1,7 +1,7 @@
 require('dotenv').config()
 const User = require('../models/User')
 const { v4: uuidv4 } = require('uuid')
-const { sendMagicLink } = require('./emails.js')
+const { sendMagicLink } = require('../utils/email/emails.js')
 const { checkMagicLink } = require('./magicLink/check')
 const {
   generateExpirationMagicLink,
