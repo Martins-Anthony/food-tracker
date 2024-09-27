@@ -22,7 +22,7 @@ function LogoAndIconUser() {
         <Logo />
       </h1>
       <div className="py-5">
-        {React.cloneElement(links[3].icon, {
+        {React.cloneElement(links[2].icon, {
           width: 160,
           height: 160,
           fill: 'var(--bs-success)'

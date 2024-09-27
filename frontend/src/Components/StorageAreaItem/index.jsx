@@ -101,10 +101,10 @@ function StorageAreaItem({ storageAreaItem, editMode }) {
           <span>
             Aucun élément trouvé{' '}
             <Link
-              to={iconsLibrary.navbar[2].link}
+              to={iconsLibrary.navbar[1].link}
               data-tag={storageAreaItem.name}
               onClick={dispatchSelected}>
-              {iconsLibrary.navbar[2].icon}
+              {iconsLibrary.navbar[1].icon}
             </Link>
           </span>
         )}
