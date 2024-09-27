@@ -4,7 +4,6 @@ import { select } from '../store/selectors'
 import '../../style/index.scss'
 
 import Home from '../../Pages/Home'
-import Settings from '../../Pages/Settings'
 import Error from '../../Pages/Error'
 import AddProduct from '../../Pages/AddProduct'
 import User from '../../Pages/User'
@@ -44,7 +43,6 @@ function AppRouter() {
                 />
                 <Route path="/enter/:email/:magicLink" element={<Enter />} />
                 <Route path="/user" element={<ProtectedRoute element={User} />} />
-                <Route path="/user/settings" element={<ProtectedRoute element={Settings} />} />
                 <Route
                   path="/user/storages/name/:methodRoutes"
                   element={<ProtectedRoute element={PostStorages} />}
