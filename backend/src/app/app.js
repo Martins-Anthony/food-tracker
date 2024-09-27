@@ -27,8 +27,8 @@ app.get('/', (req, res) => {
   res.status(200).sendFile(path.join(__dirname, '../../public', 'index.html'))
 })
 
-app.use(`${basePathVersion}+/users`, userRoutes)
-app.use(`${basePathVersion}+/users/storage`, storageRoutes)
-app.use(`${basePathVersion}+/users/openFoodFacts`, productRoutes)
+app.use(`${basePathVersion}/users`, userRoutes)
+app.use(`${basePathVersion}/users/storage`, storageRoutes)
+app.use(`${basePathVersion}/users/openFoodFacts`, productRoutes)
 
 module.exports = app
