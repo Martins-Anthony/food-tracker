@@ -3,10 +3,9 @@
     "name": "Live",
     "type": "LiveStream",
     "constraints": {
-      "width": 740,
-      "height": 480,
-      "facingMode": "environment",
-      "aspectRatio": { "min": 1, "max": 2 }
+      "width": 1200,
+      "height": 600,
+      "facingMode": "environment"
     }
   },
   "locator": {
