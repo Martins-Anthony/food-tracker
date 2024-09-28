@@ -5,7 +5,8 @@
     "constraints": {
       "width": 1200,
       "height": 600,
-      "facingMode": "environment"
+      "facingMode": "environment",
+      "aspectRatio": { "min": 2, "max": 2 }
     }
   },
   "locator": {
