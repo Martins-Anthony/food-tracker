@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import Quagga from 'quagga'
 import config from './config.json'
 import { useDispatch } from 'react-redux'
@@ -6,18 +6,6 @@ import { scanSuccess } from './scannerSlice'
 
 const Scanner = () => {
   const dispatch = useDispatch()
-  const [selectedDeviceId, setSelectedDeviceId] = useState(null)
-  const [videoDevices, setVideoDevices] = useState([])
-
-  useEffect(() => {
-    navigator.mediaDevices.enumerateDevices().then((devices) => {
-      const videoDevices = devices.filter((device) => device.kind === 'videoinput')
-      setVideoDevices(videoDevices)
-      if (videoDevices.length > 0) {
-        setSelectedDeviceId(videoDevices[0].deviceId)
-      }
-    })
-  }, [])
 
   useEffect(() => {
     let quaggaInitialized = false
@@ -33,8 +21,7 @@ const Scanner = () => {
         inputStream: {
           ...config.inputStream,
           constraints: {
-            ...config.inputStream.constraints,
-            deviceId: { exact: selectedDeviceId }
+            ...config.inputStream.constraints
           }
         }
       }
@@ -84,44 +71,25 @@ const Scanner = () => {
       Quagga.onDetected(detected)
     }
 
-    if (selectedDeviceId) {
-      initQuagga()
-    }
-
+    initQuagga()
     return () => {
       Quagga.offDetected(detected)
       if (quaggaInitialized) {
         Quagga.stop()
       }
     }
-  }, [selectedDeviceId])
+  }, [])
 
   const detected = (result) => {
     dispatch(scanSuccess(result.codeResult.code))
   }
 
-  const handleDeviceChange = (event) => {
-    setSelectedDeviceId(event.target.value)
-  }
-
   return (
-    <div>
-      <div id="interactive" className="viewport" role="region" aria-label="barcode-scanner">
-        <div className="guidelines">
-          <div className="horizontal"></div>
-          <div className="vertical"></div>
-        </div>
+    <div id="interactive" className="viewport" role="region" aria-label="barcode-scanner">
+      <div className="guidelines">
+        <div className="horizontal"></div>
+        <div className="vertical"></div>
       </div>
-      <select onChange={handleDeviceChange} value={selectedDeviceId || ''}>
-        <option value="" disabled>
-          Select a camera
-        </option>
-        {videoDevices.map((device, index) => (
-          <option key={index} value={device.deviceId}>
-            {device.label || `Camera ${index + 1}`}
-          </option>
-        ))}
-      </select>
     </div>
   )
 }

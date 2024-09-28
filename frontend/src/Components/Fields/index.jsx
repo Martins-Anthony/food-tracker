@@ -7,7 +7,7 @@ export const TYPE_FIELD = {
   INPUT_DATE: 'date'
 }
 
-function Fields({ type, id, label, readOnly, value, defaultValue, onChange, ...props }) {
+function Fields({ type, id, label, readOnly, value, defaultValue, onChange, className, ...props }) {
   const inputProps = {
     id,
     name: id,
@@ -27,7 +27,7 @@ function Fields({ type, id, label, readOnly, value, defaultValue, onChange, ...p
   }
 
   return (
-    <div className="input-wrapper">
+    <div className={`input-wrapper ${className}`}>
       {label && (
         <label className="form-label col" htmlFor={id}>
           {label.charAt(0).toUpperCase() + label.slice(1)} :
@@ -45,7 +45,8 @@ Fields.propTypes = {
   readOnly: PropTypes.bool,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
+  className: PropTypes.string
 }
 
 Fields.defaultProps = {
@@ -53,7 +54,8 @@ Fields.defaultProps = {
   readOnly: false,
   onChange: null,
   value: undefined,
-  defaultValue: ''
+  defaultValue: '',
+  className: ''
 }
 
 export default Fields

@@ -69,8 +69,8 @@ function ProductSearch() {
   }
 
   return (
-    <div className="d-flex flex-column">
-      <h1>Search Products</h1>
+    <div className="d-flex flex-column justify-content-center my-5">
+      <h1>Ajouter un aliment</h1>
       <div className="d-flex justify-content-center">
         <Fields
           id="search-products"
@@ -80,11 +80,12 @@ function ProductSearch() {
             setQuery(e.target.value.toLowerCase())
             setCurrentPage(1)
           }}
-          placeholder="Enter name or barcode"
+          placeholder="Entrer nom ou code-barres"
+          className="col-11 col-sm-7 col-md-5 col-lg-4 col-xl-3"
         />
-        <div className="p-0 ms-2">
-          <ItemScanner />
-        </div>
+      </div>
+      <div className="p-0 ms-2 my-2 d-md-none">
+        <ItemScanner />
       </div>
 
       {loading && (
